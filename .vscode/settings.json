@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "DIG 4715 Final.sln"
+    "dotnet.defaultSolution": "DIG-4715-Final.sln"
 }
