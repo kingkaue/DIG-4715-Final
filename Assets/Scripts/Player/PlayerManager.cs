@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PlayerManager : MonoBehaviour
 {
@@ -17,5 +18,10 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetSpirit(float spiritChange)
+    {
+        spirit += spiritChange;
     }
 }

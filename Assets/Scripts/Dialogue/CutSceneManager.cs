@@ -20,7 +20,10 @@ public class CutSceneManager : MonoBehaviour
     {
         // Switch to the cutscene camera
         mainCamera.enabled = false;
+        mainCamera.GetComponent<AudioListener>().enabled = false;
+
         cutsceneCamera.enabled = true;
+        cutsceneCamera.GetComponent<AudioListener>().enabled = true;
 
         // Perform cutscene actions (e.g., move objects, play animations)
         Debug.Log("Cutscene started!");
@@ -30,7 +33,10 @@ public class CutSceneManager : MonoBehaviour
 
         // Switch back to the main camera
         cutsceneCamera.enabled = false;
+        cutsceneCamera.GetComponent<AudioListener>().enabled = false;
+        
         mainCamera.enabled = true;
+        mainCamera.GetComponent<AudioListener>().enabled = true;
 
         // Clean up (e.g., destroy the cutscene camera if needed)
         Debug.Log("Cutscene ended!");
