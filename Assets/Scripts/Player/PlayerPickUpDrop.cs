@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
@@ -6,36 +7,40 @@ public class PlayerPickUpDrop : MonoBehaviour
     [SerializeField] private Transform playerCameraTransform;
     [SerializeField] private Transform objectgrabpointtransform;
     [SerializeField] private LayerMask pickuplayermask;
+    private float interact;
 
     private ObjectGrabable objectgrabable;
     void Start()
     {
-        
+
     }
 
-    // Update is called once per frame
-    private void Update()
+    public void OnPickupDrop(InputAction.CallbackContext context)
     {
-         
-        if(Input.GetKeyDown(KeyCode.E))
+        if (context.performed)
         {
-            if (objectgrabable == null)
+            TryPickupOrDrop();
+        }
+    }
+
+    private void TryPickupOrDrop()
+    {
+        if (objectgrabable == null)
+        {
+            float pickupdistance = 20;
+            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickupdistance, pickuplayermask))
             {
-                float pickupdistance = 20;
-                if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickupdistance, pickuplayermask))
+                if (raycastHit.transform.TryGetComponent(out objectgrabable))
                 {
-                    if (raycastHit.transform.TryGetComponent(out objectgrabable))
-                    {
-                        objectgrabable.Grab(objectgrabpointtransform);
-                        Debug.Log(objectgrabable);
-                    }
+                    objectgrabable.Grab(objectgrabpointtransform);
+                    Debug.Log(objectgrabable);
                 }
-            } 
-            else
-            {
-                objectgrabable.Drop();
-                objectgrabable = null;
             }
+        }
+        else
+        {
+            objectgrabable.Drop();
+            objectgrabable = null;
         }
     }
 }
