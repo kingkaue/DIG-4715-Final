@@ -18,7 +18,7 @@ MonoBehaviour:
     Hello!'
   - 'This is my second dialogue!
 
-    You a crack baby!'
+    Aint That Neat!'
   responses:
   - responseText: Yes
     dialogueObject: {fileID: 11400000, guid: d6d238b3f18388848a6085b5014f8e1c, type: 2}

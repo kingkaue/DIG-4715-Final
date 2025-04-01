@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: No
   m_EditorClassIdentifier: 
   dialogue:
-  - You Said No!
+  - What is your problem man.
+  responses: []

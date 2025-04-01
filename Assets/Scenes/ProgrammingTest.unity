@@ -277,9 +277,10 @@ GameObject:
   - component: {fileID: 404612366}
   - component: {fileID: 404612365}
   - component: {fileID: 404612364}
+  - component: {fileID: 404612367}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: gardenplane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -374,6 +375,27 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 404612362}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!65 &404612367
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 404612362}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 10, y: 2.220446e-16, z: 10}
+  m_Center: {x: 0, y: 0.0000004172325, z: 0}
 --- !u!1 &431419635
 GameObject:
   m_ObjectHideFlags: 0
@@ -2188,6 +2210,7 @@ GameObject:
   - component: {fileID: 1470896244}
   - component: {fileID: 1470896243}
   - component: {fileID: 1470896248}
+  - component: {fileID: 1470896249}
   m_Layer: 3
   m_Name: testpickupitem
   m_TagString: Pickup Item
@@ -2323,6 +2346,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cb28c454c1044b94a831847e4f09675d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1470896249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1470896242}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d18b06c8f6763f64d8ddf686156774b3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flower: {fileID: 1470896242}
 --- !u!4 &1473092574 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7093546502918319946, guid: 294d45e1a7cc7c74b8138617825178b6, type: 3}
