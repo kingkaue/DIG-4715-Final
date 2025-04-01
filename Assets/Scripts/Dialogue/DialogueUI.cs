@@ -4,9 +4,9 @@ using TMPro;
 public class DialogueUI : MonoBehaviour
 {
     [SerializeField] private TMP_Text textLabel;
-    [SerializeField] private DialogueObject testDialogue;
     [SerializeField] private GameObject dialogueBox;
 
+    public bool IsOpen {  get; private set; }  
 
     private ResponseHandler responseHandler;
     private TypeWriterEffect typewriterEffect;
@@ -15,11 +15,11 @@ public class DialogueUI : MonoBehaviour
         typewriterEffect = GetComponent<TypeWriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
         CloseDialogeBox();
-        ShowDialogue(testDialogue);
     }
 
     public void ShowDialogue(DialogueObject dialogueObject)
     {
+        IsOpen = true;
         dialogueBox.SetActive(true);
         StartCoroutine(StepThroughDialogue(dialogueObject));
     }
@@ -49,6 +49,7 @@ public class DialogueUI : MonoBehaviour
 
     private void CloseDialogeBox()
     {
+        IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
     }

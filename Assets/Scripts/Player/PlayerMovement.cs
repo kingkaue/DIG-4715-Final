@@ -18,6 +18,11 @@ public class PlayerMovement : MonoBehaviour
     [Header("Aiming")]
     public Vector2 look;
 
+    //For Dialogue System: 
+    [SerializeField] private DialogueUI dialogueUI;
+    public DialogueUI DialogueUI => dialogueUI;
+    public IInteractable Interactable { get; set; }
+
 
     public void OnMove(InputAction.CallbackContext context)
     {
@@ -39,6 +44,8 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if (dialogueUI.IsOpen) return;
+
         MovePlayer();
     }
 
@@ -46,5 +53,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 moveDirection = orientation.forward * move.y + orientation.right * move.x;
         rb.linearVelocity = moveDirection * speed;
+    }
+
+    private void Update()
+    {
+        if (dialogueUI.IsOpen) return;
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if(Interactable != null)
+            {
+                Interactable.Interact(this);
+            }
+        }
     }
 }
