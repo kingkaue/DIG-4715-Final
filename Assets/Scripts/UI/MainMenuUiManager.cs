@@ -8,6 +8,10 @@ public class MainMenuUiManager : MonoBehaviour
     public Button artButton;
     public Button creditsButton;
     public Button quitButton;
+    public Button backButton;
+
+    public Canvas mainMenuUI;
+    public Canvas creditsUI;
 
     void Start()
     {
@@ -15,6 +19,7 @@ public class MainMenuUiManager : MonoBehaviour
         artButton.onClick.AddListener(PlayArt);
         creditsButton.onClick.AddListener(OpenCredits);
         quitButton.onClick.AddListener(QuitGame);
+        backButton.onClick.AddListener(CloseCredits);
     }
 
     void PlayGameP()
@@ -29,7 +34,14 @@ public class MainMenuUiManager : MonoBehaviour
 
     void OpenCredits()
     {
+        mainMenuUI.gameObject.SetActive(false);
+        creditsUI.gameObject.SetActive(true);
+    }
 
+    void CloseCredits()
+    {
+        creditsUI.gameObject.SetActive(false);
+        mainMenuUI.gameObject.SetActive(true);
     }
 
     void QuitGame()
