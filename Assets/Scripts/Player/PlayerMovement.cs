@@ -67,4 +67,22 @@ public class PlayerMovement : MonoBehaviour
             }
         }
     }
+
+    public void Save(ref PlayerSaveData data)
+    {
+        data.Position = transform.position;
+    }
+
+    public void Load(PlayerSaveData data)
+    {
+        transform.position = data.Position;
+    }
+
+}
+[System.Serializable]
+public struct PlayerSaveData
+{
+    public Vector3 Position;
+    public float Spirit;
+    public float MaxSpirit;
 }

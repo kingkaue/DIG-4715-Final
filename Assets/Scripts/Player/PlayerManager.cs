@@ -36,4 +36,18 @@ public class PlayerManager : MonoBehaviour
 
         spiritBar.SetSpirit(spirit);
     }
+
+    public void Save(ref PlayerSaveData data)
+    {
+        data.Spirit = spirit;
+        data.MaxSpirit = maxSpirit;
+    }
+
+    public void Load(PlayerSaveData data)
+    {
+        spirit = data.Spirit;
+        maxSpirit = data.MaxSpirit;
+        spiritBar.SetMaxSpirit(maxSpirit);
+        spiritBar.SetSpirit(spirit);
+    }
 }
