@@ -28,7 +28,7 @@ public class SpiritUIManager : MonoBehaviour
     void Start()
     {
         Debug.Log(maxSpirit);
-        maxSpirit = 0;
+        maxSpirit = 1;
         image.color = spiritGradient.Evaluate(spirit / maxSpirit);
         currentWidth = (spirit / maxSpirit) * width;
         spiritBar.sizeDelta = new UnityEngine.Vector2(currentWidth, height);
