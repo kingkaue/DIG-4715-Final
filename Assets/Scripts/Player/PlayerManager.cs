@@ -1,14 +1,19 @@
+using System;
 using UnityEngine;
 using UnityEngine.Rendering;
-
+using UnityEngine.InputSystem;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 public class PlayerManager : MonoBehaviour
 {
-    [Header ("Spirit")]
+    [Header("Spirit")]
     [SerializeField] private float spirit;
     [SerializeField] private float maxSpirit;
     [SerializeField] private SpiritUIManager spiritBar;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private bool isPaused = false;
+    [SerializeField] GameObject pauseMenu;
+
     void Start()
     {
         spiritBar.SetMaxSpirit(maxSpirit);
@@ -18,14 +23,22 @@ public class PlayerManager : MonoBehaviour
     void Update()
     {
         // Implememt spirit managing controls here
-        if(Input.GetKeyDown(KeyCode.P))
+        if (Input.GetKeyDown(KeyCode.P))
         {
             SetSpirit(-10f);
+            Debug.Log("Subtracting Spirit");
         }
 
-        if(Input.GetKeyDown(KeyCode.O))
+        if (Input.GetKeyDown(KeyCode.O))
         {
             SetSpirit(10f);
+            Debug.Log("Adding Spirit");
+        }
+
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            Debug.Log("Hit escape");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 

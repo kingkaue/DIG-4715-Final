@@ -44,7 +44,10 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (dialogueUI.IsOpen) return;
+        if (dialogueUI != null)
+        {
+            if (dialogueUI.IsOpen) return;
+        }
 
         MovePlayer();
     }
@@ -57,11 +60,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (dialogueUI.IsOpen) return;
-
-        if(Input.GetKeyDown(KeyCode.E))
+        if (dialogueUI != null)
         {
-            if(Interactable != null)
+            if (dialogueUI.IsOpen) return;
+        }
+
+        if (Input.GetKeyDown(KeyCode.E))
+        {
+            if (Interactable != null)
             {
                 Interactable.Interact(this);
             }
