@@ -11,9 +11,6 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float maxSpirit;
     [SerializeField] private SpiritUIManager spiritBar;
 
-    private bool isPaused = false;
-    [SerializeField] GameObject pauseMenu;
-
     void Start()
     {
         spiritBar.SetMaxSpirit(maxSpirit);
