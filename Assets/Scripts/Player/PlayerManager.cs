@@ -31,12 +31,6 @@ public class PlayerManager : MonoBehaviour
             SetSpirit(10f);
             Debug.Log("Adding Spirit");
         }
-
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            Debug.Log("Hit escape");
-            SceneManager.LoadScene("MainMenu");
-        }
     }
 
     public void SetSpirit(float spiritChange)

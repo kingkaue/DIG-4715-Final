@@ -224,7 +224,7 @@
                     "path": "<Pointer>/delta",
                     "interactions": "",
                     "processors": "ScaleVector2(x=10,y=10)",
-                    "groups": ";Keyboard&Mouse;Touch",
+                    "groups": ";Keyboard&Mouse;Gamepad",
                     "action": "Look",
                     "isComposite": false,
                     "isPartOfComposite": false

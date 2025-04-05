@@ -26,12 +26,16 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
+        Debug.Log("Moving");
         move = context.ReadValue<Vector2>();
+        Debug.Log(move);
     }
 
     public void OnLook(InputAction.CallbackContext context)
     {
+        Debug.Log("Looking");
         look = context.ReadValue<Vector2>();
+        Debug.Log(look);
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
