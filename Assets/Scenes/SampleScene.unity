@@ -1337,6 +1337,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642301751}
   m_Mesh: {fileID: 6601536184839518903, guid: cef540f2d2299764682e137a9c403404, type: 3}
+--- !u!4 &809125745 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 154602246119513213, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+  m_PrefabInstance: {fileID: 978140319}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &815440570
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3355,6 +3360,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[1].m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
+    - target: {fileID: 8321402082885077288, guid: 294d45e1a7cc7c74b8138617825178b6, type: 3}
+      propertyPath: playerCameraTransform
+      value: 
+      objectReference: {fileID: 809125745}
     - target: {fileID: 8529696006524426188, guid: 294d45e1a7cc7c74b8138617825178b6, type: 3}
       propertyPath: m_Name
       value: Player
