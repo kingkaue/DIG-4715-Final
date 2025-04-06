@@ -23,7 +23,6 @@ public class PlayerMovement : MonoBehaviour
     public DialogueUI DialogueUI => dialogueUI;
     public IInteractable Interactable { get; set; }
 
-
     public void OnMove(InputAction.CallbackContext context)
     {
         Debug.Log("Moving");

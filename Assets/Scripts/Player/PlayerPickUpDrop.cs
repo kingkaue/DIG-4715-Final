@@ -10,17 +10,14 @@ public class PlayerPickUpDrop : MonoBehaviour
     private float interact;
 
     private ObjectGrabable objectgrabable;
-    void Start()
-    {
-
-    }
 
     public void OnPickupDrop(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (!context.performed)
         {
-            TryPickupOrDrop();
+            return;
         }
+            TryPickupOrDrop();
     }
 
     private void TryPickupOrDrop()
