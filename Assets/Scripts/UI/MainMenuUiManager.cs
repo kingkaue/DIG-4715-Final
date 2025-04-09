@@ -4,8 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuUiManager : MonoBehaviour
 {
-    public Button gameplayButton;
-    public Button artButton;
+    public Button playButton;
     public Button creditsButton;
     public Button quitButton;
     public Button backButton;
@@ -15,21 +14,15 @@ public class MainMenuUiManager : MonoBehaviour
 
     void Start()
     {
-        gameplayButton.onClick.AddListener(PlayGameP);
-        artButton.onClick.AddListener(PlayArt);
+        playButton.onClick.AddListener(PlayGame);
         creditsButton.onClick.AddListener(OpenCredits);
         quitButton.onClick.AddListener(QuitGame);
         backButton.onClick.AddListener(CloseCredits);
     }
 
-    void PlayGameP()
+    void PlayGame()
     {
-        SceneManager.LoadScene("ProgrammingTest");
-    }
-
-    void PlayArt()
-    {
-        SceneManager.LoadScene("Prototype Scene");
+        SceneManager.LoadScene("SampleScene");
     }
 
     void OpenCredits()
