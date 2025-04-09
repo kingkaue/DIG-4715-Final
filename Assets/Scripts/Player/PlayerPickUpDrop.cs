@@ -24,14 +24,27 @@ public class PlayerPickUpDrop : MonoBehaviour
     {
         if (objectgrabable == null)
         {
-            float pickupdistance = 20;
+            float pickupdistance = 40;
+            Debug.DrawRay(playerCameraTransform.position, playerCameraTransform.forward * pickupdistance, Color.red, 1f);
+
             if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward, out RaycastHit raycastHit, pickupdistance, pickuplayermask))
             {
+                Debug.Log("Hit object: " + raycastHit.transform.name);
+
                 if (raycastHit.transform.TryGetComponent(out objectgrabable))
                 {
+                    Debug.Log("Found grabable component");
                     objectgrabable.Grab(objectgrabpointtransform);
-                    Debug.Log(objectgrabable);
                 }
+                else
+                {
+                    Debug.Log("Hit object: " + raycastHit.transform.name);
+                    Debug.Log("Object has no ObjectGrabable component");
+                }
+            }
+            else
+            {
+                Debug.Log("No object hit by raycast");
             }
         }
         else

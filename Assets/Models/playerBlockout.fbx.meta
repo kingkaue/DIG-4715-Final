@@ -22,7 +22,7 @@ ModelImporter:
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
     importConstraints: 0
-    animationCompression: 1
+    animationCompression: 3
     animationRotationError: 0.5
     animationPositionError: 0.5
     animationScaleError: 0.5
@@ -80,7 +80,72 @@ ModelImporter:
   humanDescription:
     serializedVersion: 3
     human: []
-    skeleton: []
+    skeleton:
+    - name: playerBlockout(Clone)
+      parentName: 
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.01, y: 0.01, z: 0.01}
+    - name: head
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 149.66103, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.5937491, y: 0.5937491, z: 0.5937491}
+    - name: neck
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 129.6729, z: -0.00000026992316}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.07075874, y: 0.07075874, z: 0.07075874}
+    - name: torso
+      parentName: playerBlockout(Clone)
+      position: {x: -3.4237232, y: 103.299835, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.3888889, y: 0.64444447, z: 0.28559217}
+    - name: armL
+      parentName: playerBlockout(Clone)
+      position: {x: -38.23258, y: 101.6003, z: 0}
+      rotation: {x: 0, y: -0, z: -0.44193533, w: 0.8970469}
+      scale: {x: 0.052301195, y: 0.16191371, z: 0.052301195}
+    - name: armR
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+    - name: handR
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+    - name: handL
+      parentName: playerBlockout(Clone)
+      position: {x: -53.21992, y: 90.166565, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.2814643, y: 0.2814643, z: 0.2814643}
+    - name: legs
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 51.443592, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.43333334, y: 0.36666667, z: 0.29656}
+    - name: footL
+      parentName: playerBlockout(Clone)
+      position: {x: -16.47028, y: 14.100457, z: 11.316927}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: footR
+      parentName: playerBlockout(Clone)
+      position: {x: 16.47028, y: 14.100457, z: 11.316927}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: -1, y: 1, z: 1}
+    - name: scarfNeck
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 126.80096, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.19103314, y: 0.079175584, z: 0.19103314}
+    - name: scarf
+      parentName: playerBlockout(Clone)
+      position: {x: -0, y: 98.476295, z: -36.117336}
+      rotation: {x: -0.38268346, y: 0, z: -0, w: 0.92387956}
+      scale: {x: 0.21667095, y: 0.03437944, z: 0.9707609}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -97,7 +162,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 1
   addHumanoidExtraRootOnlyWhenUsingAvatar: 1
   importBlendShapeDeformPercent: 1
   remapMaterialsIfMaterialImportModeIsNone: 0
