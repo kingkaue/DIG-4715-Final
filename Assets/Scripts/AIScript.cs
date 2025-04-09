@@ -1,127 +1,132 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class AIScript : MonoBehaviour
 {
-    // Public variables
-    public NavMeshAgent navMeshAgent; // Reference to the NavMeshAgent component for pathfinding
-    public float startWaitTime = 4; // Time the AI waits at a waypoint before moving to the next
-    public float timeToRotate = 2; // Time the AI spends rotating when it detects the player nearby
-    public float speedWalk = 6; // Speed of the AI while patrolling
-    public float speedRun = 9; // Speed of the AI while chasing the player
+    public NavMeshAgent navMeshAgent;
+    public float startWaitTime = 4;
+    public float speedWalk = 6;
+    public float speedRun = 9;
 
-    public float viewRadius = 15; // Radius within which the AI can detect the player
-    public float viewAngle = 90; // Field of view angle for player detection
-    public LayerMask playerMask; // Layer mask to identify the player
-    public LayerMask obstacleMask; // Layer mask to identify obstacles that block the AI's view
-    public float meshResolution = 1; // Parameter for fine-tuning the AI's view detection (not fully utilized)
-    public int edgeIterations = 4; // Parameter for fine-tuning the AI's view detection (not fully utilized)
-    public float edgeDistance = 0.5f; // Parameter for fine-tuning the AI's view detection (not fully utilized)
+    public float viewRadius = 15;
+    public float viewAngle = 90;
+    public LayerMask playerMask;
+    public LayerMask obstacleMask;
 
-    public Transform[] waypoints; // Array of transforms representing the patrol points
+    public Transform[] waypoints;
 
-    // Private variables
-    int m_CurrentWaypointIndex; // Index of the current waypoint in the waypoints array
+    private int m_CurrentWaypointIndex;
+    private Vector3 playerLastPosition = Vector3.zero;
+    private Vector3 m_PlayerPosition;
 
-    Vector3 playerLastPosition = Vector3.zero; // Last known position of the player
-    Vector3 m_PlayerPosition; // Current position of the player
+    private float m_WaitTime;
+    private bool m_PlayerInRange;
+    private bool m_PlayerNear;
+    private bool m_IsPatrol;
+    private bool m_CaughtPlayer;
+    private bool isColliding = false;
 
-    float m_WaitTime; // Timer for waiting at waypoints
-    float m_TimeToRotate; // Timer for rotating when the player is near
-    bool m_PlayerInRange; // Whether the player is within detection range
-    bool m_PlayerNear; // Whether the player is near the AI
-    bool m_IsPatrol; // Whether the AI is in patrol mode
-    bool m_CaughtPlayer; // Whether the AI has caught the player
-
-    // Start is called before the first frame update
     void Start()
     {
-        // Initialize the AI's state
         m_PlayerPosition = Vector3.zero;
-        m_IsPatrol = true; // Start in patrol mode
-        m_CaughtPlayer = false; // Reset caught player flag
-        m_PlayerInRange = false; // Reset player in range flag
-        m_WaitTime = startWaitTime; // Set initial wait time
-        m_TimeToRotate = timeToRotate; // Set initial rotation time
+        m_IsPatrol = true;
+        m_CaughtPlayer = false;
+        m_PlayerInRange = false;
+        m_WaitTime = startWaitTime;
 
-        m_CurrentWaypointIndex = 0; // Start at the first waypoint
-        navMeshAgent = GetComponent<NavMeshAgent>(); // Get the NavMeshAgent component
+        m_CurrentWaypointIndex = 0;
+        navMeshAgent = GetComponent<NavMeshAgent>();
+        navMeshAgent.isStopped = false;
+        navMeshAgent.speed = speedWalk;
+        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
 
-        navMeshAgent.isStopped = false; // Ensure the agent is moving
-        navMeshAgent.speed = speedWalk; // Set initial speed to walking speed
-        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); // Move to the first waypoint
+        navMeshAgent.updateRotation = false; // Disable automatic rotation
+
+        // Disable physics-based movement
+        Rigidbody rb = GetComponent<Rigidbody>();
+        if (rb != null)
+        {
+            rb.isKinematic = true;
+        }
+
+        // Adjust NavMeshAgent settings
+        navMeshAgent.stoppingDistance = 0.5f;
+        navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
+        navMeshAgent.avoidancePriority = 50;
+        navMeshAgent.angularSpeed = 120f;
+        navMeshAgent.acceleration = 8f;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        EnvironmentView(); // Check for the player in the environment
+        EnvironmentView();
 
-        // Switch between chasing and patrolling based on the AI's state
         if (!m_IsPatrol)
         {
-            Chasing(); // Chase the player
+            Chasing();
         }
         else
         {
-            Patroling(); // Patrol between waypoints
+            Patroling();
         }
+
+        RotateTowardsMovementDirection(); // Ensure proper rotation
     }
 
-    // Method to handle chasing behavior
     private void Chasing()
     {
-        m_PlayerNear = false; // Reset player near flag
-        playerLastPosition = Vector3.zero; // Reset player's last known position
+        m_PlayerNear = false;
+        playerLastPosition = Vector3.zero;
 
-        if (!m_CaughtPlayer) // If the AI hasn't caught the player
+        if (!m_CaughtPlayer)
         {
-            Move(speedRun); // Move at running speed
+            Move(speedRun);
 
-            // Find both the player and the canPickUp object
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
+            GameObject canPickUp = GameObject.FindGameObjectWithTag("canPickUp");
 
             if (player != null && canPickUp != null)
             {
                 float playerDistance = Vector3.Distance(transform.position, player.transform.position);
                 float canPickUpDistance = Vector3.Distance(transform.position, canPickUp.transform.position);
 
-                // Chase the closer object
                 if (playerDistance < canPickUpDistance)
                 {
-                    navMeshAgent.SetDestination(player.transform.position);
+                    navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
                 }
                 else
                 {
-                    navMeshAgent.SetDestination(canPickUp.transform.position);
+                    navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
                 }
             }
             else if (player != null)
             {
-                navMeshAgent.SetDestination(player.transform.position);
+                navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
             }
             else if (canPickUp != null)
             {
-                navMeshAgent.SetDestination(canPickUp.transform.position);
+                navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
             }
         }
 
         if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
         {
-            if (m_WaitTime <= 0 && !m_CaughtPlayer && GameObject.FindGameObjectWithTag("Player") != null &&
-                Vector3.Distance(transform.position, GameObject.FindGameObjectWithTag("Player").transform.position) >= 6f)
+            if (m_WaitTime <= 0 && !m_CaughtPlayer)
             {
-                m_IsPatrol = true; // Switch back to patrol mode
-                m_PlayerNear = false;
-                Move(speedWalk);
-                m_TimeToRotate = timeToRotate;
-                m_WaitTime = startWaitTime;
-                navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+                GameObject player = GameObject.FindGameObjectWithTag("Player");
+                GameObject canPickUp = GameObject.FindGameObjectWithTag("canPickUp");
+
+                if (player != null && Vector3.Distance(transform.position, player.transform.position) >= 6f &&
+                    canPickUp != null && Vector3.Distance(transform.position, canPickUp.transform.position) >= 6f)
+                {
+                    m_IsPatrol = true;
+                    m_PlayerNear = false;
+                    Move(speedWalk);
+                    m_WaitTime = startWaitTime;
+                    navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+                }
             }
             else
             {
@@ -131,103 +136,83 @@ public class AIScript : MonoBehaviour
         }
     }
 
-
-    // Method to handle patrolling behavior
     private void Patroling()
     {
-        if (m_PlayerNear) // If the player is near
+        if (m_PlayerNear)
         {
-            if (m_TimeToRotate <= 0) // If rotation time is over
-            {
-                Move(speedWalk); // Move at walking speed
-                LookingPlayer(playerLastPosition); // Look towards the player's last known position
-            }
-            else
-            {
-                Stop(); // Stop moving
-                m_TimeToRotate -= Time.deltaTime; // Decrease rotation time
-            }
+            Move(speedWalk);
+            LookingPlayer(playerLastPosition);
         }
         else
         {
-            m_PlayerNear = false; // Reset player near flag
-            playerLastPosition = Vector3.zero; // Reset player's last known position
-            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); // Move to the current waypoint
+            m_PlayerNear = false;
+            playerLastPosition = Vector3.zero;
+            navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
 
-            // If the AI is close to the current waypoint
             if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
-                if (m_WaitTime <= 0) // If wait time is over
+                if (m_WaitTime <= 0)
                 {
-                    NextPoint(); // Move to the next waypoint
-                    Move(speedWalk); // Move at walking speed
-                    m_WaitTime = startWaitTime; // Reset wait time
+                    NextPoint();
+                    Move(speedWalk);
+                    m_WaitTime = startWaitTime;
                 }
                 else
                 {
-                    Stop(); // Stop moving
-                    m_WaitTime -= Time.deltaTime; // Decrease wait time
+                    Stop();
+                    m_WaitTime -= Time.deltaTime;
                 }
             }
         }
     }
 
-    // Method to move the AI at a specified speed
     void Move(float speed)
     {
-        navMeshAgent.isStopped = false; // Ensure the agent is moving
-        navMeshAgent.speed = speed; // Set the agent's speed
+        navMeshAgent.isStopped = false;
+        navMeshAgent.speed = speed;
     }
 
-    // Method to stop the AI
     void Stop()
     {
-        navMeshAgent.isStopped = true; // Stop the agent
-        navMeshAgent.speed = 0; // Set speed to zero
+        navMeshAgent.isStopped = true;
+        navMeshAgent.speed = 0;
     }
 
-    // Method to move the AI to the next waypoint
     public void NextPoint()
     {
-        m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length; // Cycle through waypoints
-        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); // Set destination to the next waypoint
+        m_CurrentWaypointIndex = (m_CurrentWaypointIndex + 1) % waypoints.Length;
+        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
 
-    // Method to mark the player as caught
     void CaughtPlayer()
     {
-        m_CaughtPlayer = true; // Set caught player flag
+        m_CaughtPlayer = true;
     }
 
-    // Method to look towards the player's last known position
     void LookingPlayer(Vector3 player)
     {
-        navMeshAgent.SetDestination(player); // Set destination to the player's last known position
+        navMeshAgent.SetDestination(new Vector3(player.x, transform.position.y, player.z));
 
-        // If the AI is close to the player's last known position
         if (Vector3.Distance(transform.position, player) <= 0.3)
         {
-            if (m_WaitTime <= 0) // If wait time is over
+            if (m_WaitTime <= 0)
             {
-                m_PlayerNear = false; // Reset player near flag
-                Move(speedWalk); // Move at walking speed
-                navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position); // Move to the next waypoint
-                m_WaitTime = startWaitTime; // Reset wait time
-                m_TimeToRotate = timeToRotate; // Reset rotation time
+                m_PlayerNear = false;
+                Move(speedWalk);
+                navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+                m_WaitTime = startWaitTime;
             }
             else
             {
-                Stop(); // Stop moving
-                m_WaitTime -= Time.deltaTime; // Decrease wait time
+                Stop();
+                m_WaitTime -= Time.deltaTime;
             }
         }
     }
 
-    // Method to detect the player in the environment
     void EnvironmentView()
     {
-        // Detect all colliders within the view radius for player and canPickUp
-        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask | LayerMask.GetMask("Pickup Item"));
+        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask | LayerMask.GetMask("canPickUp"));
 
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
@@ -238,22 +223,17 @@ public class AIScript : MonoBehaviour
             Vector3 dirToTarget = (targetTransform.position - transform.position).normalized;
             float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
 
-            // Check if the target is within the AI's field of view and not blocked by obstacles
-            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2)
+            // Check if the target is within the view radius and not blocked by obstacles
+            if (!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstacleMask))
             {
-                if (!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstacleMask))
+                if (distanceToTarget < closestDistance)
                 {
-                    // If this target is the closest, prioritize it
-                    if (distanceToTarget < closestDistance)
-                    {
-                        closestDistance = distanceToTarget;
-                        closestTarget = targetTransform;
-                    }
+                    closestDistance = distanceToTarget;
+                    closestTarget = targetTransform;
                 }
             }
         }
 
-        // If we found a valid target, chase it
         if (closestTarget != null)
         {
             m_IsPatrol = false;
@@ -266,4 +246,72 @@ public class AIScript : MonoBehaviour
         }
     }
 
+    void RotateTowardsMovementDirection()
+    {
+        if (!m_IsPatrol && m_PlayerInRange)
+        {
+            // Chase mode - full 360° rotation towards target (unchanged)
+            float distanceToPlayer = Vector3.Distance(transform.position, m_PlayerPosition);
+            if (distanceToPlayer > 0.5f)
+            {
+                Vector3 directionToPlayer = (m_PlayerPosition - transform.position).normalized;
+                directionToPlayer.y = 0;
+                if (directionToPlayer != Vector3.zero)
+                {
+                    Quaternion targetRotation = Quaternion.LookRotation(directionToPlayer);
+                    float rotationOffset = 270f;
+                    targetRotation *= Quaternion.Euler(0, rotationOffset, 0);
+                    transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, Time.deltaTime * 10f);
+                }
+            }
+        }
+        else if (m_IsPatrol && navMeshAgent.velocity.sqrMagnitude > 0.01f)
+        {
+            // Patrol mode - 4-direction rotation
+            Vector3 moveDirection = navMeshAgent.velocity.normalized;
+
+            // Determine primary movement direction (prioritize larger axis)
+            if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.z))
+            {
+                // Left/Right movement
+                if (moveDirection.x > 0)
+                    transform.rotation = Quaternion.Euler(0, 0, 0);    // Right
+                else
+                    transform.rotation = Quaternion.Euler(0, 180, 0); // Left
+            }
+            else
+            {
+                // Up/Down movement (relative to world space)
+                if (moveDirection.z > 0)
+                    transform.rotation = Quaternion.Euler(0, 270, 0);   // Up (world Z+)
+                else
+                    transform.rotation = Quaternion.Euler(0, 90, 0); // Down (world Z-)
+            }
+        }
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("canPickUp")) && !isColliding)
+        {
+            // Stop the NavMeshAgent during the collision
+            navMeshAgent.isStopped = true;
+            isColliding = true;
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("canPickUp")) && isColliding)
+        {
+            // Resume the NavMeshAgent after a short delay
+            StartCoroutine(ResumeAfterCollision());
+        }
+    }
+
+    IEnumerator ResumeAfterCollision()
+    {
+        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
+        navMeshAgent.isStopped = false;
+        isColliding = false;
+    }
 }
