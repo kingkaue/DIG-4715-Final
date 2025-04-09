@@ -1,11 +1,23 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class PauseMenuUIManager : MonoBehaviour
 {
     public static bool isPaused = false;
+    public Button resumeButton;
+    public Button quitButton;
+    public Button settingsButton;
+
     [SerializeField] GameObject pauseMenuUI;
+
+    void Start()
+    {
+        resumeButton.onClick.AddListener(Resume);
+        settingsButton.onClick.AddListener(Settings);
+        quitButton.onClick.AddListener(QuitToMenu);
+    }
 
     public void OnPause(InputAction.CallbackContext context)
     {
@@ -25,6 +37,7 @@ public class PauseMenuUIManager : MonoBehaviour
 
     public void Resume()
     {
+        Debug.Log("resumed");
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
@@ -39,6 +52,7 @@ public class PauseMenuUIManager : MonoBehaviour
 
     public void QuitToMenu()
     {
+        Debug.Log("mainmenu");
         Time.timeScale = 1f;
         SceneManager.LoadScene("MainMenu");
         isPaused = false;
