@@ -451,10 +451,50 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1053431865292744612, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: width
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437459449624445149, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 500
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437459449624445149, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 1437459449624445149, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -0.0000085831
+      objectReference: {fileID: 0}
     - target: {fileID: 1608107273868559881, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
       propertyPath: m_Name
       value: UI Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4762772221980382892, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2a24a8d02c77c147bf2f50f5c5c3f97, type: 3}
+    - target: {fileID: 4762772221980382892, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Color.b
+      value: 0.6901961
+      objectReference: {fileID: 0}
+    - target: {fileID: 4762772221980382892, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Color.g
+      value: 0.78431374
+      objectReference: {fileID: 0}
+    - target: {fileID: 4762772221980382892, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Color.r
+      value: 0.6117647
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370677310949432432, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: b2a24a8d02c77c147bf2f50f5c5c3f97, type: 3}
+    - target: {fileID: 6746930720412438290, guid: a694d36887debd54f9cbf2df3e6dda6a, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 5e253bff01e531346af8043a667f0d7f, type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
