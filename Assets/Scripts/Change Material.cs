@@ -3,6 +3,7 @@ using System.Collections;
 using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.XR;
 
 public class ChangeMaterial : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class ChangeMaterial : MonoBehaviour
     private Coroutine changeMaterialCoroutine;
     private bool canChange = true;
     private Vector3 playerPosition;
+    private GameObject gameManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -21,6 +23,7 @@ public class ChangeMaterial : MonoBehaviour
         objectRenderer = GetComponent<Renderer>();
         objectMaterial = objectRenderer.material;
         objectMaterial.SetTexture("_MainTex", objectTexture);
+        gameManager = GameObject.FindGameObjectWithTag("GameController");
     }
 
     // Update is called once per frame
@@ -28,7 +31,7 @@ public class ChangeMaterial : MonoBehaviour
     {
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         float distanceFromPlayer = Vector3.Distance(playerPosition, transform.position);
-        if (Input.GetKeyDown(KeyCode.E) && distanceFromPlayer <= 5 && canChange == true)
+        if (gameManager.GetComponent<GameManager>().inColor == true)
         {
             Debug.Log("Changing Color");
             canChange = false;
@@ -49,6 +52,13 @@ public class ChangeMaterial : MonoBehaviour
         }
         Debug.Log("Done Changing");
         changeMaterialCoroutine = null;
+    }
+
+    private void ChangeColor()
+    {
+        Debug.Log("Changing Color");
+        canChange = false;
+        changeMaterialCoroutine = StartCoroutine(GrayToColor());
     }
 
 }

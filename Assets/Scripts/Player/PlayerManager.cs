@@ -10,10 +10,14 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private float spirit;
     [SerializeField] private float maxSpirit;
     [SerializeField] private SpiritUIManager spiritBar;
+    private float colorThreshold;
+    private GameObject gameManager;
 
     void Start()
     {
         spiritBar.SetMaxSpirit(maxSpirit);
+        gameManager = GameObject.FindGameObjectWithTag("GameController");
+        colorThreshold = maxSpirit * 0.3f;
     }
 
     // Update is called once per frame
@@ -30,6 +34,11 @@ public class PlayerManager : MonoBehaviour
         {
             SetSpirit(10f);
             Debug.Log("Adding Spirit");
+        }
+
+        if (spirit >= colorThreshold)
+        {
+            gameManager.GetComponent<GameManager>().inColor = true;
         }
     }
 

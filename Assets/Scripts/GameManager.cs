@@ -4,6 +4,7 @@ public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlayerMovement playerMovement;
+    public bool inColor = false;
 
     private void Update()
     {
