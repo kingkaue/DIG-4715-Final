@@ -1,7 +1,10 @@
+using System.Collections;
 using UnityEngine;
 
 public class AnimalFeed : MonoBehaviour
 {
+    [SerializeField] private AudioSource animaleating = null;
+    [SerializeField] private AudioClip animaleatingsound;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -18,7 +21,15 @@ public class AnimalFeed : MonoBehaviour
     {
         if(other.tag == "Animal")
         {
-            Destroy(this.gameObject);
+
+            StartCoroutine(eatingapple());
         }
+    }
+
+    private IEnumerator eatingapple()
+    {
+        animaleating.PlayOneShot(animaleatingsound);
+        yield return new WaitForSeconds(3f);
+        Destroy(this.gameObject);
     }
 }
