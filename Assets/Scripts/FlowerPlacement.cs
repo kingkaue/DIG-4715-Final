@@ -3,6 +3,7 @@ using UnityEngine;
 public class FlowerPlacement : MonoBehaviour
 {
     public GameObject flower;
+    public PlayerManager playerManager;
 
     void Start()
     {
@@ -19,7 +20,10 @@ public class FlowerPlacement : MonoBehaviour
     {
         if (other.tag == "gardenplane")
         {
+            playerManager.SetSpirit(10f);
             flower.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
+            
+
         }
     }
 }

@@ -12,6 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private SpiritUIManager spiritBar;
     private float colorThreshold;
     private GameObject gameManager;
+    
 
     void Start()
     {

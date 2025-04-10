@@ -23,6 +23,10 @@ public class PlayerMovement : MonoBehaviour
     public DialogueUI DialogueUI => dialogueUI;
     public IInteractable Interactable { get; set; }
 
+    [SerializeField] private AudioSource footsteps = null;
+    [SerializeField] private AudioClip footstepsound;
+    private bool isMoving = false;
+
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -33,14 +37,12 @@ public class PlayerMovement : MonoBehaviour
         look = context.ReadValue<Vector2>();
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
 
-    // Update is called once per frame
     void FixedUpdate()
     {
         if (dialogueUI != null)
@@ -55,6 +57,24 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector3 moveDirection = orientation.forward * move.y + orientation.right * move.x;
         rb.linearVelocity = moveDirection * speed;
+
+        // Check if player is moving (input magnitude > 0.1f)
+        bool wasMoving = isMoving;
+        isMoving = move.magnitude > 0.1f;
+
+        // If started moving this frame, play the sound
+        if (isMoving && !wasMoving)
+        {
+            footsteps.clip = footstepsound;
+            footsteps.loop = true;
+            footsteps.Play();
+        }
+        // If stopped moving this frame, stop the sound
+        else if (!isMoving && wasMoving)
+        {
+            footsteps.loop = false;
+            footsteps.Stop();
+        }
     }
 
     private void Update()
@@ -82,8 +102,8 @@ public class PlayerMovement : MonoBehaviour
     {
         transform.position = data.Position;
     }
-
 }
+
 [System.Serializable]
 public struct PlayerSaveData
 {
