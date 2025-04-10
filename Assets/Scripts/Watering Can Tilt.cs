@@ -7,7 +7,7 @@ public class WateringCanTilt : MonoBehaviour
     public GameObject wateringCan;
     public Transform waterDispensePoint;
     public GameObject waterSpherePrefab;
-
+    public GameObject firstpersonpov;
     [Header("Tilt Settings")]
     public float tiltAngle = 40f;
     public float tiltDuration = 0.5f;
@@ -45,7 +45,7 @@ public class WateringCanTilt : MonoBehaviour
     private IEnumerator WateringProcess()
     {
         isTilting = true;
-
+        firstpersonpov.SetActive(true);
         // Tilt forward
         Quaternion startRot = wateringCan.transform.rotation;
         Quaternion targetRot = startRot * Quaternion.Euler(tiltAngle, 0, 0);
@@ -78,6 +78,7 @@ public class WateringCanTilt : MonoBehaviour
 
         wateringCan.transform.rotation = originalRotation;
         isTilting = false;
+        firstpersonpov.SetActive(false);
     }
 
     private IEnumerator PourWater()
