@@ -16,8 +16,14 @@ public class PlayerManager : MonoBehaviour
 
     void Start()
     {
-        spiritBar.SetMaxSpirit(maxSpirit);
-        gameManager = GameObject.FindGameObjectWithTag("GameController");
+        if (spiritBar != null)
+        {
+            spiritBar.SetMaxSpirit(maxSpirit);
+        }
+        if (GameObject.FindGameObjectWithTag("GameController") != null)
+        {
+            gameManager = GameObject.FindGameObjectWithTag("GameController");
+        }
         colorThreshold = maxSpirit * 0.3f;
     }
 
@@ -39,7 +45,10 @@ public class PlayerManager : MonoBehaviour
 
         if (spirit >= colorThreshold)
         {
-            gameManager.GetComponent<GameManager>().inColor = true;
+            if (gameManager != null)
+            {
+                gameManager.GetComponent<GameManager>().inColor = true;
+            }
         }
     }
 
