@@ -57,25 +57,29 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
+        // Don't move if in dialogue OR picking up
+        if ((dialogueUI != null && dialogueUI.IsOpen) || (animator != null && animator.GetBool("IsPickingUp")))
+        {
+            rb.linearVelocity = Vector3.zero;
+            return;
+        }
+
         Vector3 moveDirection = orientation.forward * move.y + orientation.right * move.x;
         rb.linearVelocity = moveDirection * speed;
 
-        // Check if player is moving (input magnitude > 0.1f)
-        bool wasMoving = isMoving;
-        isMoving = move.magnitude > 0.1f;
+        // Update walking state
+        bool isMoving = move.magnitude > 0.1f;
+        animator.SetBool("IsWalking", isMoving);
 
-        // If started moving this frame, play the sound
-        if (isMoving && !wasMoving)
+        // Footstep sounds
+        if (isMoving && !footsteps.isPlaying)
         {
-            animator.SetBool("IsWalking", true);
             footsteps.clip = footstepsound;
             footsteps.loop = true;
             footsteps.Play();
         }
-        // If stopped moving this frame, stop the sound
-        else if (!isMoving && wasMoving)
+        else if (!isMoving && footsteps.isPlaying)
         {
-            animator.SetBool("IsWalking", false);
             footsteps.loop = false;
             footsteps.Stop();
         }
