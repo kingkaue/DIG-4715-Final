@@ -9,6 +9,8 @@ TagManager:
   - gardenplane
   - Animal
   - Pause Menu
+  - sofa
+  - Cutscene Camera
   layers:
   - Default
   - TransparentFX
