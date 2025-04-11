@@ -5,6 +5,7 @@ using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
@@ -31,7 +32,16 @@ public class PlayerPickUpDrop : MonoBehaviour
         {
             return;
         }
-        TryPickUpOrDrop();
+
+        if (SceneManager.GetActiveScene().name == "SampleScene")
+        {
+            TryPickUpOrDrop();
+        }
+
+        else if (SceneManager.GetActiveScene().name == "Prototype Scene")
+        {
+            AddToInventory();
+        }
     }
 
     private void TryPickUpOrDrop()
@@ -69,6 +79,26 @@ public class PlayerPickUpDrop : MonoBehaviour
                 animator.SetBool("IsCarrying", false);
             }
         }
+    }
+
+    private void AddToInventory()
+    {
+        if (animator != null)
+        {
+            animator.SetBool("IsPickingUp", true);
+        }
+
+        float pickupdistance = 40;
+        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
+            out RaycastHit raycastHit, pickupdistance, pickuplayermask))
+        {
+            if (raycastHit.transform.TryGetComponent(out objectgrabable))
+            {
+                objectgrabable.AddFlower();
+            }
+            else ResetPickupState();
+        }
+        else ResetPickupState();
     }
 
     private IEnumerator SetCarryingAfterDelay(float delay)

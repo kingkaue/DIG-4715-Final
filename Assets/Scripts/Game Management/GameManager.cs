@@ -1,9 +1,11 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlayerMovement playerMovement;
+    public Dictionary<string, int> flowers;
     public bool inColor = false;
 
     private void Update()

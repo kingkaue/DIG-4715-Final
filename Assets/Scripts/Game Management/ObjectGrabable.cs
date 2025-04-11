@@ -9,6 +9,7 @@ public class ObjectGrabable : MonoBehaviour
     private float grabProgress = 0f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
+    [SerializeField] string objectName;
 
     [Header("Grab Settings")]
     [SerializeField] private float grabDuration = 2f;
@@ -38,6 +39,23 @@ public class ObjectGrabable : MonoBehaviour
         objectGrabPointTransform = null;
         isGrabbed = false;
         isMovingToHand = false;
+    }
+
+    public void AddFlower()
+    {
+        GameObject gameManager = GameObject.FindGameObjectWithTag("Game Controller");
+        GameManager gameManagerScript = gameManager.GetComponent<GameManager>();
+
+        if (!gameManagerScript.flowers.ContainsKey(objectName))
+        {
+            gameManagerScript.flowers.Add(objectName, 1);
+            Debug.Log("Added " + gameManagerScript.flowers[objectName] + " " + objectName);
+        }
+        else
+        {
+            gameManagerScript.flowers[objectName]++;
+            Debug.Log("There are now " + gameManagerScript.flowers[objectName] + " " + objectName);
+        }
     }
 
     private void FixedUpdate()

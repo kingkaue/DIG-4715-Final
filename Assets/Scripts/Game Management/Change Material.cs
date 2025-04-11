@@ -31,7 +31,12 @@ public class ChangeMaterial : MonoBehaviour
     {
         playerPosition = GameObject.FindGameObjectWithTag("Player").transform.position;
         float distanceFromPlayer = Vector3.Distance(playerPosition, transform.position);
-        if (gameManager.GetComponent<GameManager>().inColor == true)
+
+        if (gameManager == null)
+        {
+            Debug.Log("Game Manager not found");
+        }
+        else if (gameManager.GetComponent<GameManager>().inColor == true)
         {
             Debug.Log("Changing Color");
             canChange = false;
