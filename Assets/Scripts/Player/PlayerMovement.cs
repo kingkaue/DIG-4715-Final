@@ -57,8 +57,8 @@ public class PlayerMovement : MonoBehaviour
 
     void MovePlayer()
     {
-        // Don't move if in dialogue OR picking up
-        if ((dialogueUI != null && dialogueUI.IsOpen) || (animator != null && animator.GetBool("IsPickingUp")))
+        // Don't move if in dialogue OR picking up or sitting
+        if ((dialogueUI != null && dialogueUI.IsOpen) || (animator != null && animator.GetBool("IsPickingUp")) || animator.GetCurrentAnimatorStateInfo(0).IsName("playermodelsitting"))
         {
             rb.linearVelocity = Vector3.zero;
             return;

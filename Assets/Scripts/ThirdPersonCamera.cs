@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class ThirdPersonCamera : MonoBehaviour
 {
@@ -9,16 +8,16 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector2 move;
     private Vector2 look;
     public Rigidbody rb;
+    public Animator animator; // Add this reference
 
     public float rotationSpeed;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-
+        // Get the animator from the player
+        animator = player.GetComponent<Animator>();
     }
 
-    // Update is called once per frame
     void Update()
     {
         move = player.GetComponent<PlayerMovement>().move;
@@ -27,6 +26,12 @@ public class ThirdPersonCamera : MonoBehaviour
 
     void FixedUpdate()
     {
+        // Don't rotate if in sitting animation
+        if (animator != null && animator.GetCurrentAnimatorStateInfo(0).IsName("playermodelsitting"))
+        {
+            return;
+        }
+
         Vector3 viewDir = player.position - new Vector3(transform.position.x, player.position.y, transform.position.z);
         orientation.forward = viewDir.normalized;
 
