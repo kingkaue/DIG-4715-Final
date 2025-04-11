@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour
     [Header("General")]
     private Rigidbody rb;
     public Transform orientation;
+    public Animator animator;
 
     [Header("Movement")]
     public float speed;
@@ -39,6 +40,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
+        animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
     }
@@ -65,6 +67,7 @@ public class PlayerMovement : MonoBehaviour
         // If started moving this frame, play the sound
         if (isMoving && !wasMoving)
         {
+            animator.SetBool("IsWalking", true);
             footsteps.clip = footstepsound;
             footsteps.loop = true;
             footsteps.Play();
@@ -72,6 +75,7 @@ public class PlayerMovement : MonoBehaviour
         // If stopped moving this frame, stop the sound
         else if (!isMoving && wasMoving)
         {
+            animator.SetBool("IsWalking", false);
             footsteps.loop = false;
             footsteps.Stop();
         }
