@@ -119,19 +119,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5135410367307592086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: Resume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3384466343786484220
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,19 +314,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5769155718202464769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: Settings
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6976193687630403813
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,19 +649,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8307012139604477785}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: QuitToMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8000257975193780436
 GameObject:
   m_ObjectHideFlags: 0
@@ -767,7 +731,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -803,6 +767,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82152d1f53979034486e6fb851198946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resumeButton: {fileID: 3066319508059408651}
+  quitButton: {fileID: 5006547941146262074}
+  settingsButton: {fileID: 4552734786432448000}
   pauseMenuUI: {fileID: 6976193687630403813}
 --- !u!114 &5738810051970340460
 MonoBehaviour:
