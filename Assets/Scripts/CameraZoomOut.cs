@@ -2,16 +2,18 @@ using UnityEngine;
 
 public class CameraZoomOutTransform : MonoBehaviour
 {
-    public float zoomDistance = 2f;  // How far back to move
-    public float duration = 8f;      // How long the movement takes
+    public float zoomDistance = 2f;
+    public float duration = 8f;
 
-    void Start()
+    void OnEnable() // Use OnEnable instead of Start
     {
+        Debug.Log("CameraZoomOutTransform enabled");
         StartCoroutine(MoveBack());
     }
 
     private System.Collections.IEnumerator MoveBack()
     {
+        Debug.Log("Zoom started");
         Vector3 startPos = transform.position;
         Vector3 targetPos = transform.position - transform.forward * zoomDistance;
         float t = 0;
@@ -23,6 +25,7 @@ public class CameraZoomOutTransform : MonoBehaviour
             yield return null;
         }
 
+        Debug.Log("Zoom finished");
         transform.position = targetPos;
     }
 }

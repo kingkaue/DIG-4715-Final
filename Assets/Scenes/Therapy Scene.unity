@@ -2214,7 +2214,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fab091a048a2fc42af9c77a4792fbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zoomDistance: 2
+  zoomDistance: 3
   duration: 8
 --- !u!1001 &1301295056
 PrefabInstance:
@@ -3681,7 +3681,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvasGroup: {fileID: 2073401937}
-  fadeDuration: 5
+  fadeDuration: 8
   fadeIn: 1
 --- !u!1001 &2086598044
 PrefabInstance:

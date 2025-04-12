@@ -11,12 +11,33 @@ public class IntroDialogueActivator : MonoBehaviour
     [SerializeField] private DialogueObject introDialogue;
     private bool hasTriggered;
     private Animator playerAnimator;
-    private Collider triggerCollider; // Store the collider reference
+    private Collider triggerCollider;
 
-    private void Start()
+    private void Awake()
     {
-        // Cache the collider component at Start
         triggerCollider = GetComponent<Collider>();
+        StartCoroutine(ForceSittingNextFrame());
+    }
+
+    private IEnumerator ForceSittingNextFrame()
+    {
+        // Wait one frame to ensure all objects are loaded
+        yield return null;
+
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            playerAnimator = player.GetComponent<Animator>();
+            if (playerAnimator != null)
+            {
+                // Directly play the sitting animation state
+                playerAnimator.Play("Sitting", 0, 0f);
+                Debug.Log("Forced sitting pose immediately");
+
+                // Also set the bool parameter in case it's used elsewhere
+                playerAnimator.SetBool("IsSitting", true);
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider other)
@@ -25,10 +46,10 @@ public class IntroDialogueActivator : MonoBehaviour
         {
             if (other.TryGetComponent(out PlayerMovement player))
             {
-                playerAnimator = other.GetComponent<Animator>();
-                if (playerAnimator != null)
+                // Ensure we have the animator reference
+                if (playerAnimator == null)
                 {
-                    playerAnimator.SetBool("IsSitting", true);
+                    playerAnimator = other.GetComponent<Animator>();
                 }
 
                 // Switch cameras
@@ -50,7 +71,7 @@ public class IntroDialogueActivator : MonoBehaviour
         // Wait for dialogue to finish
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);
 
-        // Reset animation and disable collider (instead of destroying)
+        // Reset animation and disable collider
         if (playerAnimator != null)
         {
             playerAnimator.SetBool("IsSitting", false);
@@ -58,7 +79,7 @@ public class IntroDialogueActivator : MonoBehaviour
 
         if (triggerCollider != null)
         {
-            triggerCollider.enabled = false; // Disable the collider
+            triggerCollider.enabled = false;
         }
     }
 }
