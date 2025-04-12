@@ -803,6 +803,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 82152d1f53979034486e6fb851198946, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  resumeButton: {fileID: 3066319508059408651}
+  quitButton: {fileID: 5006547941146262074}
+  settingsButton: {fileID: 4552734786432448000}
   pauseMenuUI: {fileID: 6976193687630403813}
 --- !u!114 &5738810051970340460
 MonoBehaviour:

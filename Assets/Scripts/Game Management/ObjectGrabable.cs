@@ -43,9 +43,18 @@ public class ObjectGrabable : MonoBehaviour
 
     public void AddFlower()
     {
-        GameObject gameManager = GameObject.FindGameObjectWithTag("Game Controller");
-        GameManager gameManagerScript = gameManager.GetComponent<GameManager>();
+        GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
+        if (gameManager == null)
+        {
+            Debug.Log("Game Manager not found");
+        }
 
+        GameManager gameManagerScript = gameManager.GetComponent<GameManager>();
+        if (gameManagerScript == null)
+        {
+            Debug.Log("Game Manager Script not found");
+        }
+        
         if (!gameManagerScript.flowers.ContainsKey(objectName))
         {
             gameManagerScript.flowers.Add(objectName, 1);

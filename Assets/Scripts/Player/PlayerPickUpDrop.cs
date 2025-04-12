@@ -9,13 +9,13 @@ using UnityEngine.SceneManagement;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
-    [SerializeField] private Transform playerCameraTransform;
+    [SerializeField] private Transform objectPickupTransform;
     [SerializeField] private Transform objectgrabpointtransform;
     [SerializeField] private LayerMask pickuplayermask;
     private float interact;
 
-    private ObjectGrabable objectgrabable;
-    private Animator animator; // Reference to the Animator component
+    public ObjectGrabable objectgrabable;
+    public Animator animator; // Reference to the Animator component
 
     private void Start()
     {
@@ -32,73 +32,81 @@ public class PlayerPickUpDrop : MonoBehaviour
         {
             return;
         }
-
-        if (SceneManager.GetActiveScene().name == "SampleScene")
+        else
         {
             TryPickUpOrDrop();
+            Debug.Log("Picked up");
         }
+    }
 
-        else if (SceneManager.GetActiveScene().name == "Prototype Scene")
-        {
-            AddToInventory();
-        }
+    void Update()
+    {
+        Debug.DrawRay(objectPickupTransform.position, objectPickupTransform.forward * 5, Color.red);
     }
 
     private void TryPickUpOrDrop()
     {
-        if (objectgrabable == null)
+        // Checks which scene player is in
+        // Change this later
+        // Picks up object and carries it if in prototype scene
+        if (SceneManager.GetActiveScene().name == "Prototype Scene")
+        {
+            if (objectgrabable == null)
+            {
+                if (animator != null)
+                {
+                    animator.SetBool("IsPickingUp", true);
+                    animator.SetBool("IsCarrying", false);
+                }
+
+                float pickupdistance = 5;
+                if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
+                    out RaycastHit raycastHit, pickupdistance, pickuplayermask))
+                {
+                    if (raycastHit.transform.TryGetComponent(out objectgrabable))
+                    {
+                        objectgrabable.Grab(objectgrabpointtransform);
+                        StartCoroutine(SetCarryingAfterDelay(0.1f));
+                    }
+                    else ResetPickupState();
+                }
+                else ResetPickupState();
+            }
+            else
+            {
+                objectgrabable.Drop();
+                objectgrabable = null;
+                ResetPickupState();
+
+                // Explicitly set IsCarrying to false when dropping
+                if (animator != null)
+                {
+                    animator.SetBool("IsCarrying", false);
+                }
+            }
+        }
+        
+        // Picks up object and adds to inventory if it programming scene
+        else if (SceneManager.GetActiveScene().name == "ProgrammingTest")
         {
             if (animator != null)
             {
                 animator.SetBool("IsPickingUp", true);
-                animator.SetBool("IsCarrying", false);
             }
 
-            float pickupdistance = 40;
-            if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
+            float pickupdistance = 5;
+            if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
                 out RaycastHit raycastHit, pickupdistance, pickuplayermask))
             {
                 if (raycastHit.transform.TryGetComponent(out objectgrabable))
                 {
-                    objectgrabable.Grab(objectgrabpointtransform);
-                    StartCoroutine(SetCarryingAfterDelay(0.1f));
+                    objectgrabable.AddFlower();
+                    StartCoroutine(PutInInventory(3f, raycastHit.transform.gameObject));
                 }
                 else ResetPickupState();
             }
             else ResetPickupState();
         }
-        else
-        {
-            objectgrabable.Drop();
-            objectgrabable = null;
-            ResetPickupState();
-
-            // Explicitly set IsCarrying to false when dropping
-            if (animator != null)
-            {
-                animator.SetBool("IsCarrying", false);
-            }
-        }
-    }
-
-    private void AddToInventory()
-    {
-        if (animator != null)
-        {
-            animator.SetBool("IsPickingUp", true);
-        }
-
-        float pickupdistance = 40;
-        if (Physics.Raycast(playerCameraTransform.position, playerCameraTransform.forward,
-            out RaycastHit raycastHit, pickupdistance, pickuplayermask))
-        {
-            if (raycastHit.transform.TryGetComponent(out objectgrabable))
-            {
-                objectgrabable.AddFlower();
-            }
-            else ResetPickupState();
-        }
-        else ResetPickupState();
     }
 
     private IEnumerator SetCarryingAfterDelay(float delay)
@@ -116,6 +124,18 @@ public class PlayerPickUpDrop : MonoBehaviour
             animator.SetBool("IsPickingUp", false);
             animator.SetBool("IsCarrying", true);
         }
+    }
+
+    private IEnumerator PutInInventory(float delay, GameObject pickedObject)
+    {
+        yield return new WaitForSeconds(delay);
+
+        if (animator != null)
+        {
+            animator.SetBool("IsPickingUp", false);
+        }
+
+        Destroy(pickedObject);
     }
 
     private void ResetPickupState()

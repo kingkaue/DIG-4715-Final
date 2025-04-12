@@ -3,10 +3,19 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager Instance;
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlayerMovement playerMovement;
     public Dictionary<string, int> flowers;
     public bool inColor = false;
+
+    private void Awake()
+    {
+        flowers = new Dictionary<string, int>
+        {
+
+        };
+    }
 
     private void Update()
     {

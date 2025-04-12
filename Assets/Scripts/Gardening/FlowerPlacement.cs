@@ -22,8 +22,6 @@ public class FlowerPlacement : MonoBehaviour
         {
             playerManager.SetSpirit(10f);
             flower.GetComponent<Renderer>().material.color = new Color(0, 1, 0, 1);
-            
-
         }
     }
 }
