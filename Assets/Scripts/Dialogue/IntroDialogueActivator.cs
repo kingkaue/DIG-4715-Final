@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class IntroDialogueActivator : MonoBehaviour
 {
@@ -9,6 +10,14 @@ public class IntroDialogueActivator : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private DialogueObject introDialogue;
     private bool hasTriggered;
+    private Animator playerAnimator;
+    private Collider triggerCollider; // Store the collider reference
+
+    private void Start()
+    {
+        // Cache the collider component at Start
+        triggerCollider = GetComponent<Collider>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -16,22 +25,40 @@ public class IntroDialogueActivator : MonoBehaviour
         {
             if (other.TryGetComponent(out PlayerMovement player))
             {
-                // Activate cutscene camera
+                playerAnimator = other.GetComponent<Animator>();
+                if (playerAnimator != null)
+                {
+                    playerAnimator.SetBool("IsSitting", true);
+                }
+
+                // Switch cameras
                 if (cutsceneCamera != null) cutsceneCamera.SetActive(true);
                 if (playerCamera != null) playerCamera.SetActive(false);
 
-                // Start dialogue
-                player.DialogueUI.ShowDialogue(introDialogue);
+                StartCoroutine(StartDialogueAfterDelay(player));
                 hasTriggered = true;
-
-                // Pass camera references to DialogueUI
-                player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
             }
         }
     }
 
-    public void DestroyTrigger()
+    private IEnumerator StartDialogueAfterDelay(PlayerMovement player)
     {
-        Destroy(gameObject);
+        yield return null; // Wait one frame
+        player.DialogueUI.ShowDialogue(introDialogue);
+        player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
+
+        // Wait for dialogue to finish
+        yield return new WaitWhile(() => player.DialogueUI.IsOpen);
+
+        // Reset animation and disable collider (instead of destroying)
+        if (playerAnimator != null)
+        {
+            playerAnimator.SetBool("IsSitting", false);
+        }
+
+        if (triggerCollider != null)
+        {
+            triggerCollider.enabled = false; // Disable the collider
+        }
     }
 }
