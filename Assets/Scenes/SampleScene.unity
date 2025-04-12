@@ -2631,7 +2631,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 643187341}
   m_SourcePrefab: {fileID: 100100000, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
 --- !u!1 &575759696
 GameObject:
@@ -2817,6 +2820,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 642301751}
   m_Mesh: {fileID: 6601536184839518903, guid: cef540f2d2299764682e137a9c403404, type: 3}
+--- !u!1 &643187334 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
+  m_PrefabInstance: {fileID: 560056500}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &643187341
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 643187334}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weight: 1
+  FocusTracking: 0
+  FocusTarget: {fileID: 0}
+  FocusOffset: 0
+  Profile: {fileID: 11400000, guid: 956f3a08628ce594eafad7624c318b43, type: 2}
 --- !u!1001 &660567385
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3628,6 +3653,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2370718530038834712, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: ShowCameraFrustum
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2370718530038834712, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: DefaultBlend.Style
       value: 1
       objectReference: {fileID: 0}
@@ -3679,6 +3708,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerCam
       objectReference: {fileID: 0}
+    - target: {fileID: 3275819863227284955, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: field of view
       value: 60.000004
@@ -3686,6 +3719,14 @@ PrefabInstance:
     - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: far clip plane
       value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: orthographic size
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 7847608022889033736, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: rb
@@ -3695,6 +3736,10 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 2655518989633274613}
+    - target: {fileID: 7847608022889033736, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: animator
+      value: 
+      objectReference: {fileID: 2655518989633274615}
     - target: {fileID: 7847608022889033736, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: orientation
       value: 
@@ -4907,6 +4952,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrabbed: 0
+  objectName: 
   grabDuration: 2
   grabCurve:
     serializedVersion: 2
@@ -6224,6 +6270,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isGrabbed: 0
+  objectName: 
   grabDuration: 2
   grabCurve:
     serializedVersion: 2
@@ -7757,6 +7804,11 @@ MonoBehaviour:
 --- !u!4 &2655518989633274613 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 46845479988858561, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+  m_PrefabInstance: {fileID: 4958439749804537460}
+  m_PrefabAsset: {fileID: 0}
+--- !u!95 &2655518989633274615 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 7921462769810345423, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
   m_PrefabInstance: {fileID: 4958439749804537460}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &4958439749804537460
