@@ -5,6 +5,6 @@ public class switchtoscene : MonoBehaviour
 {
     void OnTriggerEnter(Collider other)
     {
-        SceneManager.LoadScene("Prototype Scene");
+        SceneManager.LoadScene("Forest Trail");
     }
 }

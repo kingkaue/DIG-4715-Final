@@ -17,6 +17,12 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Prototype Scene.unity
     guid: 5f094b5a6f4faa646b9ce2495107c084
+  - enabled: 1
+    path: Assets/Scenes/Cabin Scene.unity
+    guid: 64dc4f96555b00441b4f807b09788440
+  - enabled: 1
+    path: Assets/Scenes/Forest Trail.unity
+    guid: 5abf09eed45ac4445b92a00924fad15e
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
