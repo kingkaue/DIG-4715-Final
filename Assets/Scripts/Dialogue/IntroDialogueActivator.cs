@@ -31,7 +31,7 @@ public class IntroDialogueActivator : MonoBehaviour
             if (playerAnimator != null)
             {
                 // Directly play the sitting animation state
-                playerAnimator.Play("Sitting", 0, 0f);
+                playerAnimator.Play("playermodelsitting", 0, 0f);
                 Debug.Log("Forced sitting pose immediately");
 
                 // Also set the bool parameter in case it's used elsewhere

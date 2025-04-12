@@ -19,6 +19,9 @@ public class PlayerMovement : MonoBehaviour
     [Header("Aiming")]
     public Vector2 look;
 
+    [Header("Cutscene Control")]
+    private bool movementFrozen = false;
+
     //For Dialogue System: 
     [SerializeField] private DialogueUI dialogueUI;
     public DialogueUI DialogueUI => dialogueUI;
@@ -55,10 +58,25 @@ public class PlayerMovement : MonoBehaviour
         MovePlayer();
     }
 
+    public void FreezeMovement(bool freeze)
+    {
+        movementFrozen = freeze;
+        if (freeze)
+        {
+            rb.linearVelocity = Vector3.zero;
+            animator.SetBool("IsWalking", false);
+            if (footsteps.isPlaying) footsteps.Stop();
+        }
+    }
+
     void MovePlayer()
     {
-        // Don't move if in dialogue OR picking up or sitting
-        if ((dialogueUI != null && dialogueUI.IsOpen) || (animator != null && animator.GetBool("IsPickingUp")) || animator.GetCurrentAnimatorStateInfo(0).IsName("playermodelsitting"))
+        // Don't move if movement is frozen or in special states
+        if (movementFrozen ||
+            (dialogueUI != null && dialogueUI.IsOpen) ||
+            animator.GetBool("IsPickingUp") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsName("playermodelsitting") ||
+            animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerLookingAround"))
         {
             rb.linearVelocity = Vector3.zero;
             return;
