@@ -6267,6 +6267,10 @@ PrefabInstance:
       propertyPath: m_StaticEditorFlags
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5866666021909216657, guid: 7c752c108f224e540a03d87e3f4e29f3, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: ce147627e6805214c893714e2ea7c451, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6590,6 +6594,7 @@ GameObject:
   - component: {fileID: 1896520067}
   - component: {fileID: 1896520068}
   - component: {fileID: 1896520069}
+  - component: {fileID: 1896520070}
   m_Layer: 0
   m_Name: DeerAgent
   m_TagString: Animal
@@ -6712,6 +6717,28 @@ MonoBehaviour:
   - {fileID: 1229375700}
   - {fileID: 2082510721}
   - {fileID: 501701140}
+--- !u!95 &1896520070
+Animator:
+  serializedVersion: 7
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1896520064}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5d93d176f81255349a2821cfdab2d4da, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_AnimatePhysics: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1001 &1917953342
 PrefabInstance:
   m_ObjectHideFlags: 0
