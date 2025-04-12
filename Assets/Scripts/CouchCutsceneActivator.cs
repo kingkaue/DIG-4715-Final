@@ -21,6 +21,7 @@ public class CouchCutsceneActivator : MonoBehaviour
     private bool isInteractable = true;
     private Animator playerAnimator;
     private PlayerMovement playerMovement;
+    private Collider triggerCollider;
 
     private void Update()
     {
@@ -30,6 +31,14 @@ public class CouchCutsceneActivator : MonoBehaviour
         }
     }
 
+    
+
+
+    private void Start()
+    {
+        triggerCollider = GetComponent<Collider>();
+
+    }
     private void CheckPlayerProximity()
     {
         Collider[] nearbyPlayers = Physics.OverlapSphere(transform.position, 2f, LayerMask.GetMask("Player"));
@@ -107,13 +116,19 @@ public class CouchCutsceneActivator : MonoBehaviour
     private void EndCutscene()
     {
         playerMovement.FreezeMovement(false);
-        isInteractable = true;
+        isInteractable = false;
 
         // Final safeguard to ensure player camera is active
         if (!playerCamera.activeSelf)
         {
             SetCameraState(CameraState.Player);
         }
+
+        if (triggerCollider != null)
+        {
+            triggerCollider.enabled = false;
+        }
+
     }
 
     private enum CameraState
