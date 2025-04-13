@@ -2994,6 +2994,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4e76b291c0f5525449fc425569331225, type: 3}
       insertIndex: -1
       addedObject: {fileID: 688319592}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4e76b291c0f5525449fc425569331225, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 688319594}
   m_SourcePrefab: {fileID: 100100000, guid: 4e76b291c0f5525449fc425569331225, type: 3}
 --- !u!1 &688319587 stripped
 GameObject:
@@ -3087,10 +3090,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   growthAmount: 0.4
-  maxScale: 10
+  absoluteMaxScale: {x: 8, y: 8, z: 8}
   growthDuration: 1
   maxRotation: {x: 0, y: 360, z: 0}
   playerManager: {fileID: 2255867819163290493}
+--- !u!114 &688319594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 688319587}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bd14e1fc1d7cfeb4fa5f6585d8ab4279, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  isGrabbed: 0
+  objectName: 
+  grabDuration: 2
+  grabCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &724486871 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: cf902334440bee64ab62059082102dab, type: 3}
@@ -6221,6 +6263,7 @@ MonoBehaviour:
   tiltDuration: 0.5
   holdDuration: 2
   returnDuration: 0.5
+  timetoreward: 0
   pourDuration: 1.5
   spawnInterval: 0.1
   sphereLifetime: 2

@@ -8,11 +8,13 @@ public class WateringCanTilt : MonoBehaviour
     public Transform waterDispensePoint;
     public GameObject waterSpherePrefab;
     public GameObject firstpersonpov;
+
     [Header("Tilt Settings")]
     public float tiltAngle = 40f;
     public float tiltDuration = 0.5f;
     public float holdDuration = 2f;
     public float returnDuration = 0.5f;
+    public bool timetoreward = false;
 
     [Header("Water Settings")]
     public float pourDuration = 1.5f;
@@ -23,6 +25,7 @@ public class WateringCanTilt : MonoBehaviour
     private ObjectGrabable objectGrabable;
     private bool isTilting = false;
     private Quaternion originalRotation;
+    private bool hasWatered = false; // Tracks if watering reward was given
 
     void Start()
     {
@@ -44,8 +47,10 @@ public class WateringCanTilt : MonoBehaviour
 
     private IEnumerator WateringProcess()
     {
+        hasWatered = false; // Reset watering reward status
         isTilting = true;
         firstpersonpov.SetActive(true);
+
         // Tilt forward
         Quaternion startRot = wateringCan.transform.rotation;
         Quaternion targetRot = startRot * Quaternion.Euler(tiltAngle, 0, 0);
@@ -107,5 +112,16 @@ public class WateringCanTilt : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    // Called by PlantGrowth to check if reward should be given
+    public bool TryGetWaterReward()
+    {
+        if (!hasWatered)
+        {
+            hasWatered = true;
+            return true;
+        }
+        return false;
     }
 }
