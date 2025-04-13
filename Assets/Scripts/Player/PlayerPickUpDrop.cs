@@ -13,7 +13,7 @@ public class PlayerPickUpDrop : MonoBehaviour
     [SerializeField] private Transform objectgrabpointtransform;
     [SerializeField] private LayerMask pickuplayermask;
     private float interact;
-
+    private bool canInteract = true;
     public ObjectGrabable objectgrabable;
     public Animator animator; // Reference to the Animator component
 
@@ -28,14 +28,14 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     public void OnPickupDrop(InputAction.CallbackContext context)
     {
-        if (!context.performed)
-        {
-            return;
-        }
-        else
+        if (canInteract == true)
         {
             TryPickUpOrDrop();
             Debug.Log("Picked up");
+        }
+        else
+        {
+            Debug.Log("Cannot pickup yet");
         }
     }
 
@@ -49,7 +49,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         // Checks which scene player is in
         // Change this later
         // Picks up object and carries it if in prototype scene
-        if (SceneManager.GetActiveScene().name == "Prototype Scene")
+        if (SceneManager.GetActiveScene().name == "Cabin Scene")
         {
             if (objectgrabable == null)
             {
@@ -85,9 +85,9 @@ public class PlayerPickUpDrop : MonoBehaviour
                 }
             }
         }
-        
+
         // Picks up object and adds to inventory if it programming scene
-        else if (SceneManager.GetActiveScene().name == "ProgrammingTest")
+        else if (SceneManager.GetActiveScene().name == "Forest Trail")
         {
             if (animator != null)
             {
@@ -128,7 +128,9 @@ public class PlayerPickUpDrop : MonoBehaviour
 
     private IEnumerator PutInInventory(float delay, GameObject pickedObject)
     {
+        canInteract = false;
         yield return new WaitForSeconds(delay);
+        canInteract = true;
 
         if (animator != null)
         {

@@ -26,6 +26,8 @@ public class FlowerBasket : MonoBehaviour
     {
         player = GameObject.FindGameObjectWithTag("Player");
         gameManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
+        objectgrabpointtransform = player.transform.Find("ObjectGradPointArm");
+        objectPickupTransform = player.transform.Find("ObjectPickupRay");
     }
 
     void TrySpawnFlower()
