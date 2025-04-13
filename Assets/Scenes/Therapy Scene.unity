@@ -1865,6 +1865,37 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 154602246119513213, guid: c322bff449a2a1744b19db37f2110046, type: 3}
   m_PrefabInstance: {fileID: 328981604}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &851118602
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 851118603}
+  m_Layer: 0
+  m_Name: headsetposition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &851118603
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 851118602}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 15.728309, y: 0.697, z: -6.06}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &891733028 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 24d847dc4896af041bd29c1e23dbfe8c, type: 3}
@@ -4044,6 +4075,8 @@ MonoBehaviour:
   initialDialogue: {fileID: 11400000, guid: 3e56775dd43857643a48195816f91451, type: 2}
   panDialogue: {fileID: 11400000, guid: 0fa12e48d5bc00f4b96e7454b5177388, type: 2}
   postPanDelay: 1
+  headsetposition: {fileID: 851118603}
+  headset: {fileID: 285255900162230818, guid: c768a4654767a32449c93e59dbf55ca9, type: 3}
 --- !u!1 &1797986292
 GameObject:
   m_ObjectHideFlags: 0
@@ -4979,3 +5012,4 @@ SceneRoots:
   - {fileID: 1257774282}
   - {fileID: 102933169}
   - {fileID: 1572280436}
+  - {fileID: 851118603}

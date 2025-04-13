@@ -22,7 +22,8 @@ public class CouchCutsceneActivator : MonoBehaviour
     private Animator playerAnimator;
     private PlayerMovement playerMovement;
     private Collider triggerCollider;
-
+    [SerializeField] private Transform headsetposition;
+    [SerializeField] private GameObject headset;
     private void Update()
     {
         if (isInteractable && Input.GetKeyDown(KeyCode.L))
@@ -129,6 +130,7 @@ public class CouchCutsceneActivator : MonoBehaviour
             triggerCollider.enabled = false;
         }
 
+        Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation);
     }
 
     private enum CameraState
