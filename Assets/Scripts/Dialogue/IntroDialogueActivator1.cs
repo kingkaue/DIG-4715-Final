@@ -16,6 +16,7 @@ public class IntroDialogueActivator1 : MonoBehaviour
     //Therapist animation properties
     public Animator therapistanimator;
     [SerializeField] private GameObject therapistObject;
+
     private void Awake()
     {
         triggerCollider = GetComponent<Collider>();
@@ -39,8 +40,6 @@ public class IntroDialogueActivator1 : MonoBehaviour
                 Debug.Log("Forced sitting pose immediately");
                 therapistanimator.Play("THERAPISTTALKING", 0, 0f);
                 therapistanimator.SetBool("IsTalking", true);
-
-
             }
         }
     }
@@ -57,10 +56,8 @@ public class IntroDialogueActivator1 : MonoBehaviour
                     playerAnimator = other.GetComponent<Animator>();
                 }
 
-                // Switch cameras
-                if (cutsceneCamera != null) cutsceneCamera.SetActive(true);
-                if (playerCamera != null) playerCamera.SetActive(false);
-
+                // Switch to cutscene camera
+                SwitchCameras(true);
                 StartCoroutine(StartDialogueAfterDelay(player));
                 hasTriggered = true;
             }
@@ -70,23 +67,52 @@ public class IntroDialogueActivator1 : MonoBehaviour
     private IEnumerator StartDialogueAfterDelay(PlayerMovement player)
     {
         yield return null; // Wait one frame
+
+        // Show dialogue and pass camera references
         player.DialogueUI.ShowDialogue(introDialogue);
         player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
 
         // Wait for dialogue to finish
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);
 
-        // Reset animation and disable collider
+        // Switch back to player camera when dialogue ends
+        SwitchCameras(false);
+
+        // Reset animation states
         if (playerAnimator != null)
         {
             playerAnimator.SetBool("IsWalking", false);
-            therapistanimator.SetBool("IsTalking", false);
-
         }
 
+        if (therapistanimator != null)
+        {
+            therapistanimator.SetBool("IsTalking", false);
+        }
+
+        // Disable the trigger collider
         if (triggerCollider != null)
         {
             triggerCollider.enabled = false;
+        }
+    }
+
+    private void SwitchCameras(bool toCutscene)
+    {
+        if (cutsceneCamera != null)
+        {
+            cutsceneCamera.SetActive(toCutscene);
+            Debug.Log($"Cutscene camera {(toCutscene ? "activated" : "deactivated")}");
+        }
+
+        if (playerCamera != null)
+        {
+            playerCamera.SetActive(!toCutscene);
+            Debug.Log($"Player camera {(!toCutscene ? "activated" : "deactivated")}");
+        }
+
+        if (cutsceneCamera == null || playerCamera == null)
+        {
+            Debug.LogWarning("Camera references not set in inspector!");
         }
     }
 }
