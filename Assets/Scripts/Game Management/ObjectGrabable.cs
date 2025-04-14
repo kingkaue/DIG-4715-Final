@@ -14,6 +14,7 @@ public class ObjectGrabable : MonoBehaviour
     [Header("Grab Settings")]
     [SerializeField] private float grabDuration = 2f;
     [SerializeField] private AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+    public bool canBeDropped; // Makes sure player is finished grabbing object before being allowed to drop it
 
     private void Awake()
     {
@@ -22,6 +23,7 @@ public class ObjectGrabable : MonoBehaviour
 
     public void Grab(Transform grabPoint)
     {
+        Debug.Log("Grabbing");
         objectGrabPointTransform = grabPoint;
         initialPosition = transform.position;
         initialRotation = transform.rotation;
@@ -34,6 +36,9 @@ public class ObjectGrabable : MonoBehaviour
 
     public void Drop()
     {
+        if (!canBeDropped) return;
+
+        Debug.Log("Dropping");
         gameObject.layer = LayerMask.NameToLayer("Default");
         objectRigidbody.useGravity = true;
         objectGrabPointTransform = null;
@@ -73,6 +78,7 @@ public class ObjectGrabable : MonoBehaviour
         {
             if (isMovingToHand)
             {
+                canBeDropped = false;
                 // Smooth movement to hand
                 grabProgress += Time.fixedDeltaTime / grabDuration;
                 float curveValue = grabCurve.Evaluate(grabProgress);
@@ -92,6 +98,7 @@ public class ObjectGrabable : MonoBehaviour
             }
             else if (isGrabbed)
             {
+                canBeDropped = true;
                 // Snap to hand during carry phase
                 objectRigidbody.MovePosition(objectGrabPointTransform.position);
                 objectRigidbody.MoveRotation(objectGrabPointTransform.rotation);

@@ -11,6 +11,13 @@ TagManager:
   - Pause Menu
   - sofa
   - Cutscene Camera
+  - Flower_CabinSpawnpoint
+  - Animal_CabinSpawnpoint
+  - Bug_CabinSpawnpoint
+  - DontDestroy
+  - Camera Handler
+  - Spawnpoint
+  - ReturnSpawnpoint
   layers:
   - Default
   - TransparentFX

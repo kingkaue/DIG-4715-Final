@@ -14,10 +14,9 @@ public class DontDestroy : MonoBehaviour
         }
         else if (persistentObjects[objectindex] != gameObject)
         {
+            Debug.Log("Destroying object");
             Destroy(gameObject);
         }
-
-
     }
 
     

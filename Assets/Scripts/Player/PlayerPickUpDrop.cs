@@ -14,6 +14,7 @@ public class PlayerPickUpDrop : MonoBehaviour
     [SerializeField] private LayerMask pickuplayermask;
     private float interact;
     private bool canInteract = true;
+    public bool canPutInInventory = false;
     public ObjectGrabable objectgrabable;
     public Animator animator; // Reference to the Animator component
 
@@ -49,7 +50,7 @@ public class PlayerPickUpDrop : MonoBehaviour
         // Checks which scene player is in
         // Change this later
         // Picks up object and carries it if in prototype scene
-        if (SceneManager.GetActiveScene().name == "Cabin Scene")
+        if (!canPutInInventory)
         {
             if (objectgrabable == null)
             {
@@ -74,20 +75,23 @@ public class PlayerPickUpDrop : MonoBehaviour
             }
             else
             {
-                objectgrabable.Drop();
-                objectgrabable = null;
-                ResetPickupState();
-
-                // Explicitly set IsCarrying to false when dropping
-                if (animator != null)
+                if (objectgrabable.canBeDropped)
                 {
-                    animator.SetBool("IsCarrying", false);
+                    objectgrabable.Drop();
+                    objectgrabable = null;
+                    ResetPickupState();
+
+                    // Explicitly set IsCarrying to false when dropping
+                    if (animator != null)
+                    {
+                        animator.SetBool("IsCarrying", false);
+                    }
                 }
             }
         }
 
         // Picks up object and adds to inventory if it programming scene
-        else if (SceneManager.GetActiveScene().name == "Forest Trail")
+        else if (canPutInInventory)
         {
             if (animator != null)
             {
