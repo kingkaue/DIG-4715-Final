@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class tutorialcutscene : MonoBehaviour
 {
 
@@ -16,6 +16,12 @@ public class tutorialcutscene : MonoBehaviour
         if (objectgrabable.isGrabbed == true && Input.GetKeyDown("t"))
         {
             Debug.Log("Transition Cutscene Started");
+            loadlevel("tutorial");
         }
+    }
+
+    public void loadlevel(string level)
+    {
+        SceneManager.LoadScene(level);
     }
 }
