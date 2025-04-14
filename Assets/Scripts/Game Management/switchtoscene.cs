@@ -36,8 +36,11 @@ public class switchtoscene : MonoBehaviour
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 
         Scene newScene = SceneManager.GetSceneByName(scene);
-        Transform spawnPoint = FindSpawnPoint(newScene, "Spawnpoint");
 
+        // Gets spawnpoint gameobject in scene
+        Transform spawnPoint = FindSpawnPoint(newScene, "Spawnpoint");
+        
+        // Moves player to spawnpoint
         if (spawnPoint != null)
         {
             MovePlayerToScene(player, newScene, spawnPoint);
@@ -51,6 +54,7 @@ public class switchtoscene : MonoBehaviour
         player.GetComponent<PlayerPickUpDrop>().canPutInInventory = false;
         Scene hubScene = SceneManager.GetSceneByName("Cabin Scene");
 
+        // Loads in hub scene if not already loaded in
         if (!hubScene.IsValid())
         {
             Debug.LogError("Hub scene not found!");
@@ -62,7 +66,7 @@ public class switchtoscene : MonoBehaviour
         {
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
-
+        
         // Unload current scene if it's not the hub
         Scene currentScene = SceneManager.GetActiveScene();
 
@@ -77,7 +81,10 @@ public class switchtoscene : MonoBehaviour
 
     private Transform FindSpawnPoint(Scene scene, string tag)
     {
+        // Sets all root gameobjects in an array
         GameObject[] roots = scene.GetRootGameObjects();
+
+        // Iterates through array to find object with spawnpoint tag
         foreach (GameObject root in roots)
         {
             if (root.CompareTag(tag))
@@ -90,13 +97,16 @@ public class switchtoscene : MonoBehaviour
 
     private void MovePlayerToScene(GameObject player, Scene targetScene, Transform spawnPoint)
     {
+        // Moves player game object to other scene and positions them on spawnpoint
         SceneManager.MoveGameObjectToScene(player, targetScene);
         player.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
 
+        // Finds important game objects
         GameObject cameraHandler = GameObject.FindGameObjectWithTag("Camera Handler");
         GameObject playerCam = GameObject.FindGameObjectWithTag("MainCamera");
         GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
 
+        // Moves other objects to scene
         if (cameraHandler != null)
         {
             SceneManager.MoveGameObjectToScene(cameraHandler, targetScene);
