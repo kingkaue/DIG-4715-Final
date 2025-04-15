@@ -24,6 +24,8 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     private Collider triggerCollider;
     [SerializeField] private Transform headsetposition;
     [SerializeField] private GameObject headset;
+
+    [SerializeField] public Transform holdposition;
     private void Update()
     {
         if (isInteractable)
@@ -37,6 +39,7 @@ public class CouchCutsceneActivator2 : MonoBehaviour
 
     private void Start()
     {
+        holdposition = GetComponent<Transform>();
         triggerCollider = GetComponent<Collider>();
 
     }
@@ -130,7 +133,8 @@ public class CouchCutsceneActivator2 : MonoBehaviour
             triggerCollider.enabled = false;
         }
 
-        Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation);
+        Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation, holdposition);
+        
     }
 
     private enum CameraState
