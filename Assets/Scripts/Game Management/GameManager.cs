@@ -10,6 +10,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private PlayerMovement playerMovement;
     public Dictionary<string, int> flowers;
     public bool inColor = false;
+    public bool inbugscene = false;
 
     private void Awake()
     {
