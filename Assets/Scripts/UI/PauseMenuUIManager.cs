@@ -17,6 +17,7 @@ public class PauseMenuUIManager : MonoBehaviour
         resumeButton.onClick.AddListener(Resume);
         settingsButton.onClick.AddListener(Settings);
         quitButton.onClick.AddListener(QuitToMenu);
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void OnPause(InputAction.CallbackContext context)
@@ -41,6 +42,7 @@ public class PauseMenuUIManager : MonoBehaviour
         pauseMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
+        Cursor.lockState = CursorLockMode.Locked;
     }
 
     public void Pause()
@@ -48,6 +50,7 @@ public class PauseMenuUIManager : MonoBehaviour
         pauseMenuUI.SetActive(true);
         Time.timeScale = 0f;
         isPaused = true;
+        Cursor.lockState = CursorLockMode.None;
     }
 
     public void QuitToMenu()

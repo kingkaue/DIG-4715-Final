@@ -22,7 +22,7 @@ public class MainMenuUiManager : MonoBehaviour
 
     void PlayGame()
     {
-        SceneManager.LoadScene("SampleScene");
+        SceneManager.LoadScene("Therapy Scene");
     }
 
     void OpenCredits()
