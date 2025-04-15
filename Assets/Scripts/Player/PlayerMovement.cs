@@ -61,10 +61,7 @@ public class PlayerMovement : MonoBehaviour
 
         MovePlayer();
 
-        if (gameManager.inbugscene == true && Input.GetKeyDown("k"))
-        {
-            StartCoroutine(swingthatnet());
-        }
+        
     }
 
     public void FreezeMovement(bool freeze)
@@ -135,6 +132,11 @@ public class PlayerMovement : MonoBehaviour
             {
                 Interactable.Interact(this);
             }
+        }
+
+        if (gameManager.inbugscene == true && Input.GetKeyDown("k"))
+        {
+            StartCoroutine(swingthatnet());
         }
     }
 
