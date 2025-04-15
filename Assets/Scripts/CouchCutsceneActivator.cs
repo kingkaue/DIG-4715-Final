@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.InputSystem;
 
 public class CouchCutsceneActivator : MonoBehaviour
 {
@@ -24,16 +25,14 @@ public class CouchCutsceneActivator : MonoBehaviour
     private Collider triggerCollider;
     [SerializeField] private Transform headsetposition;
     [SerializeField] private GameObject headset;
-    private void Update()
+
+    public void OnInteract(InputAction.CallbackContext context)
     {
-        if (isInteractable && Input.GetKeyDown(KeyCode.L))
+        if (isInteractable)
         {
             CheckPlayerProximity();
         }
     }
-
-    
-
 
     private void Start()
     {

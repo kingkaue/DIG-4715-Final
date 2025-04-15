@@ -190,6 +190,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5404063526307242220, guid: 5cd2fec570671344186007584a970a10, type: 3}
+      propertyPath: canPutInInventory
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6998539418816771201, guid: 5cd2fec570671344186007584a970a10, type: 3}
       propertyPath: m_Name
       value: PlayerCorrect Variant
