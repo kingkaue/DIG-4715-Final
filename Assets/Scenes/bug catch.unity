@@ -1999,7 +1999,7 @@ MonoBehaviour:
   playerCamera: {fileID: 276608796}
   couchCloseupCamera: {fileID: 221578606}
   roomPanCamera: {fileID: 509442323}
-  cameraPanDuration: 3
+  cameraPanDuration: 1
   scaredanimation: playerscared
   couchPosition: {fileID: 949646698}
   initialDialogue: {fileID: 11400000, guid: c49ecafac5b5ebb4e9d28c17f8af0cdf, type: 2}
