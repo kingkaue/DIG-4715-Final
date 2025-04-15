@@ -65,7 +65,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 76ccf4371dbe19245b5fd465853483c9, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -438,6 +438,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLabel: {fileID: 1746566571684887704}
   dialogueBox: {fileID: 7681392850383699316}
+  cutsceneCamera: {fileID: 0}
+  playerCamera: {fileID: 0}
 --- !u!114 &2004740190987219628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -562,8 +564,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 60
-  m_fontSizeBase: 60
+  m_fontSize: 48
+  m_fontSizeBase: 48
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
