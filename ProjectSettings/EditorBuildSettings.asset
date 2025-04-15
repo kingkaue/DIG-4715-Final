@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/bug catch.unity
     guid: d26f3a027f21acc47990e484344b553a
+  - enabled: 1
+    path: Assets/Scenes/Deer Feeding.unity
+    guid: ae45a431215ac734884a4b402ac04f4f
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0

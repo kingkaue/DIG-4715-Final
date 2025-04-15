@@ -7,16 +7,7 @@ public class DontDestroy : MonoBehaviour
 
     void Awake()
     {
-        if(persistentObjects[objectindex] == null)
-        {
-            persistentObjects[objectindex] = gameObject;
-            DontDestroyOnLoad(gameObject);
-        }
-        else if (persistentObjects[objectindex] != gameObject)
-        {
-            Debug.Log("Destroying object");
-            Destroy(gameObject);
-        }
+        DontDestroyOnLoad(gameObject);
     }
 
     
