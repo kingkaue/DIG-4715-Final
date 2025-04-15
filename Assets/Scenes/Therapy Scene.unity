@@ -944,7 +944,8 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 75332189}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 2496219073202732861, guid: c322bff449a2a1744b19db37f2110046, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -1647,7 +1648,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: CameraHandler
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8075382386822985826, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -3081,7 +3083,8 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 839428772}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4423024896203181308, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
