@@ -6,7 +6,7 @@ public class ButterflySpawner : MonoBehaviour
     [Header("Spawn Settings")]
     [SerializeField] private GameObject butterflyPrefab;
     [SerializeField] private int numberOfButterflies = 10;
-    [SerializeField] private float spawnRadius = 20f;
+    [SerializeField] private float spawnRadius = 1f;
     [SerializeField] private float minHeight = 1f;
     [SerializeField] private float maxHeight = 3f;
 

@@ -18,6 +18,8 @@ TagManager:
   - Camera Handler
   - Spawnpoint
   - ReturnSpawnpoint
+  - butterfly
+  - net
   layers:
   - Default
   - TransparentFX

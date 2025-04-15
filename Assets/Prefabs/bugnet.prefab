@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: bugnet
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a0939109b6b77a54b835d79c80f9dcb1, type: 3}
+      propertyPath: m_TagString
+      value: net
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -62,6 +66,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0939109b6b77a54b835d79c80f9dcb1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4906922359636408188}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: a0939109b6b77a54b835d79c80f9dcb1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5829616426213195727}
   m_SourcePrefab: {fileID: 100100000, guid: a0939109b6b77a54b835d79c80f9dcb1, type: 3}
 --- !u!1 &6572408040563902393 stripped
 GameObject:
@@ -102,3 +109,16 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.3400191, y: 0.33328855, z: 0.25239363}
   m_Center: {x: 0.015146568, y: 0.5816683, z: -0.18233733}
+--- !u!114 &5829616426213195727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6572408040563902393}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 044abf254321a814cbfc34898fa9aed3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  butterflyprefab: {fileID: 0}

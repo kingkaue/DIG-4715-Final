@@ -61,4 +61,12 @@ public class Butterfly : MonoBehaviour
             //animator.SetFloat("Speed", speed);
         }
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.tag == "net")
+        {
+            Destroy(this.gameObject);
+        }
+    }
 }
