@@ -2,9 +2,12 @@ using System.Collections;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
 public class tutorialcutscene : MonoBehaviour
 {
     [SerializeField] private Scene currentScene;
+    private GameObject therapySceneManager;
+    private bool inTutorial = false;
 
     private ObjectGrabable objectgrabable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -14,18 +17,28 @@ public class tutorialcutscene : MonoBehaviour
         currentScene = SceneManager.GetActiveScene();
     }
 
-    // Update is called once per frame
-    void Update()
+    public void OnUse(InputAction.CallbackContext context)
     {
-        if (objectgrabable.isGrabbed == true && Input.GetKeyDown("t"))
+        if (objectgrabable.isGrabbed == true)
         {
             if (currentScene.name == "Therapy Scene")
             {
-                StartCoroutine(LoadTutorialScene());
+                if (!inTutorial)
+                {
+                    StartCoroutine(LoadTutorialScene());
+                    inTutorial = true;
+                }
             }
             else if (currentScene.name == "tutorial")
             {
-                StartCoroutine(ReturnToTherapy());
+                inTutorial = true;
+                Debug.Log("In Tutorial");
+                if (inTutorial)
+                {
+                    Debug.Log("Going back to therapy");
+                    StartCoroutine(ReturnToTherapy());
+                    inTutorial = false;
+                }
             }
         }
     }
@@ -34,9 +47,11 @@ public class tutorialcutscene : MonoBehaviour
     {
         // Load the new scene additively
         yield return SceneManager.LoadSceneAsync("tutorial", LoadSceneMode.Additive);
+        therapySceneManager = GameObject.FindGameObjectWithTag("TherapyManager");
+        therapySceneManager.GetComponent<TutorialInputManager>().inTutorial = true;
 
         Scene newScene = SceneManager.GetSceneByName("tutorial");
-
+          
         SceneManager.SetActiveScene(newScene);
     }
 
@@ -61,5 +76,7 @@ public class tutorialcutscene : MonoBehaviour
         }
 
         SceneManager.SetActiveScene(therapyScene);
+        therapySceneManager = GameObject.FindGameObjectWithTag("TherapyManager");
+        therapySceneManager.GetComponent<TutorialInputManager>().inTutorial = false;
     }
 }

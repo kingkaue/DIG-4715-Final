@@ -7,6 +7,7 @@ public class switchtoscene : MonoBehaviour
 {
     [SerializeField] private string scene;
     [SerializeField] private bool isReturnToHub = false;
+    [SerializeField] private bool gameStart = false;
 
     void OnTriggerEnter(Collider other)
     {
@@ -22,6 +23,10 @@ public class switchtoscene : MonoBehaviour
         {
             yield return ReturnToHub(player);
         }
+        else if (gameStart)
+        {
+            SceneManager.LoadScene("Cabin Scene");
+        }
         else
         {
             yield return LoadNewScene(player);
@@ -30,7 +35,10 @@ public class switchtoscene : MonoBehaviour
 
     private IEnumerator LoadNewScene(GameObject player)
     {
-        player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
+        if (scene == "Forest Trail")
+        {
+            player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
+        }
 
         // Load the new scene additively
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -39,7 +47,7 @@ public class switchtoscene : MonoBehaviour
 
         // Gets spawnpoint gameobject in scene
         Transform spawnPoint = FindSpawnPoint(newScene, "Spawnpoint");
-        
+
         // Moves player to spawnpoint
         if (spawnPoint != null)
         {
@@ -66,7 +74,7 @@ public class switchtoscene : MonoBehaviour
         {
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
-        
+
         // Unload current scene if it's not the hub
         Scene currentScene = SceneManager.GetActiveScene();
 
