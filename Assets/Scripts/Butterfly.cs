@@ -58,7 +58,7 @@ public class Butterfly : MonoBehaviour
         // Trigger flutter animation
         if (animator != null)
         {
-            animator.SetFloat("Speed", speed);
+            //animator.SetFloat("Speed", speed);
         }
     }
 }
