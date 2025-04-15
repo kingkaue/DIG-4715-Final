@@ -1,4 +1,3 @@
-using System.Collections;
 using Unity.Mathematics;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -32,8 +31,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] private AudioClip footstepsound;
     private bool isMoving = false;
 
-    private GameManager gameManager;
-
     public void OnMove(InputAction.CallbackContext context)
     {
         move = context.ReadValue<Vector2>();
@@ -46,7 +43,6 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
@@ -60,8 +56,6 @@ public class PlayerMovement : MonoBehaviour
         }
 
         MovePlayer();
-
-        
     }
 
     public void FreezeMovement(bool freeze)
@@ -107,16 +101,6 @@ public class PlayerMovement : MonoBehaviour
             footsteps.loop = false;
             footsteps.Stop();
         }
-
-        
-    }
-
-    private IEnumerator swingthatnet()
-    {
-        animator.SetBool("IsSwinging", true);
-        yield return new WaitForSeconds(2f);
-        animator.SetBool("IsSwinging", false);
-        yield return null;
     }
 
     private void Update()
@@ -132,11 +116,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 Interactable.Interact(this);
             }
-        }
-
-        if (gameManager.inbugscene == true && Input.GetKeyDown("k"))
-        {
-            StartCoroutine(swingthatnet());
         }
     }
 

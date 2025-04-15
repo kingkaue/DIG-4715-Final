@@ -24,7 +24,6 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     private Collider triggerCollider;
     [SerializeField] private Transform headsetposition;
     [SerializeField] private GameObject headset;
-    private GameManager gameManager;
 
     [SerializeField] public Transform holdposition;
     private void Update()
@@ -40,7 +39,6 @@ public class CouchCutsceneActivator2 : MonoBehaviour
 
     private void Start()
     {
-        gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         holdposition = GetComponent<Transform>();
         triggerCollider = GetComponent<Collider>();
 
@@ -123,7 +121,7 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     {
         playerMovement.FreezeMovement(false);
         isInteractable = false;
-        
+
         // Final safeguard to ensure player camera is active
         if (!playerCamera.activeSelf)
         {
@@ -136,8 +134,7 @@ public class CouchCutsceneActivator2 : MonoBehaviour
         }
 
         Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation, holdposition);
-        gameManager.GetComponent<GameManager>().inbugscene = true;
-
+        
     }
 
     private enum CameraState

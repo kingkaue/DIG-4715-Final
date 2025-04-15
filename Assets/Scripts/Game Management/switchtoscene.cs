@@ -7,7 +7,6 @@ public class switchtoscene : MonoBehaviour
 {
     [SerializeField] private string scene;
     [SerializeField] private bool isReturnToHub = false;
-    [SerializeField] private bool gameStart = false;
 
     void OnTriggerEnter(Collider other)
     {
@@ -23,10 +22,6 @@ public class switchtoscene : MonoBehaviour
         {
             yield return ReturnToHub(player);
         }
-        else if (gameStart)
-        {
-            SceneManager.LoadScene("Cabin Scene");
-        }
         else
         {
             yield return LoadNewScene(player);
@@ -35,10 +30,7 @@ public class switchtoscene : MonoBehaviour
 
     private IEnumerator LoadNewScene(GameObject player)
     {
-        if (scene == "Forest Trail")
-        {
-            player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
-        }
+        player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
 
         // Load the new scene additively
         yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);

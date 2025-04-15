@@ -25,7 +25,7 @@ public class CameraGrayscaleShift : MonoBehaviour
     {
         if (gameManagerObject == null)
         {
-            
+            Debug.Log("Game Manager not found");
         }
         else if (gameManagerObject.GetComponent<GameManager>().inColor == true)
         {
