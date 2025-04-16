@@ -20,6 +20,8 @@ TagManager:
   - ReturnSpawnpoint
   - butterfly
   - net
+  - TherapyManager
+  - doortocabin
   layers:
   - Default
   - TransparentFX

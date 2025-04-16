@@ -10,7 +10,7 @@ public class SecondaryCutsceneActivator : MonoBehaviour
     [Header("Dialogue")]
     [SerializeField] private DialogueObject introDialogue;
     [SerializeField] private string lookAnimationState = "PlayerLookingAround";
-    [SerializeField] private string idleAnimationState = "Idle";
+    [SerializeField] private string idleAnimationState = "idle";
 
     private bool hasTriggered;
     private Animator playerAnimator;

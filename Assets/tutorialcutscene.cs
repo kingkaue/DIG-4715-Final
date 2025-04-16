@@ -7,8 +7,7 @@ public class tutorialcutscene : MonoBehaviour
 {
     [SerializeField] private Scene currentScene;
     private GameObject therapySceneManager;
-    private bool inTutorial = false;
-
+    public bool inTutorial = false;
     private ObjectGrabable objectgrabable;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
