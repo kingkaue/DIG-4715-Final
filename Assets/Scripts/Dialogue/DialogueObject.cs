@@ -3,14 +3,19 @@ using System.Collections;
 using System.Collections.Generic;
 
 [CreateAssetMenu(menuName = "Dialogue/DialogueObject")]
-
 public class DialogueObject : ScriptableObject
 {
-    [SerializeField][TextArea] private string[] dialogue;
+    [System.Serializable]
+    public class DialogueLine
+    {
+        [TextArea] public string text;
+        public DialogueSpeaker speaker;
+    }
+
+    [SerializeField] private DialogueLine[] dialogue;
     [SerializeField] private Response[] responses;
-    public string[] Dialogue => dialogue;
 
+    public DialogueLine[] Dialogue => dialogue;
     public bool HasResponses => Responses != null && Responses.Length > 0;
-
-    public Response[] Responses => responses; 
+    public Response[] Responses => responses;
 }

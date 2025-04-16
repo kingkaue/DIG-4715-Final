@@ -1,24 +1,33 @@
-using System.Collections;
 using UnityEngine;
 using TMPro;
-using Unity.Cinemachine;
+using UnityEngine.UI;
+using System.Collections;
+
 public class DialogueUI : MonoBehaviour
 {
+    [Header("Dialogue UI")]
     [SerializeField] private TMP_Text textLabel;
     [SerializeField] private GameObject dialogueBox;
+
+    [Header("Name Bar")]
+    [SerializeField] private TMP_Text nameLabel;
+    [SerializeField] private Image nameBar;
+    [SerializeField] private Image speakerIcon; // Optional
+
+    [Header("Cameras")]
     [SerializeField] private GameObject cutsceneCamera;
     [SerializeField] private GameObject playerCamera;
 
-
-    public bool IsOpen {  get; private set; }  
+    public bool IsOpen { get; private set; }
 
     private ResponseHandler responseHandler;
     private TypeWriterEffect typewriterEffect;
+
     private void Start()
     {
         typewriterEffect = GetComponent<TypeWriterEffect>();
         responseHandler = GetComponent<ResponseHandler>();
-        CloseDialogeBox();
+        CloseDialogueBox();
     }
 
     public void ShowDialogue(DialogueObject dialogueObject)
@@ -32,8 +41,12 @@ public class DialogueUI : MonoBehaviour
     {
         for (int i = 0; i < dialogueObject.Dialogue.Length; i++)
         {
-            string dialogue = dialogueObject.Dialogue[i];
-            yield return typewriterEffect.Run(dialogue, textLabel);
+            var dialogueLine = dialogueObject.Dialogue[i];
+
+            // Update name bar and speaker info
+            UpdateSpeakerInfo(dialogueLine.speaker);
+
+            yield return typewriterEffect.Run(dialogueLine.text, textLabel);
             yield return new WaitUntil(() => Input.GetKeyDown(KeyCode.Space));
         }
 
@@ -43,42 +56,49 @@ public class DialogueUI : MonoBehaviour
         }
         else
         {
-            CloseDialogeBox(); // This will now handle cameras IMMEDIATELY
+            CloseDialogueBox();
         }
     }
 
-    private void CloseDialogeBox()
+    private void UpdateSpeakerInfo(DialogueSpeaker speaker)
+    {
+        if (speaker != null)
+        {
+            nameLabel.text = speaker.speakerName;
+            nameLabel.color = speaker.nameColor;
+            nameBar.color = speaker.nameColor * 0.8f; // Slightly darker than text
+
+            if (speakerIcon != null)
+            {
+                speakerIcon.sprite = speaker.speakerIcon;
+                speakerIcon.gameObject.SetActive(speaker.speakerIcon != null);
+            }
+        }
+        else
+        {
+            nameLabel.text = "";
+            nameBar.color = Color.clear;
+            if (speakerIcon != null) speakerIcon.gameObject.SetActive(false);
+        }
+    }
+
+    private void CloseDialogueBox()
     {
         IsOpen = false;
         dialogueBox.SetActive(false);
         textLabel.text = string.Empty;
+        nameLabel.text = string.Empty;
+        nameBar.color = Color.clear;
+        if (speakerIcon != null) speakerIcon.gameObject.SetActive(false);
 
-        // INSTANT camera switch (no coroutine)
+        // Switch cameras
         if (cutsceneCamera != null) cutsceneCamera.SetActive(false);
         if (playerCamera != null) playerCamera.SetActive(true);
-
-        Debug.Log("Camera switched at EXACT moment dialogue ended");
     }
 
-    private GameObject currentCutsceneCamera;
-    private GameObject currentPlayerCamera;
-
-    public void SetCutsceneCameras(GameObject cutsceneCam, GameObject playerCam)
+    public void SetCameras(GameObject cutsceneCam, GameObject playerCam)
     {
-        currentCutsceneCamera = cutsceneCam;
-        currentPlayerCamera = playerCam;
-    }
-
-    private IEnumerator SwitchCamerasAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-
-        if (currentCutsceneCamera != null)
-            currentCutsceneCamera.SetActive(false);
-
-        if (currentPlayerCamera != null)
-            currentPlayerCamera.SetActive(true);
-
-        Debug.Log($"Camera switched at {Time.time}");
+        cutsceneCamera = cutsceneCam;
+        playerCamera = playerCam;
     }
 }
