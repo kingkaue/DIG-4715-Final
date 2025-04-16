@@ -13,8 +13,19 @@ MonoBehaviour:
   m_Name: CabinIntroDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - Welcome to the cabin ya rasclat eeeeediot
-  - We make a jerk chicken outta ya depression here.
-  - best damn jerk chicken ya ever seen in ya life
-  - BOMBOCLAAAAAT
+  - text: gotta keep testing
+    speaker:
+      speakerName: therapist
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: yup
+    speaker:
+      speakerName: therapist
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: real talk bro
+    speaker:
+      speakerName: therapist
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
   responses: []
