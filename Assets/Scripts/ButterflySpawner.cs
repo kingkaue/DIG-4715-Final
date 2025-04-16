@@ -29,7 +29,7 @@ public class ButterflySpawner : MonoBehaviour
         {
             Vector3 spawnPos = GetRandomSpawnPosition();
             GameObject butterflyObj = Instantiate(butterflyPrefab, spawnPos, Quaternion.identity);
-            butterflyObj.transform.parent = transform;
+           
 
             Butterfly butterfly = butterflyObj.AddComponent<Butterfly>();
             butterfly.Initialize(
@@ -37,6 +37,7 @@ public class ButterflySpawner : MonoBehaviour
                 directionChangeInterval,
                 maxWanderDistance
             );
+
 
             butterflies.Add(butterfly);
         }
