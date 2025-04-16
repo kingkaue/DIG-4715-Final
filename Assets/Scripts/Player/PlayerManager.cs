@@ -60,6 +60,16 @@ public class PlayerManager : MonoBehaviour
         spiritBar.SetSpirit(spirit);
     }
 
+    public float GetSpirit()
+    {
+        return spirit;
+    }
+
+    public float GetMaxSpirit()
+    {
+        return maxSpirit;
+    }
+
     public void Save(ref PlayerSaveData data)
     {
         data.Spirit = spirit;

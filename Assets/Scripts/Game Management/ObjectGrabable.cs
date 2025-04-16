@@ -9,7 +9,7 @@ public class ObjectGrabable : MonoBehaviour
     private float grabProgress = 0f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-    [SerializeField] string objectName;
+    [SerializeField] public string objectName;
 
     [Header("Grab Settings")]
     [SerializeField] private float grabDuration = 2f;

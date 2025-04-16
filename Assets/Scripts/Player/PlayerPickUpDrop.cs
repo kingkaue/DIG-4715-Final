@@ -12,6 +12,7 @@ public class PlayerPickUpDrop : MonoBehaviour
     [SerializeField] private Transform objectPickupTransform;
     [SerializeField] private Transform objectgrabpointtransform;
     [SerializeField] private LayerMask pickuplayermask;
+    [SerializeField] private PlayerManager playerManager;
     private float interact;
     private bool canInteract = true;
     public bool canPutInInventory = false;
@@ -104,6 +105,11 @@ public class PlayerPickUpDrop : MonoBehaviour
             {
                 if (raycastHit.transform.TryGetComponent(out objectgrabable))
                 {
+                    if (objectgrabable.objectName == "poppy")
+                    {
+                        playerManager.SetSpirit(10);
+                    }
+
                     objectgrabable.AddFlower();
                     StartCoroutine(PutInInventory(3f, raycastHit.transform.gameObject));
                 }

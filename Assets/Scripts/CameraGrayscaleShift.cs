@@ -14,23 +14,30 @@ public class CameraGrayscaleShift : MonoBehaviour
     private Coroutine changeColorCoroutine;
     [SerializeField] private VolumeProfile cameraVolumeProfile;
     private ColorAdjustments ca;
+    private PlayerManager playerManager;
 
     void Start()
     {
         gameManagerObject = GameObject.FindGameObjectWithTag("GameController");
         cameraVolumeProfile.TryGet(out ca);
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        
+        if (player != null)
+        {
+            playerManager = player.GetComponent<PlayerManager>();
+        }
+        else
+        {
+            Debug.Log("could not find player");
+        }
     }
 
     void Update()
     {
-        if (gameManagerObject == null)
+        if (playerManager != null && ca != null)
         {
-            //Debug.Log("Game Manager not found");
-        }
-        else if (gameManagerObject.GetComponent<GameManager>().inColor == true)
-        {
-            Debug.Log("Changing Color");
-            changeColorCoroutine = StartCoroutine(GrayToColor());
+            float spiritPercent = playerManager.GetSpirit() / playerManager.GetMaxSpirit();
+            ca.saturation.value = Mathf.Lerp(-100, 0f, spiritPercent);
         }
     }
 
