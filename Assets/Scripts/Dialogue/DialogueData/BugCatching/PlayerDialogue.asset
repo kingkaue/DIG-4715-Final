@@ -15,7 +15,7 @@ MonoBehaviour:
   dialogue:
   - text: whats good pretty mama
     speaker:
-      speakerName: player
+      speakerName: this mf man
       nameColor: {r: 1, g: 1, b: 1, a: 0}
       speakerIcon: {fileID: 0}
   - text: I HAVE NO IDEA WHAT TO SAY

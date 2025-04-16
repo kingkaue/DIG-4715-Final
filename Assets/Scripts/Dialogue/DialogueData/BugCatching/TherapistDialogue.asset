@@ -15,17 +15,17 @@ MonoBehaviour:
   dialogue:
   - text: theratyerteiurht
     speaker:
-      speakerName: the therapist
+      speakerName: therapist
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
   - text: asdfadsfh
     speaker:
-      speakerName: the therapist
+      speakerName: therapist
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
   - text: awertaertertert
     speaker:
-      speakerName: the therapist
+      speakerName: therapist
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
   responses: []
