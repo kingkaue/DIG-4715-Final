@@ -6,16 +6,18 @@ public class Butterfly : MonoBehaviour
     private float directionChangeTimer;
     private float directionChangeInterval;
     private float maxWanderDistance;
-    private Vector3 startPosition;
+    private Vector3 startPosition; // Now relative to spawner
     private Vector3 targetPosition;
     private Animator animator;
+    private Transform spawnerTransform; // Reference to spawner
 
-    public void Initialize(float speed, float directionChangeInterval, float maxWanderDistance)
+    public void Initialize(float speed, float directionChangeInterval, float maxWanderDistance, Transform spawner)
     {
         this.speed = speed;
         this.directionChangeInterval = directionChangeInterval;
         this.maxWanderDistance = maxWanderDistance;
-        startPosition = transform.position;
+        this.spawnerTransform = spawner;
+        this.startPosition = spawner.position; // Use spawner's position as center
         animator = GetComponent<Animator>();
         ChooseNewTarget();
     }
@@ -35,12 +37,16 @@ public class Butterfly : MonoBehaviour
 
     void ChooseNewTarget()
     {
-        // Get a random point within wander distance
+        // Get random point around spawner's position
         Vector2 randomCircle = Random.insideUnitCircle * maxWanderDistance;
-        targetPosition = startPosition + new Vector3(randomCircle.x, Random.Range(-1f, 1f), randomCircle.y);
+        targetPosition = startPosition + new Vector3(
+            randomCircle.x,
+            Random.Range(-1f, 1f),
+            randomCircle.y
+        );
 
-        // Face the new direction
-        Vector3 direction = targetPosition - transform.position;
+        // Face the new direction (optional: only if using forward movement)
+        Vector3 direction = (targetPosition - transform.position).normalized;
         if (direction != Vector3.zero)
         {
             transform.rotation = Quaternion.LookRotation(direction);
@@ -55,18 +61,18 @@ public class Butterfly : MonoBehaviour
             speed * Time.deltaTime
         );
 
-        // Trigger flutter animation
+        // Optional: Trigger flutter animation
         if (animator != null)
         {
-            //animator.SetFloat("Speed", speed);
+            animator.SetFloat("Speed", speed);
         }
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.tag == "net")
+        if (other.CompareTag("net"))
         {
-            Destroy(this.gameObject);
+            Destroy(gameObject);
         }
     }
 }

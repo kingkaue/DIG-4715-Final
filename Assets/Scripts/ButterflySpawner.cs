@@ -29,15 +29,15 @@ public class ButterflySpawner : MonoBehaviour
         {
             Vector3 spawnPos = GetRandomSpawnPosition();
             GameObject butterflyObj = Instantiate(butterflyPrefab, spawnPos, Quaternion.identity);
-           
+            butterflyObj.transform.parent = transform; // Parent to spawner
 
             Butterfly butterfly = butterflyObj.AddComponent<Butterfly>();
             butterfly.Initialize(
                 Random.Range(minSpeed, maxSpeed),
                 directionChangeInterval,
-                maxWanderDistance
+                maxWanderDistance,
+                transform // Pass spawner's transform as reference
             );
-
 
             butterflies.Add(butterfly);
         }
@@ -47,6 +47,6 @@ public class ButterflySpawner : MonoBehaviour
     {
         Vector2 randomCircle = Random.insideUnitCircle * spawnRadius;
         float height = Random.Range(minHeight, maxHeight);
-        return new Vector3(randomCircle.x, height, randomCircle.y);
+        return transform.position + new Vector3(randomCircle.x, height, randomCircle.y);
     }
 }
