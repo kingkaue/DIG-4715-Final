@@ -1,13 +1,15 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class DontDestroy : MonoBehaviour
 {
-    public int objectindex;
-
     void Awake()
     {
         DontDestroyOnLoad(gameObject);
     }
 
-    
+    public void DestroyObject()
+    {
+        Destroy(this.gameObject);
+    }
 }

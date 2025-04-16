@@ -119,19 +119,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5135410367307592086}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: Resume
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &3384466343786484220
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,19 +314,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 5769155718202464769}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: Settings
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &6976193687630403813
 GameObject:
   m_ObjectHideFlags: 0
@@ -673,19 +649,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 8307012139604477785}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 5062728394686698705}
-        m_TargetAssemblyTypeName: PauseMenuUIManager, Assembly-CSharp
-        m_MethodName: QuitToMenu
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &8000257975193780436
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,6 +664,7 @@ GameObject:
   - component: {fileID: 6997789638272944868}
   - component: {fileID: 5062728394686698705}
   - component: {fileID: 5738810051970340460}
+  - component: {fileID: 1462520310559218277}
   m_Layer: 5
   m_Name: PauseMenuCanvas
   m_TagString: Pause Menu
@@ -767,7 +732,7 @@ MonoBehaviour:
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
   m_ReferenceResolution: {x: 1920, y: 1080}
-  m_ScreenMatchMode: 0
+  m_ScreenMatchMode: 1
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
   m_FallbackScreenDPI: 96
@@ -924,8 +889,24 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9caa3d8a-6b2f-4e8e-8bad-6ede561bd9be
     m_ActionName: UI/TrackedDeviceOrientation
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4c0c3e7-0677-497b-a0d0-91ff9c3697dc
+    m_ActionName: 'Player/UseObject[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1462520310559218277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8000257975193780436}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c236592c6f0a92428239eeac8569c6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
