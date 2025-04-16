@@ -66,7 +66,7 @@ public class DialogueUI : MonoBehaviour
         {
             nameLabel.text = speaker.speakerName;
             nameLabel.color = speaker.nameColor;
-            nameBar.color = speaker.nameColor * 0.8f; // Slightly darker than text
+            nameBar.color = speaker.nameColor; // Slightly darker than text
 
             if (speakerIcon != null)
             {
