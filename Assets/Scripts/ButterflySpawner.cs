@@ -29,14 +29,17 @@ public class ButterflySpawner : MonoBehaviour
         {
             Vector3 spawnPos = GetRandomSpawnPosition();
             GameObject butterflyObj = Instantiate(butterflyPrefab, spawnPos, Quaternion.identity);
-            butterflyObj.transform.parent = transform; // Parent to spawner
+            butterflyObj.transform.parent = transform;
 
             Butterfly butterfly = butterflyObj.AddComponent<Butterfly>();
+            // Change the Initialize call to:
             butterfly.Initialize(
                 Random.Range(minSpeed, maxSpeed),
                 directionChangeInterval,
                 maxWanderDistance,
-                transform // Pass spawner's transform as reference
+                transform.position, // Pass position instead of transform
+                minHeight,
+                maxHeight
             );
 
             butterflies.Add(butterfly);
