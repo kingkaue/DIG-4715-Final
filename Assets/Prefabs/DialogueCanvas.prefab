@@ -439,6 +439,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textLabel: {fileID: 1746566571684887704}
   dialogueBox: {fileID: 7681392850383699316}
+  nameLabel: {fileID: 8142855003301447246}
+  nameBar: {fileID: 2658254478285834693}
+  speakerIcon: {fileID: 0}
   cutsceneCamera: {fileID: 0}
   playerCamera: {fileID: 0}
 --- !u!114 &2004740190987219628
@@ -469,6 +472,9 @@ MonoBehaviour:
   responseBox: {fileID: 3275014607759028459}
   responseButtonTemplate: {fileID: 5268296672328510201}
   responseContainer: {fileID: 5113410967364353156}
+  responseNameLabel: {fileID: 0}
+  responseNameBar: {fileID: 0}
+  responseSpeakerIcon: {fileID: 0}
 --- !u!1 &4620376682128234109
 GameObject:
   m_ObjectHideFlags: 0
@@ -621,7 +627,7 @@ GameObject:
   - component: {fileID: 5076897159302690314}
   - component: {fileID: 2658254478285834693}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: NameBarPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

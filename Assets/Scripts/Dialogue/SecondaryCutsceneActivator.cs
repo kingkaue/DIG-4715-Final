@@ -90,7 +90,7 @@ public class SecondaryCutsceneActivator : MonoBehaviour
     private IEnumerator PlayDialogue(PlayerMovement player)
     {
         player.DialogueUI.ShowDialogue(introDialogue);
-        player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
+        player.DialogueUI.SetCameras(cutsceneCamera, playerCamera);
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);
     }
 

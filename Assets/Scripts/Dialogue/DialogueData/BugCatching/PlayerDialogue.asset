@@ -13,8 +13,19 @@ MonoBehaviour:
   m_Name: PlayerDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - I can't stand forests, they're always full of bugs.
-  - 'Bugs are the worst fr, imagine unironically catching bugs and putting them in
-    jars '
-  - oh my god wait a second
+  - text: whats good pretty mama
+    speaker:
+      speakerName: player
+      nameColor: {r: 1, g: 1, b: 1, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: I HAVE NO IDEA WHAT TO SAY
+    speaker:
+      speakerName: ahhhhhh
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: fucj
+    speaker:
+      speakerName: nice
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
   responses: []

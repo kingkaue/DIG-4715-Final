@@ -66,7 +66,7 @@ public class IntroDialogueActivator : MonoBehaviour
     {
         yield return null; // Wait one frame
         player.DialogueUI.ShowDialogue(introDialogue);
-        player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
+        player.DialogueUI.SetCameras(cutsceneCamera, playerCamera);
 
         // Wait for dialogue to finish
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);

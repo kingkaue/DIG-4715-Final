@@ -70,7 +70,7 @@ public class IntroDialogueActivator1 : MonoBehaviour
 
         // Show dialogue and pass camera references
         player.DialogueUI.ShowDialogue(introDialogue);
-        player.DialogueUI.SetCutsceneCameras(cutsceneCamera, playerCamera);
+        player.DialogueUI.SetCameras(cutsceneCamera, playerCamera);
 
         // Wait for dialogue to finish
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);
