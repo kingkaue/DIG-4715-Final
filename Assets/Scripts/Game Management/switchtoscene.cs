@@ -10,6 +10,10 @@ public class switchtoscene : MonoBehaviour
     [SerializeField] private bool gameStart = false;
     [SerializeField] private ASyncLoader asyncLoader;
 
+    private void Awake()
+    {
+        asyncLoader = GameObject.FindGameObjectWithTag("AsyncLoader").GetComponent<ASyncLoader>();
+    }
     void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
@@ -31,7 +35,7 @@ public class switchtoscene : MonoBehaviour
         }
         else
         {
-            asyncLoader.LoadLevelBtn(scene); // Activate loading screen
+            //asyncLoader.LoadLevelBtn(scene); // Activate loading screen
             yield return LoadNewScene(player); // Load new scene with loading screen
         }
     }
@@ -42,6 +46,9 @@ public class switchtoscene : MonoBehaviour
         {
             player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
         }
+
+        asyncLoader.mainMenu?.SetActive(false);
+        asyncLoader.loadingscreen?.SetActive(true);
 
         // Start async loading
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
@@ -94,7 +101,7 @@ public class switchtoscene : MonoBehaviour
 
         if (currentScene.name != "Cabin Scene")
         {
-            asyncLoader.LoadLevelBtn("Cabin Scene"); // Show loading screen
+            //asyncLoader.LoadLevelBtn("Cabin Scene"); // Show loading screen
             AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScene);
 
             while (!unloadOperation.isDone)

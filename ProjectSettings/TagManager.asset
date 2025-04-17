@@ -22,6 +22,7 @@ TagManager:
   - net
   - TherapyManager
   - doortocabin
+  - AsyncLoader
   layers:
   - Default
   - TransparentFX
