@@ -8,6 +8,7 @@ public class switchtoscene : MonoBehaviour
     [SerializeField] private string scene;
     [SerializeField] private bool isReturnToHub = false;
     [SerializeField] private bool gameStart = false;
+    [SerializeField] private ASyncLoader asyncLoader;
 
     void OnTriggerEnter(Collider other)
     {
@@ -25,11 +26,13 @@ public class switchtoscene : MonoBehaviour
         }
         else if (gameStart)
         {
-            SceneManager.LoadScene("Cabin Scene");
+            asyncLoader.LoadLevelBtn("Cabin Scene"); // Show loading screen
+            yield return asyncLoader.LoadLevelASync("Cabin Scene"); // Wait for async load (FIXED)
         }
         else
         {
-            yield return LoadNewScene(player);
+            asyncLoader.LoadLevelBtn(scene); // Activate loading screen
+            yield return LoadNewScene(player); // Load new scene with loading screen
         }
     }
 
@@ -40,21 +43,34 @@ public class switchtoscene : MonoBehaviour
             player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
         }
 
-        // Load the new scene additively
-        yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        // Start async loading
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
+        loadOperation.allowSceneActivation = false; // Prevent auto-switch
+
+        // Update loading progress
+        while (!loadOperation.isDone)
+        {
+            float progress = Mathf.Clamp01(loadOperation.progress / 0.9f);
+            asyncLoader.loadingSlider.value = progress;
+
+            if (loadOperation.progress >= 0.9f)
+            {
+                loadOperation.allowSceneActivation = true; // Allow scene switch
+            }
+
+            yield return null;
+        }
 
         Scene newScene = SceneManager.GetSceneByName(scene);
-
-        // Gets spawnpoint gameobject in scene
         Transform spawnPoint = FindSpawnPoint(newScene, "Spawnpoint");
 
-        // Moves player to spawnpoint
         if (spawnPoint != null)
         {
             MovePlayerToScene(player, newScene, spawnPoint);
         }
 
         SceneManager.SetActiveScene(newScene);
+        asyncLoader.loadingscreen.SetActive(false); // Hide loading screen
     }
 
     private IEnumerator ReturnToHub(GameObject player)
@@ -62,7 +78,6 @@ public class switchtoscene : MonoBehaviour
         player.GetComponent<PlayerPickUpDrop>().canPutInInventory = false;
         Scene hubScene = SceneManager.GetSceneByName("Cabin Scene");
 
-        // Loads in hub scene if not already loaded in
         if (!hubScene.IsValid())
         {
             Debug.LogError("Hub scene not found!");
@@ -75,16 +90,21 @@ public class switchtoscene : MonoBehaviour
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
 
-        // Unload current scene if it's not the hub
         Scene currentScene = SceneManager.GetActiveScene();
 
         if (currentScene.name != "Cabin Scene")
         {
-            Debug.Log("Unloading Scene");
-            yield return SceneManager.UnloadSceneAsync(currentScene);
+            asyncLoader.LoadLevelBtn("Cabin Scene"); // Show loading screen
+            AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScene);
+
+            while (!unloadOperation.isDone)
+            {
+                yield return null;
+            }
         }
 
         SceneManager.SetActiveScene(hubScene);
+        asyncLoader.loadingscreen.SetActive(false); // Hide loading screen
     }
 
     private Transform FindSpawnPoint(Scene scene, string tag)
