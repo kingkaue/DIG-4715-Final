@@ -1635,7 +1635,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 8075382386822985826, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
@@ -2556,7 +2556,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291249687288838899, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_Camera
@@ -5684,6 +5684,7 @@ MonoBehaviour:
   - {fileID: 1408963898}
   flowers:
   - {fileID: 7909852025477468657, guid: 7ce5473de9b878047a4502c0544a6e94, type: 3}
+  - {fileID: 2357682584753575893, guid: 891e2ebb6bf0d3f4291038a32b808c94, type: 3}
   avgFlowersPerPatch: 15
 --- !u!1 &1077058199
 GameObject:
@@ -8355,7 +8356,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3980756558652576013, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: playerManager
@@ -9505,7 +9506,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3275819863227284955, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7847608022889033736, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: rb
