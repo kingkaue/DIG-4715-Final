@@ -3,60 +3,42 @@ using UnityEngine.InputSystem;
 
 public class FlowerBasket : MonoBehaviour
 {
-    [Header("References")]
+    [Header("Settings")]
+    [SerializeField] private float interactionDistance = 2f;
     [SerializeField] private Transform flowerSpawnPoint;
     [SerializeField] private GameObject[] flowerPrefabs;
-    [SerializeField] private float interactionDistance = 2f;
 
-    private Transform objectgrabpointtransform;
-    private Transform objectPickupTransform;
-    private GameManager gameManagerScript;
-    private GameObject player;
-    private PlayerPickUpDrop playerPickup;
-    private Animator playerAnimator;
+    private Transform _playerGrabPoint;
+    private PlayerPickUpDrop _playerPickup;
 
-    void Start()
+    private void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
-        if (player == null)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
         {
-            Debug.LogError("Player not found!");
-            return;
-        }
-
-        gameManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-        playerPickup = player.GetComponent<PlayerPickUpDrop>();
-        playerAnimator = player.GetComponent<Animator>();
-
-        // Find transforms more safely
-        objectgrabpointtransform = player.transform.Find("riggedplayermodel/root/pelvis/CC_Base_Pelvis/ObjectGradPointArm");
-        objectPickupTransform = player.transform.Find("ObjectPickupRay");
-
-        if (objectgrabpointtransform == null || objectPickupTransform == null)
-        {
-            Debug.LogError("Required transforms not found on player!");
-        }
-
-        if (playerAnimator == null)
-        {
-            Debug.LogError("Player Animator not found!");
+            _playerPickup = player.GetComponent<PlayerPickUpDrop>();
+            _playerGrabPoint = player.transform.Find("riggedplayermodel/root/pelvis/CC_Base_Pelvis/ObjectGrabPointArm");
         }
     }
 
     public void OnInteract(InputAction.CallbackContext context)
     {
-        if (context.performed && player != null)
+        if (context.performed && IsPlayerInRange())
         {
-            if (Vector3.Distance(transform.position, player.transform.position) <= interactionDistance)
-            {
-                TrySpawnFlower();
-            }
+            TrySpawnFlower();
         }
     }
 
-    void TrySpawnFlower()
+    private bool IsPlayerInRange()
     {
-        foreach (var flower in gameManagerScript.flowers)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        return player != null &&
+               Vector3.Distance(transform.position, player.transform.position) <= interactionDistance;
+    }
+
+    private void TrySpawnFlower()
+    {
+        foreach (var flower in GameManager.Instance.flowers)
         {
             if (flower.Value > 0)
             {
@@ -64,46 +46,38 @@ public class FlowerBasket : MonoBehaviour
                 return;
             }
         }
-        Debug.Log("No more flowers");
     }
 
-    void SpawnFlower(string flowerType)
+    private void SpawnFlower(string flowerType)
     {
         GameObject prefab = FindFlowerPrefab(flowerType);
         if (prefab == null) return;
 
-        GameObject spawnedFlower = Instantiate(prefab, flowerSpawnPoint.position, Quaternion.identity);
-        gameManagerScript.flowers[flowerType]--;
+        GameObject flower = Instantiate(prefab, flowerSpawnPoint.position, Quaternion.identity);
+        GameManager.Instance.flowers[flowerType]--;
 
-        ObjectGrabable grabable = spawnedFlower.GetComponent<ObjectGrabable>();
-        if (grabable == null)
+        if (flower.TryGetComponent(out ObjectGrabable grabable))
         {
-            Debug.LogError("Spawned flower has no ObjectGrabable component!");
-            Destroy(spawnedFlower);
-            return;
-        }
+            grabable.isInventoryItem = _playerPickup.canPutInInventory;
 
-        // Handle pickup and animation
-        if (playerPickup != null)
-        {
-            playerPickup.objectgrabable = grabable;
-            grabable.Grab(objectgrabpointtransform);
-
-            // Trigger animation
-            if (playerAnimator != null)
+            if (!grabable.isInventoryItem && _playerPickup != null)
             {
-                playerAnimator.SetBool("IsCarrying", true);
-                // Also try triggering a parameter if bool isn't working
-                playerAnimator.SetTrigger("PickUp");
+                grabable.Grab(_playerGrabPoint);
+                _playerPickup.currentGrabbedObject = grabable;
+
+                if (_playerPickup.animator != null)
+                {
+                    _playerPickup.animator.SetBool("IsCarrying", true);
+                }
             }
         }
     }
 
-    private GameObject FindFlowerPrefab(string flower)
+    private GameObject FindFlowerPrefab(string flowerName)
     {
         foreach (GameObject prefab in flowerPrefabs)
         {
-            if (prefab.name.Contains(flower))
+            if (prefab.name.Contains(flowerName))
             {
                 return prefab;
             }

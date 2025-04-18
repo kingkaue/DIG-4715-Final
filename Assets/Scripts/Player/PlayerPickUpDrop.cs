@@ -9,126 +9,75 @@ using UnityEngine.SceneManagement;
 
 public class PlayerPickUpDrop : MonoBehaviour
 {
+    [Header("References")]
     [SerializeField] private Transform objectPickupTransform;
-    [SerializeField] private Transform objectgrabpointtransform;
-    [SerializeField] private LayerMask pickuplayermask;
+    [SerializeField] private Transform objectGrabPointTransform;
+    [SerializeField] private LayerMask pickupLayerMask;
     [SerializeField] private PlayerManager playerManager;
-    private float interact;
-    private bool canInteract = true;
+    public Animator animator;
+
+    [Header("Settings")]
+    public float pickupDistance = 3f;
     public bool canPutInInventory = false;
-    public ObjectGrabable objectgrabable;
-    public Animator animator; // Reference to the Animator component
+
+    [Header("Runtime")]
+    public ObjectGrabable currentGrabbedObject;
+    private bool _canInteract = true;
 
     private void Start()
     {
-        // Get the Animator component (assuming it's on the same GameObject)
-        animator = GetComponent<Animator>();
-
-        // If Animator is on a child object, use:
-        // animator = GetComponentInChildren<Animator>();
+        if (animator == null) animator = GetComponentInChildren<Animator>();
     }
 
     public void OnPickupDrop(InputAction.CallbackContext context)
     {
-        if (canInteract == true)
+        if (context.performed && _canInteract)
         {
             TryPickUpOrDrop();
-            Debug.Log("Picked up");
         }
-        else
-        {
-            Debug.Log("Cannot pickup yet");
-        }
-    }
-
-    void Update()
-    {
-        Debug.DrawRay(objectPickupTransform.position, objectPickupTransform.forward * 5, Color.red);
     }
 
     private void TryPickUpOrDrop()
     {
-        // Checks which scene player is in
-        // Change this later
-        // Picks up object and carries it if in prototype scene
         if (!canPutInInventory)
         {
-            if (objectgrabable == null)
-            {
-                if (animator != null)
-                {
-                    animator.SetBool("IsPickingUp", true);
-                    animator.SetBool("IsCarrying", false);
-                }
-
-                float pickupdistance = 5;
-                if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
-                    out RaycastHit raycastHit, pickupdistance, pickuplayermask))
-                {
-                    if (raycastHit.transform.TryGetComponent(out objectgrabable))
-                    {
-                        objectgrabable.Grab(objectgrabpointtransform);
-                        StartCoroutine(SetCarryingAfterDelay(0.1f));
-                    }
-                    else ResetPickupState();
-                }
-                else ResetPickupState();
-            }
-            else
-            {
-                if (objectgrabable.canBeDropped)
-                {
-                    objectgrabable.Drop();
-                    objectgrabable = null;
-                    ResetPickupState();
-
-                    // Explicitly set IsCarrying to false when dropping
-                    if (animator != null)
-                    {
-                        animator.SetBool("IsCarrying", false);
-                    }
-                }
-            }
+            if (currentGrabbedObject == null) TryPickUpObject();
+            else TryDropObject();
         }
-
-        // Picks up object and adds to inventory if it programming scene
-        else if (canPutInInventory)
+        else
         {
-            if (animator != null)
-            {
-                animator.SetBool("IsPickingUp", true);
-            }
-
-            float pickupdistance = 5;
-            if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
-                out RaycastHit raycastHit, pickupdistance, pickuplayermask))
-            {
-                if (raycastHit.transform.TryGetComponent(out objectgrabable))
-                {
-                    if (objectgrabable.objectName == "poppy")
-                    {
-                        playerManager.SetSpirit(10);
-                    }
-
-                    objectgrabable.AddFlower();
-                    StartCoroutine(PutInInventory(3f, raycastHit.transform.gameObject));
-                }
-                else ResetPickupState();
-            }
-            else ResetPickupState();
+            TryAddToInventory();
         }
     }
 
-    private IEnumerator SetCarryingAfterDelay(float delay)
+    private void TryPickUpObject()
     {
-        yield return new WaitForSeconds(delay);
-
-        // Wait until object is fully grabbed (if still moving)
-        while (objectgrabable != null && !objectgrabable.isGrabbed)
+        if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
+            out RaycastHit hit, pickupDistance, pickupLayerMask))
         {
-            yield return null;
+            if (hit.transform.TryGetComponent(out ObjectGrabable grabable) && !grabable.isInventoryItem)
+            {
+                StartPickup(grabable);
+            }
+        }
+    }
+
+    private void StartPickup(ObjectGrabable grabable)
+    {
+        currentGrabbedObject = grabable;
+        grabable.Grab(objectGrabPointTransform);
+
+        if (animator != null)
+        {
+            animator.SetBool("IsPickingUp", true);
+            animator.SetBool("IsCarrying", false);
         }
 
+        Invoke(nameof(FinishPickup), 0.3f);
+    }
+
+    private void FinishPickup()
+    {
         if (animator != null)
         {
             animator.SetBool("IsPickingUp", false);
@@ -136,26 +85,40 @@ public class PlayerPickUpDrop : MonoBehaviour
         }
     }
 
-    private IEnumerator PutInInventory(float delay, GameObject pickedObject)
+    private void TryDropObject()
     {
-        canInteract = false;
-        yield return new WaitForSeconds(delay);
-        canInteract = true;
-
-        if (animator != null)
+        if (currentGrabbedObject != null && currentGrabbedObject.canBeDropped)
         {
-            animator.SetBool("IsPickingUp", false);
-        }
+            currentGrabbedObject.Drop();
+            currentGrabbedObject = null;
 
-        Destroy(pickedObject);
+            if (animator != null)
+            {
+                animator.SetBool("IsCarrying", false);
+            }
+        }
+    }
+
+    private void TryAddToInventory()
+    {
+        if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
+            out RaycastHit hit, pickupDistance, pickupLayerMask))
+        {
+            if (hit.transform.TryGetComponent(out ObjectGrabable grabable) && grabable.isInventoryItem)
+            {
+                grabable.AddToInventory();
+
+                if (animator != null)
+                {
+                    animator.SetBool("IsPickingUp", true);
+                    Invoke(nameof(ResetPickupState), 0.5f);
+                }
+            }
+        }
     }
 
     private void ResetPickupState()
     {
-        if (animator != null)
-        {
-            animator.SetBool("IsPickingUp", false);
-            // Don't set IsCarrying here - we only want to do that when explicitly dropping
-        }
+        if (animator != null) animator.SetBool("IsPickingUp", false);
     }
 }

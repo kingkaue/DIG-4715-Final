@@ -2,19 +2,24 @@ using UnityEngine;
 
 public class ObjectGrabable : MonoBehaviour
 {
+    [Header("Components")]
     private Rigidbody objectRigidbody;
-    private Transform objectGrabPointTransform;
+
+    [Header("Settings")]
+    [SerializeField] public string objectName;
+    [SerializeField] public bool canBeDropped = true;
+    [SerializeField] public bool isInventoryItem = false;
+    [SerializeField] private float grabDuration = 0.3f;
+    [SerializeField] private AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
+
+    [Header("Runtime")]
     public bool isGrabbed = false;
-    private bool isMovingToHand = false;
+    public bool isMovingToHand = false;
+
+    private Transform objectGrabPointTransform;
     private float grabProgress = 0f;
     private Vector3 initialPosition;
     private Quaternion initialRotation;
-    [SerializeField] public string objectName;
-
-    [Header("Grab Settings")]
-    [SerializeField] private float grabDuration = 2f;
-    [SerializeField] private AnimationCurve grabCurve = AnimationCurve.EaseInOut(0, 0, 1, 1);
-    public bool canBeDropped; // Makes sure player is finished grabbing object before being allowed to drop it
 
     private void Awake()
     {
@@ -23,12 +28,11 @@ public class ObjectGrabable : MonoBehaviour
 
     public void Grab(Transform grabPoint)
     {
-        Debug.Log("Grabbing");
         objectGrabPointTransform = grabPoint;
         initialPosition = transform.position;
         initialRotation = transform.rotation;
         objectRigidbody.useGravity = false;
-        objectRigidbody.collisionDetectionMode = CollisionDetectionMode.ContinuousSpeculative;
+        objectRigidbody.isKinematic = true;
         gameObject.layer = LayerMask.NameToLayer("NoPlayerCollision");
         isMovingToHand = true;
         grabProgress = 0f;
@@ -38,71 +42,48 @@ public class ObjectGrabable : MonoBehaviour
     {
         if (!canBeDropped) return;
 
-        Debug.Log("Dropping");
         gameObject.layer = LayerMask.NameToLayer("Default");
         objectRigidbody.useGravity = true;
+        objectRigidbody.isKinematic = false;
         objectGrabPointTransform = null;
         isGrabbed = false;
         isMovingToHand = false;
     }
 
-    public void AddFlower()
+    public void AddToInventory()
     {
-        GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
-        if (gameManager == null)
-        {
-            Debug.Log("Game Manager not found");
-        }
+        if (!isInventoryItem) return;
 
-        GameManager gameManagerScript = gameManager.GetComponent<GameManager>();
-        if (gameManagerScript == null)
+        if (GameManager.Instance != null)
         {
-            Debug.Log("Game Manager Script not found");
+            GameManager.Instance.AddFlowerToInventory(objectName);
         }
-        
-        if (!gameManagerScript.flowers.ContainsKey(objectName))
-        {
-            gameManagerScript.flowers.Add(objectName, 1);
-            Debug.Log("Added " + gameManagerScript.flowers[objectName] + " " + objectName);
-        }
-        else
-        {
-            gameManagerScript.flowers[objectName]++;
-            Debug.Log("There are now " + gameManagerScript.flowers[objectName] + " " + objectName);
-        }
+        Destroy(gameObject);
     }
 
     private void FixedUpdate()
     {
-        if (objectGrabPointTransform != null)
+        if (objectGrabPointTransform == null) return;
+
+        if (isMovingToHand)
         {
-            if (isMovingToHand)
-            {
-                canBeDropped = false;
-                // Smooth movement to hand
-                grabProgress += Time.fixedDeltaTime / grabDuration;
-                float curveValue = grabCurve.Evaluate(grabProgress);
+            grabProgress += Time.fixedDeltaTime / grabDuration;
+            float t = grabCurve.Evaluate(grabProgress);
 
-                objectRigidbody.MovePosition(
-                    Vector3.Lerp(initialPosition, objectGrabPointTransform.position, curveValue)
-                );
-                objectRigidbody.MoveRotation(
-                    Quaternion.Lerp(initialRotation, objectGrabPointTransform.rotation, curveValue)
-                );
+            transform.position = Vector3.Lerp(initialPosition, objectGrabPointTransform.position, t);
+            transform.rotation = Quaternion.Slerp(initialRotation, objectGrabPointTransform.rotation, t);
 
-                if (grabProgress >= 1f)
-                {
-                    isMovingToHand = false;
-                    isGrabbed = true;
-                }
-            }
-            else if (isGrabbed)
+            if (grabProgress >= 1f)
             {
+                isMovingToHand = false;
+                isGrabbed = true;
                 canBeDropped = true;
-                // Snap to hand during carry phase
-                objectRigidbody.MovePosition(objectGrabPointTransform.position);
-                objectRigidbody.MoveRotation(objectGrabPointTransform.rotation);
             }
+        }
+        else if (isGrabbed)
+        {
+            transform.position = objectGrabPointTransform.position;
+            transform.rotation = objectGrabPointTransform.rotation;
         }
     }
 }
