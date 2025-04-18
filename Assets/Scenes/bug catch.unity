@@ -436,7 +436,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -453,7 +453,6 @@ GameObject:
   m_Component:
   - component: {fileID: 221578610}
   - component: {fileID: 221578609}
-  - component: {fileID: 221578608}
   - component: {fileID: 221578607}
   - component: {fileID: 221578611}
   m_Layer: 0
@@ -507,14 +506,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &221578608
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 221578606}
-  m_Enabled: 1
 --- !u!20 &221578609
 Camera:
   m_ObjectHideFlags: 0
@@ -924,7 +915,6 @@ GameObject:
   m_Component:
   - component: {fileID: 509442328}
   - component: {fileID: 509442327}
-  - component: {fileID: 509442326}
   - component: {fileID: 509442325}
   - component: {fileID: 509442324}
   m_Layer: 0
@@ -992,14 +982,6 @@ MonoBehaviour:
     m_MipBias: 0
     m_VarianceClampScale: 0.9
     m_ContrastAdaptiveSharpening: 0
---- !u!81 &509442326
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 509442323}
-  m_Enabled: 1
 --- !u!20 &509442327
 Camera:
   m_ObjectHideFlags: 0
@@ -1149,7 +1131,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3980756558652576013, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: playerManager
@@ -2013,6 +1995,7 @@ MonoBehaviour:
   headsetposition: {fileID: 1883131246}
   headset: {fileID: 6572408040563902393, guid: e6fc7d54a685fa24d9b2369e1f25739a, type: 3}
   holdposition: {fileID: 1883131246}
+  cutsceneID: CouchCutscene
 --- !u!1001 &1495429430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2193,7 +2176,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3275819863227284955, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7847608022889033736, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: rb
@@ -2362,7 +2345,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291249687288838899, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

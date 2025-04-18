@@ -85,7 +85,7 @@ public class AIScript : MonoBehaviour
             Move(speedRun);
 
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            GameObject canPickUp = GameObject.FindGameObjectWithTag("canPickUp");
+            GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
 
             if (player != null && canPickUp != null)
             {
@@ -116,7 +116,7 @@ public class AIScript : MonoBehaviour
             if (m_WaitTime <= 0 && !m_CaughtPlayer)
             {
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
-                GameObject canPickUp = GameObject.FindGameObjectWithTag("canPickUp");
+                GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
 
                 if (player != null && Vector3.Distance(transform.position, player.transform.position) >= 6f &&
                     canPickUp != null && Vector3.Distance(transform.position, canPickUp.transform.position) >= 6f)
@@ -212,7 +212,7 @@ public class AIScript : MonoBehaviour
 
     void EnvironmentView()
     {
-        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask | LayerMask.GetMask("canPickUp"));
+        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask | LayerMask.GetMask("Pickup Item"));
 
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
@@ -291,7 +291,7 @@ public class AIScript : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("canPickUp")) && !isColliding)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")) && !isColliding)
         {
             // Stop the NavMeshAgent during the collision
             navMeshAgent.isStopped = true;
@@ -301,7 +301,7 @@ public class AIScript : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("canPickUp")) && isColliding)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")) && isColliding)
         {
             // Resume the NavMeshAgent after a short delay
             StartCoroutine(ResumeAfterCollision());
