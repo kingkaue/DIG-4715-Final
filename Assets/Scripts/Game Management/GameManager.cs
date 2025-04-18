@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Processors;
 
 public class GameManager : MonoBehaviour
 {
@@ -11,12 +13,16 @@ public class GameManager : MonoBehaviour
     public Dictionary<string, int> flowers;
     public bool inColor = false;
     public bool inbugscene = false;
+    [SerializeField] private InputActionAsset inputActionAsset;
 
     // Track which cutscenes have been played (key is sceneName + cutsceneID)
     private HashSet<string> playedCutscenes = new HashSet<string>();
 
     private void Awake()
     {
+        Settings settings = new Settings();
+        settings.SetScale(inputActionAsset.FindAction("Look"), "<Pointer>", new Vector2(5, 5));
+        
         if (Instance == null)
         {
             Instance = this;
