@@ -47,7 +47,7 @@ public class switchtoscene : MonoBehaviour
             player.GetComponent<PlayerPickUpDrop>().canPutInInventory = true;
         }
 
-        asyncLoader.mainMenu?.SetActive(false);
+        asyncLoader.mainMenu?.SetActive(true);
         asyncLoader.loadingscreen?.SetActive(true);
 
         // Start async loading

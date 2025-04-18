@@ -25253,6 +25253,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 528668464}
     - target: {fileID: 8929115375386977490, guid: bc39ade6ba3cb8d419fbf1fc5c701c82, type: 3}
+      propertyPath: destroyOnLoad
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8929115375386977490, guid: bc39ade6ba3cb8d419fbf1fc5c701c82, type: 3}
       propertyPath: loadingSlider
       value: 
       objectReference: {fileID: 1142187234}
@@ -25668,6 +25672,10 @@ PrefabInstance:
       propertyPath: playerMovement
       value: 
       objectReference: {fileID: 1894331748428927486}
+    - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
+      propertyPath: inputActionAsset
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
     - target: {fileID: 8739630001710151134, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -11.98

@@ -21,7 +21,7 @@ public class Settings : MonoBehaviour
     [SerializeField] private InputActionAsset inputActionAsset;
     private const string mousePath = "<Pointer>";
 
-    private void SetScale(InputAction action, string bindingPathStart, Vector2 scale)
+    public void SetScale(InputAction action, string bindingPathStart, Vector2 scale)
     {
         var bindings = action.bindings;
         for (int i = 0; i < bindings.Count; i++)
