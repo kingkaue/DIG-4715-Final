@@ -22676,10 +22676,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Flower Basket
       objectReference: {fileID: 0}
-    - target: {fileID: 7050488209725972235, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
-      propertyPath: 'flowerPrefabs.Array.data[0]'
-      value: 
-      objectReference: {fileID: 7909852025477468657, guid: 7ce5473de9b878047a4502c0544a6e94, type: 3}
     - target: {fileID: 8891657651847531441, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.33
