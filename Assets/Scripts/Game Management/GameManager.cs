@@ -12,12 +12,55 @@ public class GameManager : MonoBehaviour
     public bool inColor = false;
     public bool inbugscene = false;
 
+    // Track which cutscenes have been played (key is sceneName + cutsceneID)
+    private HashSet<string> playedCutscenes = new HashSet<string>();
+
     private void Awake()
     {
-        flowers = new Dictionary<string, int>
+        if (Instance == null)
         {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
-        };
+        flowers = new Dictionary<string, int>();
+        LoadCutsceneData();
+    }
+
+    public bool HasCutscenePlayed(string sceneName, string cutsceneID)
+    {
+        string key = $"{sceneName}_{cutsceneID}";
+        return playedCutscenes.Contains(key);
+    }
+
+    public void MarkCutscenePlayed(string sceneName, string cutsceneID)
+    {
+        string key = $"{sceneName}_{cutsceneID}";
+        playedCutscenes.Add(key);
+        SaveCutsceneData();
+    }
+
+    private void SaveCutsceneData()
+    {
+        // Convert to list for serialization
+        List<string> cutsceneList = new List<string>(playedCutscenes);
+        PlayerPrefs.SetString("PlayedCutscenes", string.Join(",", cutsceneList));
+        PlayerPrefs.Save();
+    }
+
+    private void LoadCutsceneData()
+    {
+        if (PlayerPrefs.HasKey("PlayedCutscenes"))
+        {
+            string savedData = PlayerPrefs.GetString("PlayedCutscenes");
+            string[] cutsceneArray = savedData.Split(',');
+            playedCutscenes = new HashSet<string>(cutsceneArray);
+        }
     }
 
     private void Update()

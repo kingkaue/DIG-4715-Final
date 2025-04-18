@@ -2558,6 +2558,22 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1716852917}
+    - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: m_ActionEvents.Array.size
+      value: 21
+      objectReference: {fileID: 0}
+    - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionId
+      value: b4c0c3e7-0677-497b-a0d0-91ff9c3697dc
+      objectReference: {fileID: 0}
+    - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: m_ActionEvents.Array.data[20].m_ActionName
+      value: 'Player/UseObject[/Keyboard/f]'
+      objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 4423024896203181308, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
     m_RemovedGameObjects: []

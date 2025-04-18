@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.SceneManagement;
 
 public class CouchCutsceneActivator2 : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     private GameManager gameManager;
 
     [SerializeField] public Transform holdposition;
+
+    [Header("Cutscene Tracking")]
+    [SerializeField] private string cutsceneID = "CouchCutscene"; // Unique identifier for this cutscene
+
     private void Update()
     {
         if (isInteractable)
@@ -44,6 +49,19 @@ public class CouchCutsceneActivator2 : MonoBehaviour
         holdposition = GetComponent<Transform>();
         triggerCollider = GetComponent<Collider>();
 
+        // Check if cutscene has already played
+        if (GameManager.Instance.HasCutscenePlayed(SceneManager.GetActiveScene().name, cutsceneID))
+        {
+            // If already played, disable the trigger
+            isInteractable = false;
+            if (triggerCollider != null)
+            {
+                triggerCollider.enabled = false;
+            }
+
+            // Spawn the headset immediately if needed
+            Instantiate(headset, headsetposition.position, headsetposition.rotation, holdposition);
+        }
     }
     private void CheckPlayerProximity()
     {
@@ -63,6 +81,9 @@ public class CouchCutsceneActivator2 : MonoBehaviour
 
     private void StartCutscene()
     {
+        // Mark the cutscene as played
+        GameManager.Instance.MarkCutscenePlayed(SceneManager.GetActiveScene().name, cutsceneID);
+
         isInteractable = false;
         playerMovement.FreezeMovement(true);
         StartCoroutine(RunCutsceneSequence());
