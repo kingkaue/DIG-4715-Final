@@ -6,7 +6,7 @@ public class CutSceneTrigger : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && cutsceneManager != null)
         {
             cutsceneManager.StartCutscene();
         }
