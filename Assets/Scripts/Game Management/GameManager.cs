@@ -1,32 +1,21 @@
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
-
-    [Header("Player References")]
     [SerializeField] private PlayerManager playerManager;
     [SerializeField] private PlayerMovement playerMovement;
-
-    [Header("Game State")]
-    public Dictionary<string, int> flowers = new Dictionary<string, int>();
+    public Dictionary<string, int> flowers;
     public bool inColor = false;
     public bool inbugscene = false;
 
-    [Header("Cutscene Tracking")]
+    // Track which cutscenes have been played (key is sceneName + cutsceneID)
     private HashSet<string> playedCutscenes = new HashSet<string>();
 
-    #region Initialization
     private void Awake()
-    {
-        InitializeSingleton();
-        InitializeFlowerDictionary();
-        LoadCutsceneData();
-    }
-
-    private void InitializeSingleton()
     {
         if (Instance == null)
         {
@@ -36,67 +25,31 @@ public class GameManager : MonoBehaviour
         else
         {
             Destroy(gameObject);
+            return;
         }
-    }
 
-    private void InitializeFlowerDictionary()
-    {
         flowers = new Dictionary<string, int>();
-        // Initialize with default flower types if needed
-        // flowers.Add("rose", 0);
-        // flowers.Add("poppy", 0);
-    }
-    #endregion
-
-    #region Flower Inventory System
-    public void AddFlowerToInventory(string flowerName)
-    {
-        if (!flowers.ContainsKey(flowerName))
-        {
-            flowers.Add(flowerName, 1);
-        }
-        else
-        {
-            flowers[flowerName]++;
-        }
-
-        // Special flower effects
-        if (flowerName == "poppy")
-        {
-            playerManager?.SetSpirit(10);
-        }
+        LoadCutsceneData();
     }
 
-    public bool TryUseFlower(string flowerName)
-    {
-        if (flowers.ContainsKey(flowerName) && flowers[flowerName] > 0)
-        {
-            flowers[flowerName]--;
-            return true;
-        }
-        return false;
-    }
-    #endregion
-
-    #region Cutscene Management
     public bool HasCutscenePlayed(string sceneName, string cutsceneID)
     {
-        return playedCutscenes.Contains($"{sceneName}_{cutsceneID}");
+        string key = $"{sceneName}_{cutsceneID}";
+        return playedCutscenes.Contains(key);
     }
 
     public void MarkCutscenePlayed(string sceneName, string cutsceneID)
     {
         string key = $"{sceneName}_{cutsceneID}";
-        if (!playedCutscenes.Contains(key))
-        {
-            playedCutscenes.Add(key);
-            SaveCutsceneData();
-        }
+        playedCutscenes.Add(key);
+        SaveCutsceneData();
     }
 
     private void SaveCutsceneData()
     {
-        PlayerPrefs.SetString("PlayedCutscenes", string.Join(",", playedCutscenes));
+        // Convert to list for serialization
+        List<string> cutsceneList = new List<string>(playedCutscenes);
+        PlayerPrefs.SetString("PlayedCutscenes", string.Join(",", cutsceneList));
         PlayerPrefs.Save();
     }
 
@@ -104,19 +57,13 @@ public class GameManager : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("PlayedCutscenes"))
         {
-            string[] cutsceneArray = PlayerPrefs.GetString("PlayedCutscenes").Split(',');
+            string savedData = PlayerPrefs.GetString("PlayedCutscenes");
+            string[] cutsceneArray = savedData.Split(',');
             playedCutscenes = new HashSet<string>(cutsceneArray);
         }
     }
-    #endregion
 
-    #region Save/Load System
     private void Update()
-    {
-        HandleDebugInput();
-    }
-
-    private void HandleDebugInput()
     {
         if (Input.GetKeyDown(KeyCode.F5))
         {
@@ -136,12 +83,4 @@ public class GameManager : MonoBehaviour
             }
         }
     }
-    #endregion
-
-    #region Scene Management
-    public void ReloadCurrentScene()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
-    }
-    #endregion
 }
