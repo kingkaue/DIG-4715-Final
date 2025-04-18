@@ -12,6 +12,7 @@ public class PauseMenuUIManager : MonoBehaviour
     public Button settingsButton;
 
     [SerializeField] GameObject pauseMenuUI;
+    [SerializeField] GameObject settingsMenuUI;
 
     void Start()
     {
@@ -41,6 +42,7 @@ public class PauseMenuUIManager : MonoBehaviour
     {
         Debug.Log("resumed");
         pauseMenuUI.SetActive(false);
+        settingsMenuUI.SetActive(false);
         Time.timeScale = 1f;
         isPaused = false;
         Cursor.lockState = CursorLockMode.Locked;
@@ -74,6 +76,7 @@ public class PauseMenuUIManager : MonoBehaviour
 
     public void Settings()
     {
-
+        pauseMenuUI.SetActive(false);
+        settingsMenuUI.SetActive(true);
     }
 }
