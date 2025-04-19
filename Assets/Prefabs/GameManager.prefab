@@ -48,6 +48,8 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   playerMovement: {fileID: 0}
   inColor: 0
+  inbugscene: 0
+  inputActionAsset: {fileID: -944628639613478452, guid: 1d6e640e716dc4ff6989b73d02023f2b, type: 3}
 --- !u!114 &6315369300616070534
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60,4 +62,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c236592c6f0a92428239eeac8569c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectindex: 0
