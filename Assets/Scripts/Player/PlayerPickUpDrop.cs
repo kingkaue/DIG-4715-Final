@@ -82,13 +82,21 @@ public class PlayerPickUpDrop : MonoBehaviour
                     float placeDistance = 5;
                     if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward, out RaycastHit hit, placeDistance, pickuplayermask))
                     {
-                        if (hit.transform.TryGetComponent(out flowerGarden))
+                        if (!objectgrabable.name.Contains("poppy"))
                         {
-                            objectgrabable.Drop();
-                            flowerGarden.PlaceFlower(objectgrabable.gameObject);
-                            playerManager.SetSpirit(10);
-                            objectgrabable = null;
-                            ResetPickupState();
+                            Debug.Log("Can't plant this");
+                            return;
+                        }
+                        else
+                        {
+                            if (hit.transform.TryGetComponent(out flowerGarden))
+                            {
+                                objectgrabable.Drop();
+                                flowerGarden.PlaceFlower(objectgrabable.gameObject);
+                                playerManager.SetSpirit(10);
+                                objectgrabable = null;
+                                ResetPickupState();
+                            }
                         }
                     }
                     else
