@@ -63,6 +63,22 @@ public class AIScript : MonoBehaviour
     {
         EnvironmentView();
 
+        // Check if we should return to patrol if targets are destroyed
+        if (!m_IsPatrol)
+        {
+            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
+
+            // If both targets are destroyed or missing, return to patrol
+            if ((player == null && canPickUp == null) ||
+                (player == null && m_PlayerPosition == Vector3.zero) ||
+                (canPickUp == null && m_PlayerPosition == Vector3.zero))
+            {
+                ReturnToPatrol();
+                return;
+            }
+        }
+
         if (!m_IsPatrol)
         {
             Chasing();
@@ -72,7 +88,19 @@ public class AIScript : MonoBehaviour
             Patroling();
         }
 
-        RotateTowardsMovementDirection(); // Ensure proper rotation
+        RotateTowardsMovementDirection();
+    }
+
+    // Add this new helper method
+    private void ReturnToPatrol()
+    {
+        m_IsPatrol = true;
+        m_PlayerNear = false;
+        m_PlayerInRange = false;
+        m_PlayerPosition = Vector3.zero;
+        Move(speedWalk);
+        m_WaitTime = startWaitTime;
+        navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
     }
 
     private void Chasing()
@@ -87,6 +115,13 @@ public class AIScript : MonoBehaviour
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
 
+            // If both targets are destroyed or missing, return to patrol
+            if (player == null && canPickUp == null)
+            {
+                ReturnToPatrol();
+                return;
+            }
+
             if (player != null && canPickUp != null)
             {
                 float playerDistance = Vector3.Distance(transform.position, player.transform.position);
@@ -94,19 +129,23 @@ public class AIScript : MonoBehaviour
 
                 if (playerDistance < canPickUpDistance)
                 {
+                    m_PlayerPosition = player.transform.position;
                     navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
                 }
                 else
                 {
+                    m_PlayerPosition = canPickUp.transform.position;
                     navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
                 }
             }
             else if (player != null)
             {
+                m_PlayerPosition = player.transform.position;
                 navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
             }
             else if (canPickUp != null)
             {
+                m_PlayerPosition = canPickUp.transform.position;
                 navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
             }
         }
@@ -118,14 +157,14 @@ public class AIScript : MonoBehaviour
                 GameObject player = GameObject.FindGameObjectWithTag("Player");
                 GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
 
-                if (player != null && Vector3.Distance(transform.position, player.transform.position) >= 6f &&
-                    canPickUp != null && Vector3.Distance(transform.position, canPickUp.transform.position) >= 6f)
+                if ((player != null && Vector3.Distance(transform.position, player.transform.position) >= 6f &&
+                    (canPickUp != null && Vector3.Distance(transform.position, canPickUp.transform.position) >= 6f)))
                 {
-                    m_IsPatrol = true;
-                    m_PlayerNear = false;
-                    Move(speedWalk);
-                    m_WaitTime = startWaitTime;
-                    navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
+                    ReturnToPatrol();
+                }
+                else if (player == null && canPickUp == null)
+                {
+                    ReturnToPatrol();
                 }
             }
             else
