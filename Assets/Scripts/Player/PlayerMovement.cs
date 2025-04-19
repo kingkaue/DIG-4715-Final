@@ -1,9 +1,5 @@
 using System.Collections;
-using Unity.Mathematics;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.AI;
-using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
 public class PlayerMovement : MonoBehaviour
@@ -19,18 +15,24 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Aiming")]
     public Vector2 look;
+    private bool rotationFrozen = false;
+    private Quaternion frozenRotation;
+    private float originalAngularDrag;
+    private Vector2 lookInput;
 
     [Header("Cutscene Control")]
     private bool movementFrozen = false;
 
-    //For Dialogue System: 
+    [Header("Dialogue")]
     [SerializeField] private DialogueUI dialogueUI;
     public DialogueUI DialogueUI => dialogueUI;
     public IInteractable Interactable { get; set; }
 
+    [Header("Audio")]
     [SerializeField] private AudioSource footsteps = null;
     [SerializeField] private AudioClip footstepsound;
-    private bool isMoving = false;
+
+    
 
     private GameManager gameManager;
 
@@ -41,7 +43,15 @@ public class PlayerMovement : MonoBehaviour
 
     public void OnLook(InputAction.CallbackContext context)
     {
-        look = context.ReadValue<Vector2>();
+        lookInput = context.ReadValue<Vector2>();
+        if (!rotationFrozen)
+        {
+            look = lookInput;
+        }
+        else
+        {
+            look = Vector2.zero;
+        }
     }
 
     void Start()
@@ -50,18 +60,20 @@ public class PlayerMovement : MonoBehaviour
         animator = GetComponent<Animator>();
         rb = GetComponent<Rigidbody>();
         rb.freezeRotation = true;
+        originalAngularDrag = rb.angularDamping;
     }
 
     void FixedUpdate()
     {
-        if (dialogueUI != null)
+        if (dialogueUI != null && dialogueUI.IsOpen) return;
+
+        if (rotationFrozen)
         {
-            if (dialogueUI.IsOpen) return;
+            rb.angularVelocity = Vector3.zero;
+            transform.rotation = frozenRotation;
         }
 
         MovePlayer();
-
-
     }
 
     public void FreezeMovement(bool freeze)
@@ -75,27 +87,48 @@ public class PlayerMovement : MonoBehaviour
         }
     }
 
+    public void FreezeRotation(bool freeze)
+    {
+        rotationFrozen = freeze;
+
+        if (freeze)
+        {
+            frozenRotation = transform.rotation;
+            rb.angularVelocity = Vector3.zero;
+            rb.angularDamping = float.MaxValue;
+            rb.constraints = RigidbodyConstraints.FreezeRotation;
+            look = Vector2.zero;
+        }
+        else
+        {
+            rb.angularDamping = originalAngularDrag;
+            rb.constraints = RigidbodyConstraints.None;
+            rb.freezeRotation = true;
+            look = lookInput;
+        }
+    }
+
     void MovePlayer()
     {
-        // Don't move if movement is frozen or in special states
-        if (movementFrozen ||
+        if (movementFrozen || rotationFrozen ||
             (dialogueUI != null && dialogueUI.IsOpen) ||
             animator.GetBool("IsPickingUp") ||
             animator.GetCurrentAnimatorStateInfo(0).IsName("playermodelsitting") ||
             animator.GetCurrentAnimatorStateInfo(0).IsName("PlayerLookingAround"))
         {
             rb.linearVelocity = Vector3.zero;
+            rb.angularVelocity = Vector3.zero;
             return;
         }
+
+        
 
         Vector3 moveDirection = orientation.forward * move.y + orientation.right * move.x;
         rb.linearVelocity = moveDirection * speed;
 
-        // Update walking state
         bool isMoving = move.magnitude > 0.1f;
         animator.SetBool("IsWalking", isMoving);
 
-        // Footstep sounds
         if (isMoving && !footsteps.isPlaying)
         {
             footsteps.clip = footstepsound;
@@ -107,36 +140,28 @@ public class PlayerMovement : MonoBehaviour
             footsteps.loop = false;
             footsteps.Stop();
         }
-
-
     }
 
-    private IEnumerator swingthatnet()
+    private IEnumerator SwingThatNet()
     {
         animator.SetBool("IsSwinging", true);
         yield return new WaitForSeconds(2f);
         animator.SetBool("IsSwinging", false);
-        yield return null;
     }
 
     private void Update()
     {
-        if (dialogueUI != null)
+        if (dialogueUI != null && dialogueUI.IsOpen) return;
+        if (rotationFrozen) return;
+
+        if (Input.GetKeyDown(KeyCode.E) && Interactable != null)
         {
-            if (dialogueUI.IsOpen) return;
+            Interactable.Interact(this);
         }
 
-        if (Input.GetKeyDown(KeyCode.E))
+        if (gameManager.inbugscene && Input.GetKeyDown("k"))
         {
-            if (Interactable != null)
-            {
-                Interactable.Interact(this);
-            }
-        }
-
-        if (gameManager.inbugscene == true && Input.GetKeyDown("k"))
-        {
-            StartCoroutine(swingthatnet());
+            StartCoroutine(SwingThatNet());
         }
     }
 
