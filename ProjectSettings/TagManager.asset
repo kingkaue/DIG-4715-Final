@@ -23,6 +23,7 @@ TagManager:
   - TherapyManager
   - doortocabin
   - AsyncLoader
+  - UICanvas
   layers:
   - Default
   - TransparentFX

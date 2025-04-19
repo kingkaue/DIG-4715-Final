@@ -66,6 +66,7 @@ public class PauseMenuUIManager : MonoBehaviour
             GameObject.FindGameObjectWithTag("Player").GetComponent<DontDestroy>().DestroyObject();
             GameObject.FindGameObjectWithTag("GameController").GetComponent<DontDestroy>().DestroyObject();
             GameObject.FindGameObjectWithTag("Camera Handler").GetComponent<DontDestroy>().DestroyObject();
+            GameObject.FindGameObjectWithTag("UICanvas").GetComponent<DontDestroy>().DestroyObject();
             GameObject.Find("PlayerCam").GetComponent<DontDestroy>().DestroyObject();
         }
 
