@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 2038809241038460545}
   - component: {fileID: -917255151830397970}
   - component: {fileID: -8951429296089685432}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: deerfood
   m_TagString: Pickup Item
   m_Icon: {fileID: 0}
@@ -139,6 +139,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animaleating: {fileID: -8951429296089685432}
   animaleatingsound: {fileID: 8300000, guid: aca67ecade70565418428497428ace4d, type: 3}
+  scoreIncreaseAmount: 1
 --- !u!82 &-8951429296089685432
 AudioSource:
   m_ObjectHideFlags: 0
@@ -298,7 +299,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -3261158847680922637, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_Name
@@ -306,7 +307,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_TagString
@@ -314,11 +315,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1091890727856908547, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 4892516147636900424, guid: dbd35e72cbef8f5489ffb0f08ae07b10, type: 3}
       propertyPath: m_Layer
-      value: 0
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
