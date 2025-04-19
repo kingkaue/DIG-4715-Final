@@ -9,13 +9,14 @@ public class ThirdPersonCamera : MonoBehaviour
     private Vector2 look;
     public Rigidbody rb;
     public Animator animator; // Add this reference
-
+    private PlayerMovement playermovementScript;
     public float rotationSpeed;
 
     void Start()
     {
         // Get the animator from the player
         animator = player.GetComponent<Animator>();
+        playermovementScript = player.GetComponent<PlayerMovement>();
     }
 
     void Update()
@@ -41,7 +42,14 @@ public class ThirdPersonCamera : MonoBehaviour
 
         if (inputDir != Vector3.zero)
         {
-            rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(inputDir), Time.deltaTime * rotationSpeed);
+            if (playermovementScript.rotationFrozen)
+            {
+                return;
+            }
+            else
+            {
+                rb.rotation = Quaternion.Slerp(rb.rotation, Quaternion.LookRotation(inputDir), Time.deltaTime * rotationSpeed);
+            }
         }
     }
 }

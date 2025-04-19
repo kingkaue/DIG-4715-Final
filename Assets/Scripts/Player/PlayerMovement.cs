@@ -15,7 +15,7 @@ public class PlayerMovement : MonoBehaviour
 
     [Header("Aiming")]
     public Vector2 look;
-    private bool rotationFrozen = false;
+    public bool rotationFrozen = false;
     private Quaternion frozenRotation;
     private float originalAngularDrag;
     private Vector2 lookInput;
