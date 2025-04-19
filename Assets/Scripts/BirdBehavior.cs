@@ -1,5 +1,4 @@
 using UnityEngine;
-using System.Collections;
 
 public class BirdBehavior : MonoBehaviour
 {
@@ -9,6 +8,8 @@ public class BirdBehavior : MonoBehaviour
     public float minWanderTime = 3f;
     public float maxWanderTime = 10f;
     public float wanderRadius = 15f;
+    public float minFlightHeight = 1f;
+    public float maxFlightHeight = 5f;
 
     [Header("Bird Bath Settings")]
     public Transform birdBathTarget;
@@ -16,6 +17,12 @@ public class BirdBehavior : MonoBehaviour
     public float bathStayDuration = 10f;
     public float landingApproachDistance = 2f;
     public float landingSpeed = 2f;
+    public float bathLandingHeight = 0.2f; // How high above the bath the bird lands
+
+    [Header("Ground Avoidance")]
+    public LayerMask groundLayer; // Assign in Inspector (e.g., "Ground" layer)
+    public float groundCheckDistance = 10f;
+    public float groundAvoidanceForce = 5f;
 
     private Vector3 targetPosition;
     private bool isBathing = false;
@@ -32,7 +39,6 @@ public class BirdBehavior : MonoBehaviour
     {
         if (isBathing)
         {
-            // Just wait until bath time is over
             if (Time.time >= nextActionTime)
             {
                 EndBathing();
@@ -49,55 +55,78 @@ public class BirdBehavior : MonoBehaviour
         // Regular wandering behavior
         bathCheckTimer += Time.deltaTime;
 
-        // Check if it's time to consider going to the bird bath
         if (bathCheckTimer >= bathCheckInterval && birdBathTarget != null)
         {
             float decision = Random.Range(0f, 1f);
-            if (decision > 0.3f) // 70% chance to go to bath when timer is up
+            if (decision > 0.3f) // 70% chance to go to bath
             {
                 StartApproachingBath();
                 return;
             }
-            bathCheckTimer = 0f; // Reset timer if not going to bath
+            bathCheckTimer = 0f;
         }
 
-        // Normal wandering
         if (Time.time >= nextActionTime)
         {
             SetNewRandomTarget();
         }
 
         MoveToTarget();
+        AvoidGround();
     }
 
     void SetNewRandomTarget()
     {
-        // Get a random point within the wander radius
-        targetPosition = transform.position + Random.insideUnitSphere * wanderRadius;
-        targetPosition.y = Mathf.Clamp(targetPosition.y, 1f, 5f); // Keep the bird at reasonable height
+        Vector2 randomCircle = Random.insideUnitCircle * wanderRadius;
+        targetPosition = transform.position + new Vector3(randomCircle.x, 0, randomCircle.y);
 
-        // Set a random time until next target change
+        // Ensure target is above ground
+        RaycastHit hit;
+        if (Physics.Raycast(targetPosition + Vector3.up * 50f, Vector3.down, out hit, groundCheckDistance, groundLayer))
+        {
+            targetPosition.y = hit.point.y + Random.Range(minFlightHeight, maxFlightHeight);
+        }
+        else
+        {
+            targetPosition.y = Random.Range(minFlightHeight, maxFlightHeight);
+        }
+
         nextActionTime = Time.time + Random.Range(minWanderTime, maxWanderTime);
     }
 
     void MoveToTarget()
     {
-        // Calculate direction
         Vector3 direction = (targetPosition - transform.position).normalized;
 
-        // Rotate towards the target
         if (direction != Vector3.zero)
         {
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
         }
 
-        // Move forward
         transform.Translate(Vector3.forward * flightSpeed * Time.deltaTime);
 
-        // Add some slight up/down movement for more natural flight
+        // Gentle flight bobbing effect
         float verticalWobble = Mathf.Sin(Time.time * 3f) * 0.05f;
         transform.position += Vector3.up * verticalWobble;
+    }
+
+    void AvoidGround()
+    {
+        RaycastHit hit;
+        float safeHeight = minFlightHeight;
+        if (Physics.Raycast(transform.position, Vector3.down, out hit, safeHeight + 0.5f, groundLayer))
+        {
+            // Push upward if too close to ground
+            float desiredHeight = hit.point.y + safeHeight;
+            if (transform.position.y < desiredHeight)
+            {
+                transform.position = new Vector3(
+                    transform.position.x,
+                    Mathf.Lerp(transform.position.y, desiredHeight, Time.deltaTime * groundAvoidanceForce),
+                    transform.position.z);
+            }
+        }
     }
 
     void StartApproachingBath()
@@ -105,25 +134,23 @@ public class BirdBehavior : MonoBehaviour
         if (birdBathTarget == null) return;
 
         isApproachingBath = true;
-        targetPosition = birdBathTarget.position;
+        targetPosition = birdBathTarget.position + Vector3.up * bathLandingHeight;
         bathCheckTimer = 0f;
     }
 
     void ApproachBirdBath()
     {
-        float distanceToBath = Vector3.Distance(transform.position, birdBathTarget.position);
+        float distanceToBath = Vector3.Distance(transform.position, targetPosition);
 
         if (distanceToBath > landingApproachDistance)
         {
-            // Fly towards the bath
-            Vector3 direction = (birdBathTarget.position - transform.position).normalized;
+            Vector3 direction = (targetPosition - transform.position).normalized;
             Quaternion targetRotation = Quaternion.LookRotation(direction);
             transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            transform.Translate(Vector3.forward * flightSpeed * Time.deltaTime);
+            transform.Translate(Vector3.forward * landingSpeed * Time.deltaTime);
         }
         else
         {
-            // Start landing procedure
             StartBathing();
         }
     }
@@ -134,30 +161,33 @@ public class BirdBehavior : MonoBehaviour
         isBathing = true;
         nextActionTime = Time.time + bathStayDuration;
 
-        // Position the bird in the bath (adjust as needed)
-        transform.position = birdBathTarget.position;
+        // Snap to bath position (adjust rotation if needed)
+        transform.position = birdBathTarget.position + Vector3.up * bathLandingHeight;
         transform.rotation = birdBathTarget.rotation;
-
-        // Here you could trigger an animation or other effects
-        Debug.Log("Bird is now bathing");
     }
 
     void EndBathing()
     {
         isBathing = false;
         SetNewRandomTarget();
-
-        // Here you could trigger take-off animation
-        Debug.Log("Bird finished bathing");
     }
 
-    // Draw gizmos for debugging
-    void OnDrawGizmos()
+    void OnDrawGizmosSelected()
     {
-        if (!Application.isPlaying) return;
+        // Draw wander radius
+        Gizmos.color = Color.blue;
+        Gizmos.DrawWireSphere(transform.position, wanderRadius);
 
-        Gizmos.color = Color.red;
-        Gizmos.DrawSphere(targetPosition, 0.3f);
-        Gizmos.DrawLine(transform.position, targetPosition);
+        // Draw ground check
+        Gizmos.color = Color.green;
+        Gizmos.DrawLine(transform.position, transform.position + Vector3.down * (minFlightHeight + 0.5f));
+
+        // Draw current target
+        if (Application.isPlaying)
+        {
+            Gizmos.color = Color.red;
+            Gizmos.DrawSphere(targetPosition, 0.3f);
+            Gizmos.DrawLine(transform.position, targetPosition);
+        }
     }
 }

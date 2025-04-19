@@ -14,9 +14,12 @@ public class GameManager : MonoBehaviour
     public bool inColor = false;
     public bool inbugscene = false;
     [SerializeField] private InputActionAsset inputActionAsset;
+    [SerializeField] private GameObject deerinthehub;
 
     // Track which cutscenes have been played (key is sceneName + cutsceneID)
     private HashSet<string> playedCutscenes = new HashSet<string>();
+
+    public float deerscore = 0f;
 
     private void Awake()
     {
@@ -87,6 +90,18 @@ public class GameManager : MonoBehaviour
             {
                 Debug.Log("No save file found!");
             }
+        }
+    }
+
+    public void IncreaseDeerScore(float amount)
+    {
+        deerscore += amount;
+        Debug.Log($"Deer score increased! New score: {deerscore}");
+        // - Trigger events when score reaches certain values
+        // - Save the score
+        if(deerscore >= 2)
+        {
+            deerinthehub.SetActive(true);
         }
     }
 }

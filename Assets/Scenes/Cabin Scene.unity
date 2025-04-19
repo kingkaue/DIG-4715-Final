@@ -24563,6 +24563,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   animaleating: {fileID: 1199521622}
   animaleatingsound: {fileID: 8300000, guid: aca67ecade70565418428497428ace4d, type: 3}
+  scoreIncreaseAmount: 1
 --- !u!114 &1199521620
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -26388,11 +26389,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.002
+      value: 7.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -7.563
+      value: -15.54
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -26898,6 +26899,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: GameController
       objectReference: {fileID: 0}
+    - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
+      propertyPath: deerinthehub
+      value: 
+      objectReference: {fileID: 5511963298130444604}
     - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: playerManager
       value: 
@@ -28366,12 +28371,20 @@ MonoBehaviour:
   rotationSpeed: 3
   minWanderTime: 3
   maxWanderTime: 10
-  wanderRadius: 15
+  wanderRadius: 5
+  minFlightHeight: 1
+  maxFlightHeight: 5
   birdBathTarget: {fileID: 1044369309}
   bathCheckInterval: 15
   bathStayDuration: 10
   landingApproachDistance: 2
   landingSpeed: 2
+  bathLandingHeight: 0.2
+  groundLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  groundCheckDistance: 10
+  groundAvoidanceForce: 5
 --- !u!1 &2062991654
 GameObject:
   m_ObjectHideFlags: 0
@@ -29399,11 +29412,20 @@ PrefabInstance:
       propertyPath: m_Name
       value: DeerAgent
       objectReference: {fileID: 0}
+    - target: {fileID: 8300306455488044448, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+--- !u!1 &5511963298130444604 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8300306455488044448, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+  m_PrefabInstance: {fileID: 5511963298130444603}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &6887428624526361719 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6881329938650068628, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
