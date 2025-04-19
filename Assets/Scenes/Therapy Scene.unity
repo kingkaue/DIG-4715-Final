@@ -2668,6 +2668,8 @@ GameObject:
   m_Component:
   - component: {fileID: 1272516384}
   - component: {fileID: 1272516383}
+  - component: {fileID: 1272516387}
+  - component: {fileID: 1272516386}
   - component: {fileID: 1272516381}
   - component: {fileID: 1272516385}
   m_Layer: 0
@@ -2700,7 +2702,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 0
+  m_RenderPostProcessing: 1
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -2801,6 +2803,66 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zoomDistance: 3
   duration: 8
+--- !u!114 &1272516386
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272516380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 449ef5ebbe24720439ec31d15f7b6f3d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Weight: 1
+  FocusTracking: 0
+  FocusTarget: {fileID: 0}
+  FocusOffset: 0
+  Profile: {fileID: 11400000, guid: 956f3a08628ce594eafad7624c318b43, type: 2}
+--- !u!114 &1272516387
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1272516380}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Priority:
+    Enabled: 0
+    m_Value: 0
+  OutputChannel: 1
+  StandbyUpdate: 2
+  m_StreamingVersion: 20241001
+  m_LegacyPriority: 0
+  Target:
+    TrackingTarget: {fileID: 0}
+    LookAtTarget: {fileID: 0}
+    CustomLookAtTarget: 0
+  Lens:
+    FieldOfView: 40
+    OrthographicSize: 10
+    NearClipPlane: 0.1
+    FarClipPlane: 5000
+    Dutch: 0
+    ModeOverride: 0
+    PhysicalProperties:
+      GateFit: 2
+      SensorSize: {x: 21.946, y: 16.002}
+      LensShift: {x: 0, y: 0}
+      FocusDistance: 10
+      Iso: 200
+      ShutterSpeed: 0.005
+      Aperture: 16
+      BladeCount: 5
+      Curvature: {x: 2, y: 11}
+      BarrelClipping: 0.25
+      Anamorphism: 0
+  BlendHint: 0
 --- !u!1001 &1301295056
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5477,6 +5539,22 @@ PrefabInstance:
       propertyPath: orientation
       value: 
       objectReference: {fileID: 6881329937778923238}
+    - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
+      propertyPath: field of view
+      value: 60.000004
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
+      propertyPath: far clip plane
+      value: 1000
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
+      propertyPath: near clip plane
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
+      propertyPath: orthographic size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 8310300207225354447, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_Name
       value: PlayerCamTherapy
