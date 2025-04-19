@@ -376,6 +376,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d7b89f64-3b9f-47a4-a5bf-db9e1cb86be4
     m_ActionName: 'Player/Pause[/Keyboard/escape]'
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: b4c0c3e7-0677-497b-a0d0-91ff9c3697dc
+    m_ActionName: 'Player/UseObject[/Keyboard/f]'
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: Player
@@ -445,6 +449,8 @@ MonoBehaviour:
   pickuplayermask:
     serializedVersion: 2
     m_Bits: 191
+  playerManager: {fileID: 0}
+  canPutInInventory: 0
   objectgrabable: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &1935013692953472221
@@ -593,7 +599,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3c236592c6f0a92428239eeac8569c6d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectindex: 1
 --- !u!1 &7460606088214852030
 GameObject:
   m_ObjectHideFlags: 0
@@ -713,6 +718,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2100000, guid: c376c47432fdaf74c8fd71c106b50804, type: 2}
     - target: {fileID: -7695954811887123294, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: c376c47432fdaf74c8fd71c106b50804, type: 2}
+    - target: {fileID: -5973462750336140488, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: c376c47432fdaf74c8fd71c106b50804, type: 2}
