@@ -17,6 +17,7 @@ public class PlayerPickUpDrop : MonoBehaviour
     private bool canInteract = true;
     public bool canPutInInventory = false;
     public ObjectGrabable objectgrabable;
+    public FlowerGarden flowerGarden;
     public Animator animator; // Reference to the Animator component
 
     private void Start()
@@ -78,9 +79,24 @@ public class PlayerPickUpDrop : MonoBehaviour
             {
                 if (objectgrabable.canBeDropped)
                 {
-                    objectgrabable.Drop();
-                    objectgrabable = null;
-                    ResetPickupState();
+                    float placeDistance = 5;
+                    if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward, out RaycastHit hit, placeDistance, pickuplayermask))
+                    {
+                        if (hit.transform.TryGetComponent(out flowerGarden))
+                        {
+                            objectgrabable.Drop();
+                            flowerGarden.PlaceFlower(objectgrabable.gameObject);
+                            playerManager.SetSpirit(10);
+                            objectgrabable = null;
+                            ResetPickupState();
+                        }
+                    }
+                    else
+                    {
+                        objectgrabable.Drop();
+                        objectgrabable = null;
+                        ResetPickupState();
+                    }
 
                     // Explicitly set IsCarrying to false when dropping
                     if (animator != null)
