@@ -1779,7 +1779,7 @@ Transform:
   m_GameObject: {fileID: 198261950}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -566.3, y: 2.91, z: 117.5}
+  m_LocalPosition: {x: -566.3, y: 2.91, z: 131.3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2537,6 +2537,10 @@ PrefabInstance:
     - target: {fileID: 46845479988858561, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 360736844263239000, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: m_Enabled
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 360736844263239000, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: dialogueUI
@@ -8657,7 +8661,7 @@ PrefabInstance:
     - target: {fileID: 1910412034869340258, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: cutsceneCameraObject
       value: 
-      objectReference: {fileID: 1220720418}
+      objectReference: {fileID: 198261950}
     - target: {fileID: 4224444539595815789, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 4.3781114
