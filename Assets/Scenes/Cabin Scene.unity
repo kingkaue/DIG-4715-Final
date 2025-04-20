@@ -26910,7 +26910,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -15.54
+      value: -31.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -27455,6 +27455,7 @@ GameObject:
   - component: {fileID: 1567794935}
   - component: {fileID: 1567794939}
   - component: {fileID: 1567794942}
+  - component: {fileID: 1567794943}
   m_Layer: 0
   m_Name: cutscene1camcabin
   m_TagString: Untagged
@@ -27678,6 +27679,14 @@ MonoBehaviour:
       m_PostInfinity: 2
       m_RotationOrder: 4
   CustomBlends: {fileID: 0}
+--- !u!81 &1567794943
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1567794934}
+  m_Enabled: 1
 --- !u!1001 &1571701192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -28980,9 +28989,9 @@ MonoBehaviour:
   rotationSpeed: 3
   minWanderTime: 3
   maxWanderTime: 10
-  wanderRadius: 5
+  wanderRadius: 20.09
   minFlightHeight: 1
-  maxFlightHeight: 5
+  maxFlightHeight: 10
   birdBathTarget: {fileID: 1044369309}
   bathCheckInterval: 15
   bathStayDuration: 10
@@ -28992,8 +29001,8 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 1
-  groundCheckDistance: 10
-  groundAvoidanceForce: 5
+  groundCheckDistance: 33
+  groundAvoidanceForce: 18.7
 --- !u!1 &2062991654
 GameObject:
   m_ObjectHideFlags: 0
