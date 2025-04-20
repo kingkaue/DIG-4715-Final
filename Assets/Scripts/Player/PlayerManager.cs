@@ -12,7 +12,7 @@ public class PlayerManager : MonoBehaviour
     [SerializeField] private SpiritUIManager spiritBar;
     private float colorThreshold;
     private GameObject gameManager;
-    
+    public GameObject gravestone;
 
     void Start()
     {
@@ -30,6 +30,11 @@ public class PlayerManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(spirit == maxSpirit)
+        {
+            gravestone.SetActive(false);   
+        }
+
         // Implememt spirit managing controls here
         if (Input.GetKeyDown(KeyCode.P))
         {

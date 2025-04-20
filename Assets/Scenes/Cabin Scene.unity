@@ -1786,6 +1786,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36b21cfd84f3caf4fa1b32ddc0711234, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1221228230}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 36b21cfd84f3caf4fa1b32ddc0711234, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 793714589}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 36b21cfd84f3caf4fa1b32ddc0711234, type: 3}
 --- !u!4 &137673958 stripped
@@ -22157,6 +22160,73 @@ Mesh:
     offset: 0
     size: 0
     path: 
+--- !u!1 &793714588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 793714589}
+  - component: {fileID: 793714590}
+  - component: {fileID: 793714591}
+  m_Layer: 0
+  m_Name: DialogueBoxForGravestone
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &793714589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793714588}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.32, z: 0.2}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 137673958}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &793714590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793714588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bb698b8b62b1bf419b627f53fc039c5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialogueObject: {fileID: 11400000, guid: 57d5c46100df4cb43bd4ffd35be535fb, type: 2}
+--- !u!65 &793714591
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 793714588}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &794036520
 GameObject:
   m_ObjectHideFlags: 0
@@ -25099,6 +25169,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1221228230}
   - component: {fileID: 1221228231}
+  - component: {fileID: 1221228232}
   m_Layer: 0
   m_Name: spiritcheckcollider
   m_TagString: Untagged
@@ -25142,6 +25213,18 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 3.2062736, y: 1, z: 4.937042}
   m_Center: {x: 0.20952201, y: 0, z: -0.3684044}
+--- !u!114 &1221228232
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1221228229}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccdb096fd1402704b8bc9e0085d3d136, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1223037886
 GameObject:
   m_ObjectHideFlags: 0
@@ -25295,7 +25378,7 @@ GameObject:
   - component: {fileID: 1224008583}
   - component: {fileID: 1224008584}
   m_Layer: 0
-  m_Name: SpiritCheck
+  m_Name: SpiritCheckCutscene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -29586,6 +29669,10 @@ PrefabInstance:
       propertyPath: spiritBar
       value: 
       objectReference: {fileID: 2107878910}
+    - target: {fileID: 1935013692953472221, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
+      propertyPath: gravestone
+      value: 
+      objectReference: {fileID: 1221228229}
     - target: {fileID: 4228465376101916909, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_RenderPostProcessing
       value: 1

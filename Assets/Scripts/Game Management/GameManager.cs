@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviour
 
     public float deerscore = 0f;
 
+
     private void Awake()
     {
         Settings settings = new Settings();
@@ -74,6 +75,8 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
+        
+
         if (Input.GetKeyDown(KeyCode.F5))
         {
             SaveSystem.Save(playerManager, playerMovement);
