@@ -156,7 +156,7 @@ public class CouchCutsceneActivator2 : MonoBehaviour
             triggerCollider.enabled = false;
         }
 
-        Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation, holdposition);
+        Instantiate(headset, new Vector3(headsetposition.position.x, headsetposition.position.y, headsetposition.position.z), headsetposition.rotation, headsetposition);
         gameManager.GetComponent<GameManager>().inbugscene = true;
 
     }
