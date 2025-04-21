@@ -1024,8 +1024,8 @@ MonoBehaviour:
   cameraPanDuration: 3
   scaredanimation: playerscared
   couchPosition: {fileID: 175130175}
-  initialDialogue: {fileID: 11400000, guid: c610c3a453faf1348a5b4c8a9ab62d4a, type: 2}
-  panDialogue: {fileID: 11400000, guid: c610c3a453faf1348a5b4c8a9ab62d4a, type: 2}
+  initialDialogue: {fileID: 11400000, guid: 50245c92d95f86146951ad18c9e05252, type: 2}
+  panDialogue: {fileID: 11400000, guid: 921adb7f62da10f468cf23ceb27b212b, type: 2}
   postPanDelay: 1
   headsetposition: {fileID: 175130175}
   headset: {fileID: 1354679208}

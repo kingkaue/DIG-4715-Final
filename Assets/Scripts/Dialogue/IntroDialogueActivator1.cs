@@ -67,7 +67,9 @@ public class IntroDialogueActivator1 : MonoBehaviour
     private IEnumerator StartDialogueAfterDelay(PlayerMovement player)
     {
         yield return null; // Wait one frame
-
+        // Freeze controls immediately
+        player.FreezeMovement(true);
+        player.FreezeRotation(true);
         // Show dialogue and pass camera references
         player.DialogueUI.ShowDialogue(introDialogue);
         player.DialogueUI.SetCameras(cutsceneCamera, playerCamera);
@@ -75,6 +77,8 @@ public class IntroDialogueActivator1 : MonoBehaviour
         // Wait for dialogue to finish
         yield return new WaitWhile(() => player.DialogueUI.IsOpen);
 
+        player.FreezeMovement(false);
+        player.FreezeRotation(false);
         // Switch back to player camera when dialogue ends
         SwitchCameras(false);
 
@@ -106,7 +110,7 @@ public class IntroDialogueActivator1 : MonoBehaviour
 
         if (playerCamera != null)
         {
-            playerCamera.SetActive(!toCutscene); //remove line for cheeky transition stuff
+             //remove line for cheeky transition stuff
             Debug.Log($"Player camera {(!toCutscene ? "activated" : "deactivated")}");
         }
 
