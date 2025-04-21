@@ -2583,15 +2583,17 @@ MonoBehaviour:
   couchCloseupCamera: {fileID: 221578606}
   roomPanCamera: {fileID: 509442323}
   cameraPanDuration: 1
-  scaredanimation: playerscared
+  scaredAnimation: playerscared
   couchPosition: {fileID: 949646698}
   initialDialogue: {fileID: 11400000, guid: c49ecafac5b5ebb4e9d28c17f8af0cdf, type: 2}
   panDialogue: {fileID: 11400000, guid: 95a65922c9aabae4e9acb400c62ba792, type: 2}
   postPanDelay: 1
-  headsetposition: {fileID: 1883131246}
-  headset: {fileID: 6572408040563902393, guid: e6fc7d54a685fa24d9b2369e1f25739a, type: 3}
-  holdposition: {fileID: 1883131246}
+  headsetPosition: {fileID: 1883131246}
+  headsetPrefab: {fileID: 6572408040563902393, guid: e6fc7d54a685fa24d9b2369e1f25739a, type: 3}
+  holdPosition: {fileID: 1883131246}
   cutsceneID: CouchCutscene
+  debugMode: 1
+  interactKey: 101
 --- !u!1001 &1495429430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2837,7 +2839,7 @@ GameObject:
   - component: {fileID: 1883131246}
   m_Layer: 0
   m_Name: netholdpoint
-  m_TagString: Untagged
+  m_TagString: HeadsetHoldPosition
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2975,7 +2977,8 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5051624956829877258, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 4329082544963534758, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       insertIndex: -1

@@ -18,12 +18,13 @@ TagManager:
   - Camera Handler
   - Spawnpoint
   - ReturnSpawnpoint
-  - butterfly
   - net
   - TherapyManager
   - doortocabin
   - AsyncLoader
   - UICanvas
+  - Butterfly
+  - HeadsetHoldPosition
   layers:
   - Default
   - TransparentFX

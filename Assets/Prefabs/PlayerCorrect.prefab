@@ -1,5 +1,36 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5051624956829877258
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 91853965042958389}
+  m_Layer: 0
+  m_Name: netholdpoint
+  m_TagString: HeadsetHoldPosition
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &91853965042958389
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5051624956829877258}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0.03593703, y: 0.780093, z: 0.19803773, w: 0.5924057}
+  m_LocalPosition: {x: 0.11899375, y: 0.018000815, z: -0.027002038}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4329082544963534758}
+  m_LocalEulerAnglesHint: {x: -15.45, y: 103.174, z: 17.554}
 --- !u!1 &5330465888406621858
 GameObject:
   m_ObjectHideFlags: 0
@@ -429,6 +460,7 @@ MonoBehaviour:
   speed: 5
   move: {x: 0, y: 0}
   look: {x: 0, y: 0}
+  rotationFrozen: 0
   dialogueUI: {fileID: 0}
   footsteps: {fileID: 2986506409658486703}
   footstepsound: {fileID: 8300000, guid: df91ea597071704489efdd0235dda992, type: 3}
@@ -452,6 +484,7 @@ MonoBehaviour:
   playerManager: {fileID: 0}
   canPutInInventory: 0
   objectgrabable: {fileID: 0}
+  flowerGarden: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &1935013692953472221
 MonoBehaviour:
@@ -468,6 +501,7 @@ MonoBehaviour:
   spirit: 0
   maxSpirit: 100
   spiritBar: {fileID: 0}
+  gravestone: {fileID: 0}
 --- !u!82 &2986506409658486703
 AudioSource:
   m_ObjectHideFlags: 0
@@ -784,8 +818,16 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -5505370723368045632, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3744705356420314178}
+    - targetCorrespondingSourceObject: {fileID: -2349476437193732044, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 91853965042958389}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
+--- !u!4 &4329082544963534758 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -2349476437193732044, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
+  m_PrefabInstance: {fileID: 7167203945143594898}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5832153259627781202 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -5505370723368045632, guid: cf96f3d164eb12b4085afbfcc4b9cf55, type: 3}
