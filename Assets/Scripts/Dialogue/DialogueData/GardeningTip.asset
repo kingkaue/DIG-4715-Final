@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2877adf9518f37e498aa5e7310251ee7, type: 3}
+  m_Name: GardeningTip
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: After you've collected some flowers from the trail, you'll be able to find
+      them in the basket next to the flowering bed by pressing E.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: From there, you'll be able to water them with your watering can by pressing
+      R.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: After you've had some sensory development by interacting throughout your
+      journey, you should attempt to bring a flower to your beloveds grave.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: Good Luck Micah!
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  responses: []

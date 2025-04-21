@@ -43,8 +43,8 @@ MonoBehaviour:
       speakerName: Dr. Arber
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
-  - text: To My right, you'll find the grave of your beloved. I wish you luck on
-      your journey.
+  - text: And further to My right, you'll find the grave of your beloved. I wish
+      you luck on your journey.
     speaker:
       speakerName: Dr. Arber
       nameColor: {r: 1, g: 1, b: 1, a: 1}
