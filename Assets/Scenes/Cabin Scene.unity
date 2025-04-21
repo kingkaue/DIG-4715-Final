@@ -28108,7 +28108,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 713ac46ba59eef840b995e97da1f36cc, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.45
+      value: -10.262438
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 713ac46ba59eef840b995e97da1f36cc, type: 3}
       propertyPath: m_LocalPosition.y
@@ -28116,7 +28116,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 713ac46ba59eef840b995e97da1f36cc, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -19.26
+      value: -7.55
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 713ac46ba59eef840b995e97da1f36cc, type: 3}
       propertyPath: m_LocalRotation.w
@@ -28264,15 +28264,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.27
+      value: -10.324
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 9.81
+      value: 7.97
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -36.2
+      value: -31.45
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 5e4f51e6fb6fb3f438ec0966a8996f8c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -30703,7 +30703,7 @@ MonoBehaviour:
   rotationSpeed: 3
   minWanderTime: 3
   maxWanderTime: 10
-  wanderRadius: 8
+  wanderRadius: 20.09
   minFlightHeight: 1
   maxFlightHeight: 10
   birdBathTarget: {fileID: 1044369309}
