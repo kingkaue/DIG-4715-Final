@@ -67,7 +67,8 @@ public class CouchCutsceneActivator : MonoBehaviour
         // Immediately position player on couch
         playerMovement.transform.position = couchPosition.position;
         playerMovement.transform.rotation = couchPosition.rotation;
-
+        playerMovement.FreezeMovement(true);
+        playerMovement.FreezeRotation(true);
         // Play lay down animation and lock state
         playerAnimator.Play(layDownAnimation, 0, 0f);
         playerAnimator.SetBool("IsLayingDown", true);
@@ -87,7 +88,8 @@ public class CouchCutsceneActivator : MonoBehaviour
 
         // Clean up animation state
         playerAnimator.SetBool("IsLayingDown", false);
-
+        playerMovement.FreezeMovement(false);
+        playerMovement.FreezeRotation(false);
         // Return to player camera before ending
         SetCameraState(CameraState.Player);
         EndCutscene();
