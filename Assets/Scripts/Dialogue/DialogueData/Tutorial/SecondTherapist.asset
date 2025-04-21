@@ -13,7 +13,16 @@ MonoBehaviour:
   m_Name: SecondTherapist
   m_EditorClassIdentifier: 
   dialogue:
-  - Your spirit bar is reflective of a lot of things, how colorful the world is n
-    all that
-  - you gotta be able to do some shit yfm
+  - text: During your journey, You'll find you need to utilize different objects
+      such as this watering can.
+    speaker:
+      speakerName: Arber Assistant
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: Go ahead and pick the can up by pressing E, Later, you'll learn how to
+      utilize the watering can.
+    speaker:
+      speakerName: Arber Assistant
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
   responses: []

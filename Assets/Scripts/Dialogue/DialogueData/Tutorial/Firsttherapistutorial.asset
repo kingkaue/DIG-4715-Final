@@ -13,6 +13,16 @@ MonoBehaviour:
   m_Name: Firsttherapistutorial
   m_EditorClassIdentifier: 
   dialogue:
-  - 'you move with wasd, you pick things up with e, you do some other shit idk '
-  - 'tbh bro im not sure wtf you do '
+  - text: During your journey to come, we'll be looking to restore a positive perception
+      of your environment in order to better your mental health.
+    speaker:
+      speakerName: 'Arber Assistant '
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: As you complete tasks, such as picking flowers or feeding animals, you'll
+      notice your world become all the more colorful.
+    speaker:
+      speakerName: Arber Assistant
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
   responses: []

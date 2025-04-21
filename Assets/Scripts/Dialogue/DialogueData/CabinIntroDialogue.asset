@@ -13,19 +13,40 @@ MonoBehaviour:
   m_Name: CabinIntroDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - text: gotta keep testing
+  - text: Welcome to your family cabin Micah. It's been some time since you've last
+      been here.
     speaker:
-      speakerName: therapist
+      speakerName: Dr. Arber
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
-  - text: yup
+  - text: You're right... The last time I was here I was with Lorem, I made sure
+      to have her burried close by.
     speaker:
-      speakerName: therapist
+      speakerName: Micah
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
-  - text: real talk bro
+  - text: And it's that deeply emotional connection with this location that we're
+      going to explore through the environment that facilitates it.
     speaker:
-      speakerName: therapist
+      speakerName: Dr. Arber
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: To My right, you'll find a garden that will help you take time to appreciate
+      the beauty of nature.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: To My left, you'll find three trails where you can pick flowers to plant.
+      These trails will help you throughout your journey.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: To My right, you'll find the grave of your beloved. I wish you luck on
+      your journey.
+    speaker:
+      speakerName: Dr. Arber
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
   responses: []
