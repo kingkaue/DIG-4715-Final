@@ -20,9 +20,9 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     [SerializeField] private float postPanDelay = 1f;
 
     [Header("Headset Spawn")]
-    [SerializeField] private Transform headsetPosition;
     [SerializeField] private GameObject headsetPrefab;
-    [SerializeField] private Transform holdPosition;
+    [Header("(Optional) Use either Hold Position or Tag")]
+    [SerializeField] private Transform holdPosition; // Fallback if tag not found
 
     [Header("Cutscene Tracking")]
     [SerializeField] private string cutsceneID = "CouchCutscene";
@@ -42,16 +42,7 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     private void Awake()
     {
         triggerCollider = GetComponent<Collider>();
-
-        try
-        {
-            gameManager = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
-            if (gameManager == null) Debug.LogError("GameManager not found!");
-        }
-        catch (System.Exception e)
-        {
-            Debug.LogError($"GameManager error: {e.Message}");
-        }
+        gameManager = GameManager.Instance;
 
         if (GameManager.Instance != null &&
             GameManager.Instance.HasCutscenePlayed(SceneManager.GetActiveScene().name, cutsceneID))
@@ -92,7 +83,6 @@ public class CouchCutsceneActivator2 : MonoBehaviour
 
     private void CheckPlayerProximity()
     {
-        // More reliable player detection
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
@@ -190,16 +180,29 @@ public class CouchCutsceneActivator2 : MonoBehaviour
             return;
         }
 
-        if (headsetPosition == null)
+        Transform spawnParent = GetHoldPosition();
+        if (spawnParent == null)
         {
-            Debug.LogError("Headset spawn position not assigned!");
+            Debug.LogError("No valid hold position found!");
             return;
         }
 
-        Instantiate(headsetPrefab, holdPosition.position, holdPosition.rotation, holdPosition);
+        Instantiate(headsetPrefab, spawnParent.position, spawnParent.rotation, spawnParent);
+        if (debugMode) Debug.Log($"Headset spawned at {spawnParent.position}");
+    }
 
+    private Transform GetHoldPosition()
+    {
+        // Priority 1: Find by tag
+        GameObject taggedHoldPos = GameObject.FindGameObjectWithTag("HeadsetHoldPosition");
+        if (taggedHoldPos != null) return taggedHoldPos.transform;
 
-        if (debugMode) Debug.Log($"Headset spawned at {headsetPosition.position}");
+        // Priority 2: Use serialized field
+        if (holdPosition != null) return holdPosition;
+
+        // Priority 3: Fallback to player's transform
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        return player != null ? player.transform : transform;
     }
 
     private void DisableCutsceneTrigger()
@@ -224,9 +227,9 @@ public class CouchCutsceneActivator2 : MonoBehaviour
     {
         if (debugMode) Debug.Log($"Switching to camera: {state}");
 
-        if (playerCamera != null) playerCamera.SetActive(state == CameraState.Player);
-        if (couchCloseupCamera != null) couchCloseupCamera.SetActive(state == CameraState.Closeup);
-        if (roomPanCamera != null) roomPanCamera.SetActive(state == CameraState.Panning || state == CameraState.RoomView);
+        playerCamera?.SetActive(state == CameraState.Player);
+        couchCloseupCamera?.SetActive(state == CameraState.Closeup);
+        roomPanCamera?.SetActive(state == CameraState.Panning || state == CameraState.RoomView);
     }
 
     private enum CameraState
