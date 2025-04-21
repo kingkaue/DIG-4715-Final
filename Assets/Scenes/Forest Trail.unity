@@ -5765,7 +5765,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &916455832
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6035,7 +6035,7 @@ MonoBehaviour:
   - {fileID: 1408963898}
   flowers:
   - {fileID: 2217494571277271933, guid: 7ce5473de9b878047a4502c0544a6e94, type: 3}
-  - {fileID: 2357682584753575893, guid: 891e2ebb6bf0d3f4291038a32b808c94, type: 3}
+  - {fileID: 2357682584753575893, guid: ecbfcbba9dd7c8145abc14306658d17a, type: 3}
   avgFlowersPerPatch: 15
 --- !u!1 &1077058199
 GameObject:
