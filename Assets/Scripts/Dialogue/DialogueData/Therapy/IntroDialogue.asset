@@ -1,0 +1,43 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2877adf9518f37e498aa5e7310251ee7, type: 3}
+  m_Name: IntroDialogue
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: "It\u2019s been two years. Two years since my wife Lorem passed away. \r\n"
+    speaker:
+      speakerName: Micah
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: She was charming. The kind of person that, even if just for a slight moment,
+    speaker:
+      speakerName: Micah
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: makes you forget about the beige and grey scaled world we found ourselves
+      in.
+    speaker:
+      speakerName: Micah
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: "We met at a water fixture. One of the few, if it really is at all, \u201Cnatural\u201D
+      places you can find in the city. The water was real."
+    speaker:
+      speakerName: Micah
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  - text: '"Micah Miller, please report to room 1 for your scheduled counseling"'
+    speaker:
+      speakerName: Announcement
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
+  responses: []
