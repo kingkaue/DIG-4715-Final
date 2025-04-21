@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutsceneCamera: {fileID: 421319003}
   playerCamera: {fileID: 114491057}
-  introDialogue: {fileID: 11400000, guid: c610c3a453faf1348a5b4c8a9ab62d4a, type: 2}
+  introDialogue: {fileID: 11400000, guid: b9ed28f06110acb45964a8f612548a36, type: 2}
   therapistanimator: {fileID: 1683289817}
   therapistObject: {fileID: 1683289816}
 --- !u!1 &421319003

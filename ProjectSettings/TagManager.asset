@@ -24,6 +24,7 @@ TagManager:
   - AsyncLoader
   - UICanvas
   - Butterfly
+  - HeadsetHoldPosition
   layers:
   - Default
   - TransparentFX
