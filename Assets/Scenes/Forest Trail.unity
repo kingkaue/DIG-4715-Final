@@ -9004,7 +9004,7 @@ PrefabInstance:
     - target: {fileID: 1910412034869340258, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: mainCameraObject
       value: 
-      objectReference: {fileID: 114491057}
+      objectReference: {fileID: 0}
     - target: {fileID: 1910412034869340258, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: cutsceneCameraObject
       value: 
@@ -10777,7 +10777,7 @@ PrefabInstance:
     - target: {fileID: 1910412034869340258, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: mainCameraObject
       value: 
-      objectReference: {fileID: 114491057}
+      objectReference: {fileID: 0}
     - target: {fileID: 1910412034869340258, guid: 76bb03f66212f544fb607305aa94b9f4, type: 3}
       propertyPath: cutsceneCameraObject
       value: 

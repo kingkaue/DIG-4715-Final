@@ -18,7 +18,7 @@ public class CutSceneManager : MonoBehaviour
     private void Awake()
     {
         // Ensure cameras are active before getting components
-        mainCameraObject.SetActive(true);
+        mainCameraObject = GameObject.FindGameObjectWithTag("MainCamera");
         cutsceneCameraObject.SetActive(false);
 
         // Get components
