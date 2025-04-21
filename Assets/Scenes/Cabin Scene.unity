@@ -25660,6 +25660,11 @@ Transform:
   m_Children: []
   m_Father: {fileID: 435761492}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1205628797 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8300306455488044448, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+  m_PrefabInstance: {fileID: 1645885053}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1210754036
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27944,7 +27949,7 @@ PrefabInstance:
     - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: deerinthehub
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1205628797}
     - target: {fileID: 6654908123121633874, guid: 879257ee6cfb44b42b8aafa5aebb959f, type: 3}
       propertyPath: playerManager
       value: 
@@ -28609,6 +28614,10 @@ PrefabInstance:
     - target: {fileID: 8300306455488044448, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_Name
       value: DeerAgent
+      objectReference: {fileID: 0}
+    - target: {fileID: 8300306455488044448, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1363153700507781713, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
