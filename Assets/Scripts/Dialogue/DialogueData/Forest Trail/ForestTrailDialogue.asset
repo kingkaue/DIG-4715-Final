@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2877adf9518f37e498aa5e7310251ee7, type: 3}
+  m_Name: ForestTrailDialogue
+  m_EditorClassIdentifier: 
+  dialogue:
+  - text: 'Welcome to one of the many nearby forest trails Micah. Here, we''ll be
+      focusing on the meaning and signs of nature and taking our time to appreciate
+      its beauty. '
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: As the seasons change, so do we. And as many trees die, so do certain connections
+      or emotions.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: However, what many people forget, is that the opposite remains true too!
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: What do you mean?
+    speaker:
+      speakerName: Micah
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: 'Well Micah, this means that as many plants grow and come into life, so
+      do many new emotions and understandings. '
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  - text: On this trail, I want you to pick both mushrooms and flowers (press E).
+      The mushrooms will be used for later, but the flowers can be planted and grown
+      in your flower bed at the cabin!
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
+  responses: []
