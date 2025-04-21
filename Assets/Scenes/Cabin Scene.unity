@@ -2099,6 +2099,7 @@ GameObject:
   m_Component:
   - component: {fileID: 216618563}
   - component: {fileID: 216618562}
+  - component: {fileID: 216618564}
   m_Layer: 0
   m_Name: Music
   m_TagString: Untagged
@@ -2118,7 +2119,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: f814c3fef86d0434c98c7f7eeebbac2d, type: 3}
   m_Resource: {fileID: 8300000, guid: f814c3fef86d0434c98c7f7eeebbac2d, type: 3}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 0.5
   m_Pitch: 1
   Loop: 1
@@ -2218,6 +2219,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &216618564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 216618561}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ff916f8e5b6e3a4699c5942f4d3ded2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneMusicSettings:
+  - sceneName: Cabin Scene
+    musicClip: {fileID: 8300000, guid: f814c3fef86d0434c98c7f7eeebbac2d, type: 3}
+    loop: 1
+    volume: 0.59
+  - sceneName: Forest Trail
+    musicClip: {fileID: 8300000, guid: 42fac508b8687194387b689f65b453c2, type: 3}
+    loop: 1
+    volume: 0.59
+  - sceneName: Deer Feeding
+    musicClip: {fileID: 8300000, guid: 6f37689e57cab874e80f072a69f7c257, type: 3}
+    loop: 1
+    volume: 0.59
+  - sceneName: bug catch
+    musicClip: {fileID: 8300000, guid: f38db3d039c396f428b22034b6507d8e, type: 3}
+    loop: 1
+    volume: 0.59
+  audioSource: {fileID: 216618562}
 --- !u!1001 &225579462
 PrefabInstance:
   m_ObjectHideFlags: 0
