@@ -49,4 +49,11 @@ MonoBehaviour:
       speakerName: Dr. Arber
       nameColor: {r: 0, g: 0, b: 0, a: 0}
       speakerIcon: {fileID: 0}
+  - text: As you pick more flowers, you'll notice your perception start to shift,
+      and your senses become hightened. Your contact and sensory abilities with nature
+      will deepen as you progress.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 0, g: 0, b: 0, a: 0}
+      speakerIcon: {fileID: 0}
   responses: []

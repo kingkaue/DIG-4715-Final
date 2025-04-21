@@ -13,14 +13,16 @@ MonoBehaviour:
   m_Name: PlayerDialogue
   m_EditorClassIdentifier: 
   dialogue:
-  - text: whats good pretty mama
+  - text: Hey! I remember this trail from when I was just a little kid. My grandmother
+      used to take me out here to catch butterflies.
     speaker:
-      speakerName: this mf man
+      speakerName: Micah
       nameColor: {r: 1, g: 1, b: 1, a: 0}
       speakerIcon: {fileID: 0}
-  - text: I HAVE NO IDEA WHAT TO SAY
+  - text: I've developed a fear of bugs recently though, nowadays they just seem
+      so bothersome.
     speaker:
-      speakerName: ahhhhhh
+      speakerName: Micah
       nameColor: {r: 1, g: 1, b: 1, a: 1}
       speakerIcon: {fileID: 0}
   - text: fucj
