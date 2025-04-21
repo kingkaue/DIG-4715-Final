@@ -16,6 +16,9 @@ public class ButterflySpawner : MonoBehaviour
     [SerializeField] private float directionChangeInterval = 3f;
     [SerializeField] private float maxWanderDistance = 5f;
 
+    [Header("Collision Settings")]
+    [SerializeField] private float butterflyColliderRadius = 0.2f;
+
     private List<Butterfly> butterflies = new List<Butterfly>();
 
     void Start()
@@ -31,13 +34,28 @@ public class ButterflySpawner : MonoBehaviour
             GameObject butterflyObj = Instantiate(butterflyPrefab, spawnPos, Quaternion.identity);
             butterflyObj.transform.parent = transform;
 
-            Butterfly butterfly = butterflyObj.AddComponent<Butterfly>();
-            // Change the Initialize call to:
+            // Add a collider if not present
+            if (butterflyObj.GetComponent<SphereCollider>() == null)
+            {
+                SphereCollider collider = butterflyObj.AddComponent<SphereCollider>();
+                collider.radius = butterflyColliderRadius;
+                collider.isTrigger = true;
+            }
+
+            // Tag the butterfly for identification
+            butterflyObj.tag = "Butterfly";
+
+            Butterfly butterfly = butterflyObj.GetComponent<Butterfly>();
+            if (butterfly == null)
+            {
+                butterfly = butterflyObj.AddComponent<Butterfly>();
+            }
+
             butterfly.Initialize(
                 Random.Range(minSpeed, maxSpeed),
                 directionChangeInterval,
                 maxWanderDistance,
-                transform.position, // Pass position instead of transform
+                transform.position,
                 minHeight,
                 maxHeight
             );

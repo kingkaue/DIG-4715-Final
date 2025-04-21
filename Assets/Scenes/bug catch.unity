@@ -1884,7 +1884,7 @@ Transform:
   m_GameObject: {fileID: 1005157542}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 535.2, y: -3.0699966, z: -221.9001}
+  m_LocalPosition: {x: 535.2, y: -2.25, z: -221.9001}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1905,12 +1905,13 @@ MonoBehaviour:
   butterflyPrefab: {fileID: 7224540671325697242, guid: f91ddf7489582394ca3a97d34809f6ea, type: 3}
   numberOfButterflies: 10
   spawnRadius: 40
-  minHeight: 4
+  minHeight: 6
   maxHeight: 8
   minSpeed: 0.5
   maxSpeed: 1
   directionChangeInterval: 3
   maxWanderDistance: 12
+  butterflyColliderRadius: 0.2
 --- !u!1 &1069557356
 GameObject:
   m_ObjectHideFlags: 0
