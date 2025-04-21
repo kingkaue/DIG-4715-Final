@@ -35,19 +35,6 @@ public class PlayerManager : MonoBehaviour
             gravestone.SetActive(false);   
         }
 
-        // Implememt spirit managing controls here
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SetSpirit(-10f);
-            Debug.Log("Subtracting Spirit");
-        }
-
-        if (Input.GetKeyDown(KeyCode.O))
-        {
-            SetSpirit(10f);
-            Debug.Log("Adding Spirit");
-        }
-
         if (spirit >= colorThreshold)
         {
             if (gameManager != null)
