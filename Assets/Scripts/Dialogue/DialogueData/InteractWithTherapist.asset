@@ -13,6 +13,10 @@ MonoBehaviour:
   m_Name: InteractWithTherapist
   m_EditorClassIdentifier: 
   dialogue:
-  - What did i just say? put the headset on and lock in
-  - oh my god you cant be serious
+  - text: If you'd like to make your way to the back of the office, you can find
+      the exit to your cabin.
+    speaker:
+      speakerName: Dr. Arber
+      nameColor: {r: 1, g: 1, b: 1, a: 1}
+      speakerIcon: {fileID: 0}
   responses: []
