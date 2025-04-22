@@ -151,13 +151,7 @@ public class SwitchToScene : MonoBehaviour
             MovePlayerToScene(player, newScene, spawnPoint);
         }
 
-        // Ensure player camera is active
-        Camera playerCam = player.GetComponentInChildren<Camera>(true);
-        if (playerCam != null)
-        {
-            playerCam.gameObject.SetActive(true);
-            playerCam.tag = "MainCamera"; // Ensure proper tagging
-        }
+        
 
         // Hide loading screen
         if (asyncLoader.loadingscreen != null)
@@ -261,7 +255,7 @@ public class SwitchToScene : MonoBehaviour
         // Move player first
         SceneManager.MoveGameObjectToScene(player, targetScene);
         player.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
-
+         
         // Move essential objects
         MoveObjectToSceneByTag("Camera Handler", targetScene);
         MoveObjectToSceneByTag("MainCamera", targetScene);
