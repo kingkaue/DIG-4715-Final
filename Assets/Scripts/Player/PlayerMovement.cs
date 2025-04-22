@@ -154,7 +154,7 @@ public class PlayerMovement : MonoBehaviour
         if (dialogueUI != null && dialogueUI.IsOpen) return;
         if (rotationFrozen) return;
 
-        if (Input.GetKeyDown(KeyCode.E) && Interactable != null)
+        if (Input.GetKeyDown(KeyCode.F) && Interactable != null)
         {
             Interactable.Interact(this);
         }
