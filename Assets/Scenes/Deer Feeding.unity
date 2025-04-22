@@ -1894,6 +1894,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1713317836093288588, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+      propertyPath: m_Actions
+      value: 
+      objectReference: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+    - target: {fileID: 1713317836093288588, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 700232820}
+    - target: {fileID: 1713317836093288588, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+      propertyPath: m_ActionEvents.Array.data[4].m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnInteract
+      objectReference: {fileID: 0}
     - target: {fileID: 6471254674536481375, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
       propertyPath: m_Name
       value: Flower Basket
@@ -1955,6 +1967,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+--- !u!114 &700232820 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7050488209725972235, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+  m_PrefabInstance: {fileID: 700232819}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c22e8762db9e2842bcf0bd6d3720eb0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &715455921
 GameObject:
   m_ObjectHideFlags: 0

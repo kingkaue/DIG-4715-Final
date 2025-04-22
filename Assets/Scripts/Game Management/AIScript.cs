@@ -352,20 +352,19 @@ public class AIScript : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")) && !isColliding)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")))
         {
-            // Stop the NavMeshAgent during the collision
-            navMeshAgent.isStopped = true;
-            isColliding = true;
+            // Don't stop the agent completely, just reduce speed
+            navMeshAgent.speed = speedWalk * 0.5f;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")) && isColliding)
+        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")))
         {
-            // Resume the NavMeshAgent after a short delay
-            StartCoroutine(ResumeAfterCollision());
+            // Restore appropriate speed based on current state
+            navMeshAgent.speed = m_IsPatrol ? speedWalk : speedRun;
         }
     }
 
