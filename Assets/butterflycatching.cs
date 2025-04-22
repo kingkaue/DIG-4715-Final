@@ -15,7 +15,7 @@ public class butterflycatching : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("butterfly"))
+        if (other.CompareTag("Butterfly"))
         {
             StartCoroutine(addbutterflyscore(other.gameObject));
         }
