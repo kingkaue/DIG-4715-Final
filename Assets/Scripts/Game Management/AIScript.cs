@@ -26,7 +26,6 @@ public class AIScript : MonoBehaviour
     private bool m_PlayerNear;
     private bool m_IsPatrol;
     private bool m_CaughtPlayer;
-    private bool isColliding = false;
 
     void Start()
     {
@@ -42,16 +41,14 @@ public class AIScript : MonoBehaviour
         navMeshAgent.speed = speedWalk;
         navMeshAgent.SetDestination(waypoints[m_CurrentWaypointIndex].position);
 
-        navMeshAgent.updateRotation = false; // Disable automatic rotation
+        navMeshAgent.updateRotation = false;
 
-        // Disable physics-based movement
         Rigidbody rb = GetComponent<Rigidbody>();
         if (rb != null)
         {
             rb.isKinematic = true;
         }
 
-        // Adjust NavMeshAgent settings
         navMeshAgent.stoppingDistance = 0.5f;
         navMeshAgent.obstacleAvoidanceType = ObstacleAvoidanceType.HighQualityObstacleAvoidance;
         navMeshAgent.avoidancePriority = 50;
@@ -63,20 +60,9 @@ public class AIScript : MonoBehaviour
     {
         EnvironmentView();
 
-        // Check if we should return to patrol if targets are destroyed
-        if (!m_IsPatrol)
+        if (!m_IsPatrol && !m_PlayerInRange)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Pickup Item");
-            GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
-
-            // If both targets are destroyed or missing, return to patrol
-            if ((player == null && canPickUp == null) ||
-                (player == null && m_PlayerPosition == Vector3.zero) ||
-                (canPickUp == null && m_PlayerPosition == Vector3.zero))
-            {
-                ReturnToPatrol();
-                return;
-            }
+            ReturnToPatrol();
         }
 
         if (!m_IsPatrol)
@@ -91,7 +77,6 @@ public class AIScript : MonoBehaviour
         RotateTowardsMovementDirection();
     }
 
-    // Add this new helper method
     private void ReturnToPatrol()
     {
         m_IsPatrol = true;
@@ -105,73 +90,27 @@ public class AIScript : MonoBehaviour
 
     private void Chasing()
     {
-        if (!m_CaughtPlayer)
+        if (!m_CaughtPlayer && m_PlayerInRange)
         {
             Move(speedRun);
+            navMeshAgent.SetDestination(m_PlayerPosition);
 
-            // Find all potential targets
-            List<Transform> targets = new List<Transform>();
-            GameObject player = GameObject.FindGameObjectWithTag("Pickup Item");
-            GameObject pickup = GameObject.FindGameObjectWithTag("Pickup Item");
-
-            if (player != null) targets.Add(player.transform);
-            if (pickup != null) targets.Add(pickup.transform);
-
-            if (targets.Count == 0)
+            if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
             {
-                ReturnToPatrol();
-                return;
-            }
-
-            // Find the closest reachable target
-            Transform closestTarget = null;
-            float minDistance = float.MaxValue;
-            NavMeshPath path = new NavMeshPath();
-
-            foreach (Transform target in targets)
-            {
-                if (navMeshAgent.CalculatePath(target.position, path))
+                if (!navMeshAgent.pathPending && navMeshAgent.velocity.sqrMagnitude == 0f)
                 {
-                    if (path.status == NavMeshPathStatus.PathComplete)
+                    if (m_WaitTime <= 0)
                     {
-                        float distance = Vector3.Distance(transform.position, target.position);
-                        if (distance < minDistance)
-                        {
-                            minDistance = distance;
-                            closestTarget = target;
-                        }
+                        ReturnToPatrol();
+                    }
+                    else
+                    {
+                        m_WaitTime -= Time.deltaTime;
                     }
                 }
-            }
-
-            if (closestTarget != null)
-            {
-                m_PlayerPosition = closestTarget.position;
-                navMeshAgent.SetDestination(m_PlayerPosition);
-
-                // Check if we've reached the target
-                if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-                {
-                    if (!navMeshAgent.pathPending && navMeshAgent.velocity.sqrMagnitude == 0f)
-                    {
-                        if (m_WaitTime <= 0)
-                        {
-                            ReturnToPatrol();
-                        }
-                        else
-                        {
-                            m_WaitTime -= Time.deltaTime;
-                        }
-                    }
-                }
-            }
-            else
-            {
-                ReturnToPatrol();
             }
         }
     }
-
 
     private void Patroling()
     {
@@ -255,16 +194,16 @@ public class AIScript : MonoBehaviour
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
 
-        // Check player targets first
         foreach (Collider col in playerTargets)
         {
             float distance = Vector3.Distance(transform.position, col.transform.position);
-            if (distance < closestDistance)
+            Vector3 dirToTarget = (col.transform.position - transform.position).normalized;
+
+            if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2 || distance < 5f)
             {
-                Vector3 dirToTarget = (col.transform.position - transform.position).normalized;
-                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2 || distance < 5f) // Always detect very close targets
+                if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
                 {
-                    if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
+                    if (distance < closestDistance)
                     {
                         closestDistance = distance;
                         closestTarget = col.transform;
@@ -273,19 +212,21 @@ public class AIScript : MonoBehaviour
             }
         }
 
-        // Then check pickup items if no player target found
         if (closestTarget == null)
         {
             foreach (GameObject obj in pickupTargets)
             {
                 float distance = Vector3.Distance(transform.position, obj.transform.position);
-                if (distance < viewRadius && distance < closestDistance)
+                if (distance < viewRadius)
                 {
                     Vector3 dirToTarget = (obj.transform.position - transform.position).normalized;
                     if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
                     {
-                        closestDistance = distance;
-                        closestTarget = obj.transform;
+                        if (distance < closestDistance)
+                        {
+                            closestDistance = distance;
+                            closestTarget = obj.transform;
+                        }
                     }
                 }
             }
@@ -299,7 +240,6 @@ public class AIScript : MonoBehaviour
         }
         else if (m_PlayerInRange)
         {
-            // Lost sight of target
             m_PlayerInRange = false;
             ReturnToPatrol();
         }
@@ -309,7 +249,6 @@ public class AIScript : MonoBehaviour
     {
         if (!m_IsPatrol && m_PlayerInRange)
         {
-            // Chase mode - full 360° rotation towards target (unchanged)
             float distanceToPlayer = Vector3.Distance(transform.position, m_PlayerPosition);
             if (distanceToPlayer > 0.5f)
             {
@@ -326,50 +265,44 @@ public class AIScript : MonoBehaviour
         }
         else if (m_IsPatrol && navMeshAgent.velocity.sqrMagnitude > 0.01f)
         {
-            // Patrol mode - 4-direction rotation
             Vector3 moveDirection = navMeshAgent.velocity.normalized;
 
-            // Determine primary movement direction (prioritize larger axis)
             if (Mathf.Abs(moveDirection.x) > Mathf.Abs(moveDirection.z))
             {
-                // Left/Right movement
                 if (moveDirection.x > 0)
-                    transform.rotation = Quaternion.Euler(0, 0, 0);    // Right
+                    transform.rotation = Quaternion.Euler(0, 0, 0);
                 else
-                    transform.rotation = Quaternion.Euler(0, 180, 0); // Left
+                    transform.rotation = Quaternion.Euler(0, 180, 0);
             }
             else
             {
-                // Up/Down movement (relative to world space)
                 if (moveDirection.z > 0)
-                    transform.rotation = Quaternion.Euler(0, 270, 0);   // Up (world Z+)
+                    transform.rotation = Quaternion.Euler(0, 270, 0);
                 else
-                    transform.rotation = Quaternion.Euler(0, 90, 0); // Down (world Z-)
+                    transform.rotation = Quaternion.Euler(0, 90, 0);
             }
         }
     }
+
     void OnCollisionEnter(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")))
+        bool validTarget = ((1 << collision.gameObject.layer) & playerMask.value) != 0 ||
+                          collision.gameObject.CompareTag("Pickup Item");
+
+        if (validTarget)
         {
-            // Don't stop the agent completely, just reduce speed
             navMeshAgent.speed = speedWalk * 0.5f;
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if ((collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Pickup Item")))
+        bool validTarget = ((1 << collision.gameObject.layer) & playerMask.value) != 0 ||
+                          collision.gameObject.CompareTag("Pickup Item");
+
+        if (validTarget)
         {
-            // Restore appropriate speed based on current state
             navMeshAgent.speed = m_IsPatrol ? speedWalk : speedRun;
         }
-    }
-
-    IEnumerator ResumeAfterCollision()
-    {
-        yield return new WaitForSeconds(0.5f); // Adjust delay as needed
-        navMeshAgent.isStopped = false;
-        isColliding = false;
     }
 }
