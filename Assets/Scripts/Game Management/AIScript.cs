@@ -27,6 +27,17 @@ public class AIScript : MonoBehaviour
     private bool m_IsPatrol;
     private bool m_CaughtPlayer;
 
+    private void LateUpdate()
+    {
+        if (navMeshAgent.isOnNavMesh)
+        {
+            transform.position = new Vector3(
+                transform.position.x,
+                navMeshAgent.nextPosition.y,
+                transform.position.z
+            );
+        }
+    }
     void Start()
     {
         m_PlayerPosition = Vector3.zero;

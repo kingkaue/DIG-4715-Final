@@ -804,7 +804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6506237889637646006, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6742561522963847859, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -4579,7 +4579,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6506237889637646006, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_IsKinematic
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6742561522963847859, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
