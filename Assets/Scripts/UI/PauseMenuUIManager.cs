@@ -61,18 +61,9 @@ public class PauseMenuUIManager : MonoBehaviour
         Debug.Log("mainmenu");
         Time.timeScale = 1f;
 
-        if (SceneManager.GetActiveScene().name != "Therapy Scene" && SceneManager.GetActiveScene().name != "tutorial")
-        {
-            GameObject.FindGameObjectWithTag("Player").GetComponent<DontDestroy>().DestroyObject();
-            GameObject.FindGameObjectWithTag("GameController").GetComponent<DontDestroy>().DestroyObject();
-            GameObject.FindGameObjectWithTag("Camera Handler").GetComponent<DontDestroy>().DestroyObject();
-            GameObject.FindGameObjectWithTag("UICanvas").GetComponent<DontDestroy>().DestroyObject();
-            GameObject.Find("PlayerCam").GetComponent<DontDestroy>().DestroyObject();
-        }
-
         SceneManager.LoadScene("MainMenu");
-        Destroy(this.gameObject);
         isPaused = false;
+        Destroy(this.gameObject);
     }
 
     public void Settings()
