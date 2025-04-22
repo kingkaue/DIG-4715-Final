@@ -94,7 +94,7 @@ public class PlayerPickUpDrop : MonoBehaviour
                             {
                                 objectgrabable.Drop();
                                 flowerGarden.PlaceFlower(objectgrabable.gameObject);
-                                playerManager.SetSpirit(10);
+                                playerManager.SetSpirit(5);
                                 objectgrabable = null;
                                 ResetPickupState();
                             }
@@ -132,7 +132,7 @@ public class PlayerPickUpDrop : MonoBehaviour
                 {
                     if (objectgrabable.objectName == "poppy")
                     {
-                        playerManager.SetSpirit(10);
+                        playerManager.SetSpirit(2);
                     }
 
                     objectgrabable.AddFlower();
