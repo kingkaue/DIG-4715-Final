@@ -251,30 +251,52 @@ public class AIScript : MonoBehaviour
 
     void EnvironmentView()
     {
-        Collider[] targetsInRange = Physics.OverlapSphere(transform.position, viewRadius, playerMask | LayerMask.GetMask("Pickup Item"));
+        // Detect objects in playerMask (layers)
+        Collider[] playerTargets = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
 
+        // Detect objects with "Pickup Item" tag (regardless of layer)
+        GameObject[] pickupTargets = GameObject.FindGameObjectsWithTag("Pickup Item");
+
+        // Combine results
+        List<Transform> allTargets = new List<Transform>();
+
+        // Add player-mask objects
+        foreach (Collider col in playerTargets)
+        {
+            allTargets.Add(col.transform);
+        }
+
+        // Add pickup-tagged objects (if close enough)
+        foreach (GameObject obj in pickupTargets)
+        {
+            if (Vector3.Distance(transform.position, obj.transform.position) <= viewRadius)
+            {
+                allTargets.Add(obj.transform);
+            }
+        }
+
+        // Now find the closest target (same as before)
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (Collider target in targetsInRange)
+        foreach (Transform target in allTargets)
         {
-            Transform targetTransform = target.transform;
-            Vector3 dirToTarget = (targetTransform.position - transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(transform.position, targetTransform.position);
+            Vector3 dirToTarget = (target.position - transform.position).normalized;
+            float distanceToTarget = Vector3.Distance(transform.position, target.position);
 
-            // Check if the target is within the view radius and not blocked by obstacles
             if (!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstacleMask))
             {
                 if (distanceToTarget < closestDistance)
                 {
                     closestDistance = distanceToTarget;
-                    closestTarget = targetTransform;
+                    closestTarget = target;
                 }
             }
         }
 
         if (closestTarget != null)
         {
+            Debug.Log($"Chasing: {closestTarget.name}");
             m_IsPatrol = false;
             m_PlayerInRange = true;
             m_PlayerPosition = closestTarget.position;
