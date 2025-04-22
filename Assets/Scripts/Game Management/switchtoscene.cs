@@ -141,7 +141,7 @@ public class SwitchToScene : MonoBehaviour
         Camera[] newSceneCameras = GetCamerasInScene(newScene);
         foreach (Camera cam in newSceneCameras)
         {
-            cam.gameObject.SetActive(false);
+            cam.gameObject.SetActive(false);  
         }
 
         // Move player and find spawn point
