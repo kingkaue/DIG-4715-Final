@@ -198,13 +198,7 @@ public class SwitchToScene : MonoBehaviour
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
 
-        // Activate player camera
-        Camera playerCam = player.GetComponentInChildren<Camera>(true);
-        if (playerCam != null)
-        {
-            playerCam.gameObject.SetActive(true);
-            playerCam.tag = "MainCamera";
-        }
+        
 
         // Unload current scene if not hub
         Scene currentScene = SceneManager.GetActiveScene();
