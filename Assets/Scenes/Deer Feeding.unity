@@ -1899,9 +1899,17 @@ PrefabInstance:
       value: Flower Basket
       objectReference: {fileID: 0}
     - target: {fileID: 7050488209725972235, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+      propertyPath: flowerPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7050488209725972235, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
       propertyPath: 'flowerPrefabs.Array.data[0]'
       value: 
       objectReference: {fileID: 2357682584753575893, guid: 891e2ebb6bf0d3f4291038a32b808c94, type: 3}
+    - target: {fileID: 7050488209725972235, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
+      propertyPath: 'flowerPrefabs.Array.data[1]'
+      value: 
+      objectReference: {fileID: 7909852025477468657, guid: 896ef08a5d278aa40b0b9b2eecae28e4, type: 3}
     - target: {fileID: 8891657651847531441, guid: 2017b452626c89a4385667e38ecbcccb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 28.388956
