@@ -1511,7 +1511,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: b20816e43265e504db8bcbad739e4d7d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 03a3fab668d97ef4ab4e840d4f01eaba, type: 2}
+      objectReference: {fileID: 2100000, guid: e24daaf7c779c9f419d0bd8838a749df, type: 2}
     - target: {fileID: 919132149155446097, guid: b20816e43265e504db8bcbad739e4d7d, type: 3}
       propertyPath: m_Name
       value: therapyDesk (1)
@@ -2869,7 +2869,7 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: b20816e43265e504db8bcbad739e4d7d, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 4840744adbe7c7b4ba5b2ccd5d0bb768, type: 2}
+      objectReference: {fileID: 2100000, guid: e24daaf7c779c9f419d0bd8838a749df, type: 2}
     - target: {fileID: 919132149155446097, guid: b20816e43265e504db8bcbad739e4d7d, type: 3}
       propertyPath: m_Name
       value: therapyDesk
@@ -3462,7 +3462,11 @@ PrefabInstance:
     - target: {fileID: -7511558181221131132, guid: 019e7a378fc9f2c4d85566b4c09295fc, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 03a3fab668d97ef4ab4e840d4f01eaba, type: 2}
+      objectReference: {fileID: 2100000, guid: 74ea2564f9e5f164f99c98ecb7f6cf0a, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 019e7a378fc9f2c4d85566b4c09295fc, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6781d9fc8df14a745834f258364017d6, type: 2}
     - target: {fileID: 919132149155446097, guid: 019e7a378fc9f2c4d85566b4c09295fc, type: 3}
       propertyPath: m_Name
       value: therapyMonitor
@@ -4957,6 +4961,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: 03a3fab668d97ef4ab4e840d4f01eaba, type: 2}
+    - target: {fileID: -7511558181221131132, guid: 019e7a378fc9f2c4d85566b4c09295fc, type: 3}
+      propertyPath: 'm_Materials.Array.data[1]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 6781d9fc8df14a745834f258364017d6, type: 2}
     - target: {fileID: 919132149155446097, guid: 019e7a378fc9f2c4d85566b4c09295fc, type: 3}
       propertyPath: m_Name
       value: therapyMonitor (1)
@@ -5302,31 +5310,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.95
+      value: -5.837
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.39
+      value: 3.2280002
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -8.04
+      value: -13.980074
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.6377725
+      value: 0.98731995
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.3053481
+      value: 0.15874292
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0.635669
+      value: -0.000000011535477
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0.30973187
+      value: 0.000000001854693
       objectReference: {fileID: 0}
     - target: {fileID: 3920339480952294697, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -5362,19 +5370,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: field of view
-      value: 40
+      value: 60.000004
       objectReference: {fileID: 0}
     - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: far clip plane
-      value: 5000
+      value: 1000
       objectReference: {fileID: 0}
     - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: near clip plane
-      value: 0.1
+      value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 7128759534980755028, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: orthographic size
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 8310300207225354447, guid: b15df3ca0e6a0834588da2bd0865ec0d, type: 3}
       propertyPath: m_Name
