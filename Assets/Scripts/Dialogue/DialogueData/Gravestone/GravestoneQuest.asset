@@ -13,14 +13,14 @@ MonoBehaviour:
   m_Name: GravestoneQuest
   m_EditorClassIdentifier: 
   dialogue:
-  - text: I should go get some flowers for this gravestone
+  - text: I should go get some flowers for this her, she always loved poppy.
     speaker:
-      speakerName: player
+      speakerName: Micah
       nameColor: {r: 0, g: 0, b: 0, a: 0}
       speakerIcon: {fileID: 0}
-  - text: I think her dead self gone love it
+  - text: I'll be back when I can see clearer, when the worlds a bit more colorful.
     speaker:
-      speakerName: player
+      speakerName: Micah
       nameColor: {r: 0, g: 0, b: 0, a: 0}
       speakerIcon: {fileID: 0}
   responses: []

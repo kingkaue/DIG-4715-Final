@@ -10852,7 +10852,7 @@ MonoBehaviour:
   _closeupCamera: {fileID: 353918422}
   _wideShotCamera: {fileID: 1171833902}
   _kneelAnimation: PlayerKneeling
-  _graveDialogue: {fileID: 11400000, guid: c610c3a453faf1348a5b4c8a9ab62d4a, type: 2}
+  _graveDialogue: {fileID: 11400000, guid: 1f1c2f9049d66994fbd27a3db9c5e231, type: 2}
   _poppyEffect: {fileID: 0}
   _gameOverSceneName: Game End Screen
   _delayBeforeGameOver: 3
@@ -14557,6 +14557,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7a5ac11cc976e418e8d13136b07e1f52, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SerializedVersion: 0
   m_AgentTypeID: 0
   m_CollectObjects: 0
   m_Size: {x: 10, y: 10, z: 10}

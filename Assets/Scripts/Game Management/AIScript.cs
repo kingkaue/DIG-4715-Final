@@ -40,6 +40,9 @@ public class AIScript : MonoBehaviour
     }
     void Start()
     {
+
+
+
         m_PlayerPosition = Vector3.zero;
         m_IsPatrol = true;
         m_CaughtPlayer = false;

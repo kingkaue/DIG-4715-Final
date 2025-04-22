@@ -10,19 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2877adf9518f37e498aa5e7310251ee7, type: 3}
-  m_Name: Gravestone1Dialogue
+  m_Name: ForestTrailNPC
   m_EditorClassIdentifier: 
   dialogue:
-  - text: I haven't come here in some time, but for some reason, it feels a little
-      different, a little warmer.
+  - text: Remember to press E in order to pick up the mushrooms or flowers, you can
+      plant all flowers you gather in your bed back at the cabin.
     speaker:
-      speakerName: Micah
-      nameColor: {r: 0, g: 0, b: 0, a: 0}
-      speakerIcon: {fileID: 0}
-  - text: 'I''m not sure as to why this had to happen, but that mystery lead me to
-      where I am now. '
-    speaker:
-      speakerName: Micah
+      speakerName: Dr. Arber
       nameColor: {r: 0, g: 0, b: 0, a: 0}
       speakerIcon: {fileID: 0}
   responses: []
