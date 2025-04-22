@@ -105,75 +105,73 @@ public class AIScript : MonoBehaviour
 
     private void Chasing()
     {
-        m_PlayerNear = false;
-        playerLastPosition = Vector3.zero;
-
         if (!m_CaughtPlayer)
         {
             Move(speedRun);
 
+            // Find all potential targets
+            List<Transform> targets = new List<Transform>();
             GameObject player = GameObject.FindGameObjectWithTag("Player");
-            GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
+            GameObject pickup = GameObject.FindGameObjectWithTag("Pickup Item");
 
-            // If both targets are destroyed or missing, return to patrol
-            if (player == null && canPickUp == null)
+            if (player != null) targets.Add(player.transform);
+            if (pickup != null) targets.Add(pickup.transform);
+
+            if (targets.Count == 0)
             {
                 ReturnToPatrol();
                 return;
             }
 
-            if (player != null && canPickUp != null)
-            {
-                float playerDistance = Vector3.Distance(transform.position, player.transform.position);
-                float canPickUpDistance = Vector3.Distance(transform.position, canPickUp.transform.position);
+            // Find the closest reachable target
+            Transform closestTarget = null;
+            float minDistance = float.MaxValue;
+            NavMeshPath path = new NavMeshPath();
 
-                if (playerDistance < canPickUpDistance)
+            foreach (Transform target in targets)
+            {
+                if (navMeshAgent.CalculatePath(target.position, path))
                 {
-                    m_PlayerPosition = player.transform.position;
-                    navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
-                }
-                else
-                {
-                    m_PlayerPosition = canPickUp.transform.position;
-                    navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
+                    if (path.status == NavMeshPathStatus.PathComplete)
+                    {
+                        float distance = Vector3.Distance(transform.position, target.position);
+                        if (distance < minDistance)
+                        {
+                            minDistance = distance;
+                            closestTarget = target;
+                        }
+                    }
                 }
             }
-            else if (player != null)
-            {
-                m_PlayerPosition = player.transform.position;
-                navMeshAgent.SetDestination(new Vector3(player.transform.position.x, transform.position.y, player.transform.position.z));
-            }
-            else if (canPickUp != null)
-            {
-                m_PlayerPosition = canPickUp.transform.position;
-                navMeshAgent.SetDestination(new Vector3(canPickUp.transform.position.x, transform.position.y, canPickUp.transform.position.z));
-            }
-        }
 
-        if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
-        {
-            if (m_WaitTime <= 0 && !m_CaughtPlayer)
+            if (closestTarget != null)
             {
-                GameObject player = GameObject.FindGameObjectWithTag("Player");
-                GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
+                m_PlayerPosition = closestTarget.position;
+                navMeshAgent.SetDestination(m_PlayerPosition);
 
-                if ((player != null && Vector3.Distance(transform.position, player.transform.position) >= 6f &&
-                    (canPickUp != null && Vector3.Distance(transform.position, canPickUp.transform.position) >= 6f)))
+                // Check if we've reached the target
+                if (navMeshAgent.remainingDistance <= navMeshAgent.stoppingDistance)
                 {
-                    ReturnToPatrol();
-                }
-                else if (player == null && canPickUp == null)
-                {
-                    ReturnToPatrol();
+                    if (!navMeshAgent.pathPending && navMeshAgent.velocity.sqrMagnitude == 0f)
+                    {
+                        if (m_WaitTime <= 0)
+                        {
+                            ReturnToPatrol();
+                        }
+                        else
+                        {
+                            m_WaitTime -= Time.deltaTime;
+                        }
+                    }
                 }
             }
             else
             {
-                Stop();
-                m_WaitTime -= Time.deltaTime;
+                ReturnToPatrol();
             }
         }
     }
+
 
     private void Patroling()
     {
@@ -251,59 +249,59 @@ public class AIScript : MonoBehaviour
 
     void EnvironmentView()
     {
-        // Detect objects in playerMask (layers)
         Collider[] playerTargets = Physics.OverlapSphere(transform.position, viewRadius, playerMask);
-
-        // Detect objects with "Pickup Item" tag (regardless of layer)
         GameObject[] pickupTargets = GameObject.FindGameObjectsWithTag("Pickup Item");
 
-        // Combine results
-        List<Transform> allTargets = new List<Transform>();
-
-        // Add player-mask objects
-        foreach (Collider col in playerTargets)
-        {
-            allTargets.Add(col.transform);
-        }
-
-        // Add pickup-tagged objects (if close enough)
-        foreach (GameObject obj in pickupTargets)
-        {
-            if (Vector3.Distance(transform.position, obj.transform.position) <= viewRadius)
-            {
-                allTargets.Add(obj.transform);
-            }
-        }
-
-        // Now find the closest target (same as before)
         Transform closestTarget = null;
         float closestDistance = Mathf.Infinity;
 
-        foreach (Transform target in allTargets)
+        // Check player targets first
+        foreach (Collider col in playerTargets)
         {
-            Vector3 dirToTarget = (target.position - transform.position).normalized;
-            float distanceToTarget = Vector3.Distance(transform.position, target.position);
-
-            if (!Physics.Raycast(transform.position, dirToTarget, distanceToTarget, obstacleMask))
+            float distance = Vector3.Distance(transform.position, col.transform.position);
+            if (distance < closestDistance)
             {
-                if (distanceToTarget < closestDistance)
+                Vector3 dirToTarget = (col.transform.position - transform.position).normalized;
+                if (Vector3.Angle(transform.forward, dirToTarget) < viewAngle / 2 || distance < 5f) // Always detect very close targets
                 {
-                    closestDistance = distanceToTarget;
-                    closestTarget = target;
+                    if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
+                    {
+                        closestDistance = distance;
+                        closestTarget = col.transform;
+                    }
+                }
+            }
+        }
+
+        // Then check pickup items if no player target found
+        if (closestTarget == null)
+        {
+            foreach (GameObject obj in pickupTargets)
+            {
+                float distance = Vector3.Distance(transform.position, obj.transform.position);
+                if (distance < viewRadius && distance < closestDistance)
+                {
+                    Vector3 dirToTarget = (obj.transform.position - transform.position).normalized;
+                    if (!Physics.Raycast(transform.position, dirToTarget, distance, obstacleMask))
+                    {
+                        closestDistance = distance;
+                        closestTarget = obj.transform;
+                    }
                 }
             }
         }
 
         if (closestTarget != null)
         {
-            Debug.Log($"Chasing: {closestTarget.name}");
             m_IsPatrol = false;
             m_PlayerInRange = true;
             m_PlayerPosition = closestTarget.position;
         }
-        else
+        else if (m_PlayerInRange)
         {
+            // Lost sight of target
             m_PlayerInRange = false;
+            ReturnToPatrol();
         }
     }
 
