@@ -36,7 +36,7 @@ public class WateringCanTilt : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.R) &&
+        if (Input.GetKeyDown(KeyCode.F) &&
             objectGrabable != null &&
             objectGrabable.isGrabbed &&
             !isTilting)
