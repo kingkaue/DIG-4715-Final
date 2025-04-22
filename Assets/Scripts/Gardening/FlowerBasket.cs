@@ -20,6 +20,7 @@ public class FlowerBasket : MonoBehaviour
             // Checks if player is close enough to basket to interact
             if (Vector3.Distance(gameObject.transform.position, player.transform.position) <= 2)
             {
+                Debug.Log("Trying to get out of basket");
                 TrySpawnFlower();
             }
         }

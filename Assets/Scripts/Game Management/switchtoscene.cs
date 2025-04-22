@@ -198,12 +198,11 @@ public class SwitchToScene : MonoBehaviour
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
 
-        
-
         // Unload current scene if not hub
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Cabin Scene")
         {
+            Debug.Log("Unloading Scene");
             AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScene);
             yield return unloadOperation;
         }
