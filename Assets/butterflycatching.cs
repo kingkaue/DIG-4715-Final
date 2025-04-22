@@ -3,34 +3,41 @@ using UnityEngine;
 
 public class butterflycatching : MonoBehaviour
 {
-
     private float butterflyscaught = 0;
     public GameObject butterflyprefab;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    private PlayerManager playerManager;
+
     void Start()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        // Find the PlayerManager in the scene
+        playerManager = FindObjectOfType<PlayerManager>();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(other.tag == "butterfly")
+        if (other.CompareTag("butterfly"))
         {
-           StartCoroutine(addbutterflyscore());
+            StartCoroutine(addbutterflyscore(other.gameObject));
         }
     }
 
-    private IEnumerator addbutterflyscore()
+    private IEnumerator addbutterflyscore(GameObject butterfly)
     {
         butterflyscaught++;
+
+        // Increase spirit by 5
+        if (playerManager != null)
+        {
+            playerManager.SetSpirit(2f);
+        }
+
+        // Optional: Disable the butterfly instead of destroying it
+        butterfly.SetActive(false);
+
         yield return new WaitForSeconds(1f);
-        yield return null;
-        Debug.Log(butterflyscaught);
+        Debug.Log("Butterfly caught! Total: " + butterflyscaught);
+
+        // Optional: Respawn butterfly if desired
+        // Instantiate(butterflyprefab, randomPosition, Quaternion.identity);
     }
 }
