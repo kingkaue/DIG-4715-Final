@@ -276,3 +276,21 @@ Windows Build/MonoBleedingEdge/etc/mono/config
 Windows Build/MonoBleedingEdge/etc/mono/mconfig/config.xml
 Windows Build/UnityCrashHandler64.exe
 Windows Build/UnityPlayer.dll
+Web Builder.zip
+Web Builder/Build/Web Builder.data.br
+Web Builder/Build/Web Builder.framework.js.br
+Web Builder/Build/Web Builder.loader.js
+Web Builder/Build/Web Builder.wasm.br
+Web Builder/index.html
+Web Builder/TemplateData/favicon.ico
+Web Builder/TemplateData/fullscreen-button.png
+Web Builder/TemplateData/MemoryProfiler.png
+Web Builder/TemplateData/progress-bar-empty-dark.png
+Web Builder/TemplateData/progress-bar-empty-light.png
+Web Builder/TemplateData/progress-bar-full-dark.png
+Web Builder/TemplateData/progress-bar-full-light.png
+Web Builder/TemplateData/style.css
+Web Builder/TemplateData/unity-logo-dark.png
+Web Builder/TemplateData/unity-logo-light.png
+Web Builder/TemplateData/unity-logo-title-footer.png
+Web Builder/TemplateData/webmemd-icon.png
