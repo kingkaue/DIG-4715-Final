@@ -632,7 +632,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4073271412707849971, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_BaseOffset
-      value: -0.1
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: speedRun
@@ -4403,7 +4403,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4073271412707849971, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: m_BaseOffset
-      value: -0.1
+      value: -0.2
       objectReference: {fileID: 0}
     - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: speedRun

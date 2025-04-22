@@ -2283,6 +2283,18 @@ MonoBehaviour:
     musicClip: {fileID: 8300000, guid: f38db3d039c396f428b22034b6507d8e, type: 3}
     loop: 1
     volume: 0.59
+  - sceneName: Therapy Scene
+    musicClip: {fileID: 8300000, guid: 5f519633a18e3914381cbdc234a7a3ec, type: 3}
+    loop: 1
+    volume: 0.59
+  - sceneName: tutorial
+    musicClip: {fileID: 8300000, guid: 5f519633a18e3914381cbdc234a7a3ec, type: 3}
+    loop: 1
+    volume: 0.59
+  - sceneName: Game End Screen
+    musicClip: {fileID: 8300000, guid: f814c3fef86d0434c98c7f7eeebbac2d, type: 3}
+    loop: 1
+    volume: 0.59
   audioSource: {fileID: 216618562}
 --- !u!1001 &225579462
 PrefabInstance:
@@ -11532,6 +11544,8 @@ MonoBehaviour:
   _kneelAnimation: PlayerKneeling
   _graveDialogue: {fileID: 11400000, guid: c610c3a453faf1348a5b4c8a9ab62d4a, type: 2}
   _poppyEffect: {fileID: 0}
+  _gameOverSceneName: Game End Screen
+  _delayBeforeGameOver: 3
 --- !u!54 &793714593
 Rigidbody:
   m_ObjectHideFlags: 0
