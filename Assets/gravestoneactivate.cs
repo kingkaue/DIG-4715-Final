@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.SceneManagement;
+
 public class GravestoneCutsceneActivator : MonoBehaviour
 {
     [Header("Cameras")]
@@ -15,6 +16,10 @@ public class GravestoneCutsceneActivator : MonoBehaviour
     [SerializeField] private DialogueObject _graveDialogue; // Optional
     [SerializeField] private ParticleSystem _poppyEffect; // Optional
 
+    [Header("Scene Transition")]
+    [SerializeField] private string _gameOverSceneName = "Game End Screen"; // Name of your game over scene
+    [SerializeField] private float _delayBeforeGameOver = 3f; // Time after dialogue before transition
+
     private Animator _playerAnimator;
     private PlayerMovement _playerMovement;
     private bool _hasTriggered;
@@ -23,7 +28,6 @@ public class GravestoneCutsceneActivator : MonoBehaviour
     {
         if (!_hasTriggered && other.gameObject.name == "singlepoppy")
         {
-            // Find the player by tag instead of relying on the poppy
             GameObject player = GameObject.FindGameObjectWithTag("Player");
             if (player != null)
             {
@@ -72,7 +76,6 @@ public class GravestoneCutsceneActivator : MonoBehaviour
 
         // ---- PHASE 2: Wide shot with player kneeling ----
         SetCameraActive(_wideShotCamera);
-        
 
         // Optional: Dialogue
         if (_graveDialogue != null && _playerMovement.DialogueUI != null)
@@ -81,9 +84,11 @@ public class GravestoneCutsceneActivator : MonoBehaviour
             yield return new WaitWhile(() => _playerMovement.DialogueUI.IsOpen);
         }
 
-        // ---- PERMANENTLY LOCK PLAYER IN KNEEL ----
-        _playerMovement.FreezeMovement(false); // Optional: Keep frozen if needed
-        Debug.Log("Player is now kneeled forever!");
+        // Wait additional time before game over
+        yield return new WaitForSeconds(_delayBeforeGameOver);
+
+        // Load the game over scene
+        SceneManager.LoadScene(_gameOverSceneName);
     }
 
     private void SetCameraActive(GameObject activeCamera)
