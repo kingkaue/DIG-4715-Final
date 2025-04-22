@@ -66,7 +66,7 @@ public class AIScript : MonoBehaviour
         // Check if we should return to patrol if targets are destroyed
         if (!m_IsPatrol)
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Pickup Item");
             GameObject canPickUp = GameObject.FindGameObjectWithTag("Pickup Item");
 
             // If both targets are destroyed or missing, return to patrol
@@ -111,7 +111,7 @@ public class AIScript : MonoBehaviour
 
             // Find all potential targets
             List<Transform> targets = new List<Transform>();
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
+            GameObject player = GameObject.FindGameObjectWithTag("Pickup Item");
             GameObject pickup = GameObject.FindGameObjectWithTag("Pickup Item");
 
             if (player != null) targets.Add(player.transform);
