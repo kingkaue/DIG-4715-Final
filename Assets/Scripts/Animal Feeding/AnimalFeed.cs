@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Data.Common;
 using UnityEngine;
 
 public class AnimalFeed : MonoBehaviour
@@ -25,7 +26,6 @@ public class AnimalFeed : MonoBehaviour
     {
         if(other.tag == "Animal")
         {
-
             StartCoroutine(eatingapple());
         }
     }
@@ -38,6 +38,13 @@ public class AnimalFeed : MonoBehaviour
         if (GameManager.Instance != null)
         {
             GameManager.Instance.IncreaseDeerScore(scoreIncreaseAmount);
+        }
+
+        PlayerManager playerManager = GameObject.FindGameObjectWithTag("Player").GetComponent<PlayerManager>();
+        
+        if (playerManager != null)
+        {
+            playerManager.SetSpirit(5);
         }
 
         yield return new WaitForSeconds(3f);
