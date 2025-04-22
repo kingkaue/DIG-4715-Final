@@ -66,19 +66,7 @@ public class PlayerPickUpDrop : MonoBehaviour
                 if (Physics.Raycast(objectPickupTransform.position, objectPickupTransform.forward,
                     out RaycastHit raycastHit, pickupdistance, pickuplayermask))
                 {
-                    if (objectgrabable.objectName == "Deerfood")
-                    {
-                        // Add to GameManager's flowers dictionary
-                        if (GameManager.Instance.flowers.ContainsKey("Deerfood"))
-                        {
-                            GameManager.Instance.flowers["Deerfood"]++;
-                        }
-                        else
-                        {
-                            GameManager.Instance.flowers["Deerfood"] = 1;
-                        }
-                        Debug.Log("Deerfood added! Total: " + GameManager.Instance.flowers["Deerfood"]);
-                    }
+
                     if (raycastHit.transform.TryGetComponent(out objectgrabable))
                     {
                         objectgrabable.Grab(objectgrabpointtransform);
