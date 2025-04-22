@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class DontDestroy : MonoBehaviour
 {
@@ -7,6 +8,15 @@ public class DontDestroy : MonoBehaviour
     {
         DontDestroyOnLoad(gameObject);
     }
+
+    void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            DestroyObject();
+        }   
+    }
+
 
     public void DestroyObject()
     {
