@@ -643,6 +643,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+      propertyPath: viewRadius
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: playerMask.m_Bits
       value: 1024
       objectReference: {fileID: 0}
@@ -4278,6 +4282,10 @@ PrefabInstance:
     - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: speedWalk
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
+      propertyPath: viewRadius
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4617762203472903352, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
       propertyPath: playerMask.m_Bits
