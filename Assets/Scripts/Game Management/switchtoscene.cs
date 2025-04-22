@@ -151,8 +151,6 @@ public class SwitchToScene : MonoBehaviour
             MovePlayerToScene(player, newScene, spawnPoint);
         }
 
-        
-
         // Hide loading screen
         if (asyncLoader.loadingscreen != null)
         {
@@ -181,9 +179,6 @@ public class SwitchToScene : MonoBehaviour
             hubScene = SceneManager.GetSceneByName("Cabin Scene");
         }
 
-        // Set as active scene
-        SceneManager.SetActiveScene(hubScene);
-
         // Handle cameras in hub
         Camera[] hubCameras = GetCamerasInScene(hubScene);
         foreach (Camera cam in hubCameras)
@@ -198,20 +193,18 @@ public class SwitchToScene : MonoBehaviour
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
 
+        asyncLoader.loadingscreen.SetActive(false);
+        
         // Unload current scene if not hub
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Cabin Scene")
         {
-            Debug.Log("Unloading Scene");
             AsyncOperation unloadOperation = SceneManager.UnloadSceneAsync(currentScene);
             yield return unloadOperation;
         }
 
-        // Hide loading screen
-        if (asyncLoader.loadingscreen != null)
-        {
-            asyncLoader.loadingscreen.SetActive(false);
-        }
+        // Set as active scene
+        SceneManager.SetActiveScene(hubScene);
     }
 
     private Camera[] GetCamerasInScene(Scene scene)
@@ -248,7 +241,7 @@ public class SwitchToScene : MonoBehaviour
         // Move player first
         SceneManager.MoveGameObjectToScene(player, targetScene);
         player.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
-         
+
         // Move essential objects
         MoveObjectToSceneByTag("Camera Handler", targetScene);
         MoveObjectToSceneByTag("MainCamera", targetScene);
