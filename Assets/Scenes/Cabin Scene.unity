@@ -1739,7 +1739,6 @@ MonoBehaviour:
   scene: bug catch
   isReturnToHub: 0
   gameStart: 0
-  asyncLoader: {fileID: 1650622332}
 --- !u!1001 &137673957
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9693,7 +9692,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 9190493594233340658, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
       propertyPath: m_TagString
@@ -13300,7 +13299,6 @@ MonoBehaviour:
   scene: Forest Trail
   isReturnToHub: 0
   gameStart: 0
-  asyncLoader: {fileID: 1650622332}
 --- !u!65 &1132611721
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -15445,7 +15443,6 @@ MonoBehaviour:
   scene: Deer Feeding
   isReturnToHub: 0
   gameStart: 0
-  asyncLoader: {fileID: 1650622332}
 --- !u!1 &1338652165
 GameObject:
   m_ObjectHideFlags: 0
@@ -17395,17 +17392,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7d2d24ee7bd7fc249b9a76a3307c7223, type: 3}
---- !u!114 &1650622332 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8929115375386977490, guid: bc39ade6ba3cb8d419fbf1fc5c701c82, type: 3}
-  m_PrefabInstance: {fileID: 1362908717}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b478e24dc33c15f4983e2f6c8f2808df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1734985358 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 713ac46ba59eef840b995e97da1f36cc, type: 3}
@@ -19720,7 +19706,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7291249687288838899, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7622837214642191985, guid: 973f668909126e24cb7f9b33e530b080, type: 3}
       propertyPath: m_Camera

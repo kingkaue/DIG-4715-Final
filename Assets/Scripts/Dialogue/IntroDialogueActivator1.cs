@@ -19,6 +19,7 @@ public class IntroDialogueActivator1 : MonoBehaviour
 
     private void Awake()
     {
+        playerCamera = GameObject.FindGameObjectWithTag("MainCamera");
         triggerCollider = GetComponent<Collider>();
         StartCoroutine(ForceSittingNextFrame());
         therapistanimator = therapistObject.GetComponent<Animator>();

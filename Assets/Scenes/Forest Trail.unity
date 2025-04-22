@@ -184,11 +184,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bc386334e0413154a86cf7edf12be24b, type: 3}
---- !u!1 &114491057 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3275819863227284955, guid: c322bff449a2a1744b19db37f2110046, type: 3}
-  m_PrefabInstance: {fileID: 1716852916}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &198261950
 GameObject:
   m_ObjectHideFlags: 0
@@ -772,7 +767,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cutsceneCamera: {fileID: 421319003}
-  playerCamera: {fileID: 114491057}
+  playerCamera: {fileID: 0}
   introDialogue: {fileID: 11400000, guid: b9ed28f06110acb45964a8f612548a36, type: 2}
   therapistanimator: {fileID: 1683289817}
   therapistObject: {fileID: 1683289816}

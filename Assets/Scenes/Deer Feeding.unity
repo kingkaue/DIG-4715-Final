@@ -1022,15 +1022,16 @@ MonoBehaviour:
   couchCloseupCamera: {fileID: 1159574686}
   roomPanCamera: {fileID: 207072885}
   cameraPanDuration: 3
-  scaredanimation: playerscared
+  scaredAnimation: playerscared
   couchPosition: {fileID: 175130175}
   initialDialogue: {fileID: 11400000, guid: 50245c92d95f86146951ad18c9e05252, type: 2}
   panDialogue: {fileID: 11400000, guid: 921adb7f62da10f468cf23ceb27b212b, type: 2}
   postPanDelay: 1
-  headsetposition: {fileID: 175130175}
-  headset: {fileID: 1354679208}
-  holdposition: {fileID: 0}
+  headsetPrefab: {fileID: 0}
+  holdPosition: {fileID: 0}
   cutsceneID: CouchCutscene
+  debugMode: 1
+  interactKey: 101
 --- !u!1 &179855356 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 22bd8dc6515aab24bb072f2460320cb8, type: 3}

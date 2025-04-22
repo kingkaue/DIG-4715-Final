@@ -1,21 +1,34 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class switchtoscene : MonoBehaviour
+public class SwitchToScene : MonoBehaviour
 {
+    [Header("Scene Settings")]
     [SerializeField] private string scene;
     [SerializeField] private bool isReturnToHub = false;
     [SerializeField] private bool gameStart = false;
+
+    [Header("References")]
     private ASyncLoader asyncLoader;
+    private bool isTransitioning = false;
 
     private void Start()
     {
-        // Find AsyncLoader more safely
-        var loaderObj = GameObject.FindGameObjectWithTag("AsyncLoader");
+        FindAsyncLoader();
+    }
+
+    private void FindAsyncLoader()
+    {
+        GameObject loaderObj = GameObject.FindGameObjectWithTag("AsyncLoader");
         if (loaderObj != null)
         {
             asyncLoader = loaderObj.GetComponent<ASyncLoader>();
+            if (asyncLoader == null)
+            {
+                Debug.LogError("AsyncLoader component missing on tagged object");
+            }
         }
         else
         {
@@ -25,7 +38,7 @@ public class switchtoscene : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") && !isTransitioning)
         {
             StartCoroutine(HandleSceneTransition(other.gameObject));
         }
@@ -33,10 +46,17 @@ public class switchtoscene : MonoBehaviour
 
     private IEnumerator HandleSceneTransition(GameObject player)
     {
+        isTransitioning = true;
+
         if (asyncLoader == null)
         {
-            Debug.LogError("AsyncLoader reference is missing!");
-            yield break;
+            FindAsyncLoader();
+            if (asyncLoader == null)
+            {
+                Debug.LogError("AsyncLoader reference missing! Cannot transition scenes.");
+                isTransitioning = false;
+                yield break;
+            }
         }
 
         if (isReturnToHub)
@@ -45,32 +65,47 @@ public class switchtoscene : MonoBehaviour
         }
         else if (gameStart)
         {
-            yield return asyncLoader.LoadLevelASync("Cabin Scene");
+            yield return StartGame();
         }
         else
         {
             yield return LoadNewScene(player);
         }
+
+        isTransitioning = false;
+    }
+
+    private IEnumerator StartGame()
+    {
+        if (asyncLoader.loadingscreen != null)
+        {
+            asyncLoader.loadingscreen.SetActive(true);
+        }
+
+        yield return asyncLoader.LoadLevelASync("Cabin Scene");
+
+        if (asyncLoader.loadingscreen != null)
+        {
+            asyncLoader.loadingscreen.SetActive(false);
+        }
     }
 
     private IEnumerator LoadNewScene(GameObject player)
     {
-        if (scene == "Forest Trail")
-        {
-            var pickup = player.GetComponent<PlayerPickUpDrop>();
-            if (pickup != null)
-            {
-                pickup.canPutInInventory = true;
-            }
-        }
-
         // Show loading screen
         if (asyncLoader.loadingscreen != null)
         {
             asyncLoader.loadingscreen.SetActive(true);
         }
 
-        // Start async loading
+        // Set inventory flag if going to Forest Trail
+        if (scene == "Forest Trail")
+        {
+            var pickup = player.GetComponent<PlayerPickUpDrop>();
+            if (pickup != null) pickup.canPutInInventory = true;
+        }
+
+        // Load scene additively
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
         loadOperation.allowSceneActivation = false;
 
@@ -91,20 +126,38 @@ public class switchtoscene : MonoBehaviour
             yield return null;
         }
 
+        // Get the newly loaded scene
         Scene newScene = SceneManager.GetSceneByName(scene);
         if (!newScene.IsValid())
         {
-            Debug.LogError("Failed to load new scene: " + scene);
+            Debug.LogError("Failed to load scene: " + scene);
             yield break;
         }
 
+        // Set as active scene first
+        SceneManager.SetActiveScene(newScene);
+
+        // Handle cameras
+        Camera[] newSceneCameras = GetCamerasInScene(newScene);
+        foreach (Camera cam in newSceneCameras)
+        {
+            cam.gameObject.SetActive(false);
+        }
+
+        // Move player and find spawn point
         Transform spawnPoint = FindSpawnPoint(newScene, "Spawnpoint");
         if (spawnPoint != null)
         {
             MovePlayerToScene(player, newScene, spawnPoint);
         }
 
-        SceneManager.SetActiveScene(newScene);
+        // Ensure player camera is active
+        Camera playerCam = player.GetComponentInChildren<Camera>(true);
+        if (playerCam != null)
+        {
+            playerCam.gameObject.SetActive(true);
+            playerCam.tag = "MainCamera"; // Ensure proper tagging
+        }
 
         // Hide loading screen
         if (asyncLoader.loadingscreen != null)
@@ -115,27 +168,51 @@ public class switchtoscene : MonoBehaviour
 
     private IEnumerator ReturnToHub(GameObject player)
     {
-        var pickup = player.GetComponent<PlayerPickUpDrop>();
-        if (pickup != null)
+        // Show loading screen
+        if (asyncLoader.loadingscreen != null)
         {
-            pickup.canPutInInventory = false;
+            asyncLoader.loadingscreen.SetActive(true);
         }
 
+        // Disable inventory
+        var pickup = player.GetComponent<PlayerPickUpDrop>();
+        if (pickup != null) pickup.canPutInInventory = false;
+
+        // Load hub if not already loaded
         Scene hubScene = SceneManager.GetSceneByName("Cabin Scene");
         if (!hubScene.IsValid())
         {
-            // Load hub scene if not already loaded
             AsyncOperation loadHub = SceneManager.LoadSceneAsync("Cabin Scene", LoadSceneMode.Additive);
             yield return loadHub;
             hubScene = SceneManager.GetSceneByName("Cabin Scene");
         }
 
+        // Set as active scene
+        SceneManager.SetActiveScene(hubScene);
+
+        // Handle cameras in hub
+        Camera[] hubCameras = GetCamerasInScene(hubScene);
+        foreach (Camera cam in hubCameras)
+        {
+            cam.gameObject.SetActive(false);
+        }
+
+        // Move player to hub
         Transform spawnPoint = FindSpawnPoint(hubScene, "ReturnSpawnpoint");
         if (spawnPoint != null)
         {
             MovePlayerToScene(player, hubScene, spawnPoint);
         }
 
+        // Activate player camera
+        Camera playerCam = player.GetComponentInChildren<Camera>(true);
+        if (playerCam != null)
+        {
+            playerCam.gameObject.SetActive(true);
+            playerCam.tag = "MainCamera";
+        }
+
+        // Unload current scene if not hub
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Cabin Scene")
         {
@@ -143,12 +220,24 @@ public class switchtoscene : MonoBehaviour
             yield return unloadOperation;
         }
 
-        SceneManager.SetActiveScene(hubScene);
-
+        // Hide loading screen
         if (asyncLoader.loadingscreen != null)
         {
             asyncLoader.loadingscreen.SetActive(false);
         }
+    }
+
+    private Camera[] GetCamerasInScene(Scene scene)
+    {
+        List<Camera> cameras = new List<Camera>();
+        GameObject[] rootObjects = scene.GetRootGameObjects();
+
+        foreach (GameObject root in rootObjects)
+        {
+            cameras.AddRange(root.GetComponentsInChildren<Camera>(true));
+        }
+
+        return cameras.ToArray();
     }
 
     private Transform FindSpawnPoint(Scene scene, string tag)
@@ -160,39 +249,34 @@ public class switchtoscene : MonoBehaviour
             {
                 return root.transform;
             }
+
+            Transform child = root.transform.Find(tag);
+            if (child != null) return child;
         }
         return null;
     }
 
     private void MovePlayerToScene(GameObject player, Scene targetScene, Transform spawnPoint)
     {
+        // Move player first
         SceneManager.MoveGameObjectToScene(player, targetScene);
         player.transform.SetPositionAndRotation(spawnPoint.position, spawnPoint.rotation);
 
-        // Use try-catch to handle potential missing objects
-        try
-        {
-            GameObject cameraHandler = GameObject.FindGameObjectWithTag("Camera Handler");
-            if (cameraHandler != null)
-            {
-                SceneManager.MoveGameObjectToScene(cameraHandler, targetScene);
-            }
+        // Move essential objects
+        MoveObjectToSceneByTag("Camera Handler", targetScene);
+        MoveObjectToSceneByTag("MainCamera", targetScene);
+        MoveObjectToSceneByTag("GameController", targetScene);
+    }
 
-            GameObject playerCam = GameObject.FindGameObjectWithTag("MainCamera");
-            if (playerCam != null)
-            {
-                SceneManager.MoveGameObjectToScene(playerCam, targetScene);
-            }
-
-            GameObject gameManager = GameObject.FindGameObjectWithTag("GameController");
-            if (gameManager != null)
-            {
-                SceneManager.MoveGameObjectToScene(gameManager, targetScene);
-            }
-        }
-        catch (MissingReferenceException e)
+    private void MoveObjectToSceneByTag(string tag, Scene targetScene)
+    {
+        GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+        foreach (GameObject obj in objects)
         {
-            Debug.LogWarning("Object reference missing during scene transition: " + e.Message);
+            if (obj.scene != targetScene)
+            {
+                SceneManager.MoveGameObjectToScene(obj, targetScene);
+            }
         }
     }
 }
