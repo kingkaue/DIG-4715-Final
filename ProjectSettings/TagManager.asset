@@ -25,6 +25,7 @@ TagManager:
   - UICanvas
   - Butterfly
   - HeadsetHoldPosition
+  - CutsceneCamera
   layers:
   - Default
   - TransparentFX

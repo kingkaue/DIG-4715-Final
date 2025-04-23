@@ -111,7 +111,7 @@ public class IntroDialogueActivator1 : MonoBehaviour
 
         if (playerCamera != null)
         {
-             //remove line for cheeky transition stuff
+            //remove line for cheeky transition stuff
             Debug.Log($"Player camera {(!toCutscene ? "activated" : "deactivated")}");
         }
 

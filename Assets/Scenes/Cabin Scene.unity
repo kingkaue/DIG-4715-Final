@@ -1076,7 +1076,7 @@ GameObject:
   - component: {fileID: 111630216}
   m_Layer: 0
   m_Name: gravestonecamera
-  m_TagString: Untagged
+  m_TagString: CutsceneCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -11796,6 +11796,10 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
+      propertyPath: m_Depth
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7269715708081304777, guid: c322bff449a2a1744b19db37f2110046, type: 3}
       propertyPath: field of view
       value: 60.000004
       objectReference: {fileID: 0}
@@ -15782,7 +15786,7 @@ GameObject:
   - component: {fileID: 1567794943}
   m_Layer: 0
   m_Name: cutscene1camcabin
-  m_TagString: Untagged
+  m_TagString: CutsceneCamera
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

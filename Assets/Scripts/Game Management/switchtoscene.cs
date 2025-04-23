@@ -141,7 +141,7 @@ public class SwitchToScene : MonoBehaviour
         Camera[] newSceneCameras = GetCamerasInScene(newScene);
         foreach (Camera cam in newSceneCameras)
         {
-            cam.gameObject.SetActive(false);  
+            cam.gameObject.SetActive(false);
         }
 
         // Move player and find spawn point
@@ -194,7 +194,7 @@ public class SwitchToScene : MonoBehaviour
         }
 
         asyncLoader.loadingscreen.SetActive(false);
-        
+
         // Unload current scene if not hub
         Scene currentScene = SceneManager.GetActiveScene();
         if (currentScene.name != "Cabin Scene")
