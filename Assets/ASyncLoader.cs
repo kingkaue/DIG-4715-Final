@@ -9,12 +9,19 @@ public class ASyncLoader : MonoBehaviour
     public GameObject loadingscreen;
     public GameObject mainMenu;
     public Slider loadingSlider;
+    private static ASyncLoader instance;
 
     [Header("Settings")]
     public bool destroyOnLoad = false;
 
     private void Awake()
     {
+        if (instance != null && instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        instance = this;
         if (!destroyOnLoad)
         {
             DontDestroyOnLoad(this.gameObject);
