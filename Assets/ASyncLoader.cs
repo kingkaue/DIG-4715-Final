@@ -34,7 +34,8 @@ public class ASyncLoader : MonoBehaviour
         // Reset slider
         loadingSlider.value = 0f;
 
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
+        // Load with Single mode to prevent duplicate scenes
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Single);
         loadOperation.allowSceneActivation = false;
 
         while (!loadOperation.isDone)
@@ -53,7 +54,7 @@ public class ASyncLoader : MonoBehaviour
             yield return null;
         }
 
-        // Additional wait to ensure new scene is fully loaded
+        // Optional extra wait
         yield return null;
 
         // Disable loading screen
@@ -62,10 +63,11 @@ public class ASyncLoader : MonoBehaviour
             loadingscreen.SetActive(false);
         }
 
-        // Destroy this object if marked to do so
+        // Destroy loader object if necessary
         if (destroyOnLoad)
         {
             Destroy(this.gameObject);
         }
     }
+
 }
