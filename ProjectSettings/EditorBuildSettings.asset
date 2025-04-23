@@ -17,10 +17,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/Prototype Scene.unity
     guid: 5f094b5a6f4faa646b9ce2495107c084
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Cabin Scene.unity
     guid: 64dc4f96555b00441b4f807b09788440
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Forest Trail.unity
     guid: 5abf09eed45ac4445b92a00924fad15e
   - enabled: 1
@@ -29,13 +29,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/tutorial.unity
     guid: 2ab83193b091a4a48bb008c3d6fc3162
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/bug catch.unity
     guid: d26f3a027f21acc47990e484344b553a
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Deer Feeding.unity
     guid: ae45a431215ac734884a4b402ac04f4f
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/Game End Screen.unity
     guid: 30bad63193ee8714aa1444595b05879c
   m_configObjects:
