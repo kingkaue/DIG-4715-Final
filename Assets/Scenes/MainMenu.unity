@@ -1813,11 +1813,14 @@ MonoBehaviour:
   m_text: 'Design
 
 
+
+
     Programming
 
 
 
     Art
+
 
 
 '
@@ -1847,10 +1850,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 56
   m_fontSizeBase: 56
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
@@ -2513,20 +2516,24 @@ MonoBehaviour:
       m_Calls: []
   m_text: '
 
+    Ethan Lopez-Rojas
+
     Tristan Ramos
 
+    Austin Covert
 
-    Mounir Ziad
+
+    Mounir
+    Ziad
 
     Kaue King
 
 
     Remy Regaspi
 
-    Rachel
-    Vong
+    Rachel Vong
 
-'
+    Quinn Candales'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ba12244061e0e0841a6245408ac63a25, type: 2}
   m_sharedMaterial: {fileID: -599348497625455508, guid: ba12244061e0e0841a6245408ac63a25, type: 2}
@@ -2553,10 +2560,10 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 72
+  m_fontSize: 56
   m_fontSizeBase: 56
   m_fontWeight: 400
-  m_enableAutoSizing: 1
+  m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
