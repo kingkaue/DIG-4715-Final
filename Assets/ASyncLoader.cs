@@ -9,19 +9,12 @@ public class ASyncLoader : MonoBehaviour
     public GameObject loadingscreen;
     public GameObject mainMenu;
     public Slider loadingSlider;
-    private static ASyncLoader instance;
 
     [Header("Settings")]
     public bool destroyOnLoad = false;
 
     private void Awake()
     {
-        if (instance != null && instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        instance = this;
         if (!destroyOnLoad)
         {
             DontDestroyOnLoad(this.gameObject);
@@ -41,8 +34,7 @@ public class ASyncLoader : MonoBehaviour
         // Reset slider
         loadingSlider.value = 0f;
 
-        // Load with Single mode to prevent duplicate scenes
-        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad, LoadSceneMode.Single);
+        AsyncOperation loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
         loadOperation.allowSceneActivation = false;
 
         while (!loadOperation.isDone)
@@ -61,7 +53,7 @@ public class ASyncLoader : MonoBehaviour
             yield return null;
         }
 
-        // Optional extra wait
+        // Additional wait to ensure new scene is fully loaded
         yield return null;
 
         // Disable loading screen
@@ -70,11 +62,10 @@ public class ASyncLoader : MonoBehaviour
             loadingscreen.SetActive(false);
         }
 
-        // Destroy loader object if necessary
+        // Destroy this object if marked to do so
         if (destroyOnLoad)
         {
             Destroy(this.gameObject);
         }
     }
-
 }
