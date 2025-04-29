@@ -1,0 +1,20 @@
+Nature's Solace
+
+Description:
+Nature's Solace is a game that offers players an immersive and explorative experience. As the Large Team Lead Developer, I focused on creating a rich and engaging environment,
+combining technical expertise with creative design. This project showcases a complete development pipeline, from initial design to final execution.
+
+Technical Details
+Explorable Hub Level: Created a large, open environment that players can freely explore. This involved designing the level layout, implementing navigation systems, and ensuring smooth player movement.
+
+Dynamic Cutscenes: Developed engaging cutscenes to advance the narrative and provide key information to the player. This included programming character animations, camera movements, and dialogue systems.
+
+Original Music Production: Composed and implemented original music to enhance the game's atmosphere and emotional impact.
+
+Scalable Systems:
+
+State Machines: Designed and implemented scalable state machines to manage complex game logic and character behaviors. This ensures that the game can handle a variety of situations and interactions.
+
+Object Pooling: Developed an object pooling system to optimize performance by efficiently managing the creation and destruction of game objects. This reduces memory allocation and improves frame rates.
+
+Large-Scale Terrain Data: Processed and optimized large-scale terrain data to create a detailed and immersive game world. This involved using specialized tools and techniques to handle the vast amount of data.
