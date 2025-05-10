@@ -38,7 +38,7 @@ public class AIScript : MonoBehaviour
             );
         }
     }
-    void Start()
+    void Awake()
     {
 
 

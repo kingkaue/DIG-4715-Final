@@ -34,7 +34,7 @@ public class FlowerBasket : MonoBehaviour
         }
     }
 
-    void Start()
+    void Awake()
     {
         Debug.Log("[FlowerBasket] Initializing basket");
 
